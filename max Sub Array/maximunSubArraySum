@@ -1,0 +1,59 @@
+Given an array of n numbers, our task is to calculate the maximum subarray sum, 
+i.e., the largest possible sum of a sequence of consecutive values in the array
+following subarray produces the maximum sum 10:
+−1 2 4 −3 5 2 −5 2
+
+******************************************************************************************
+
+ALGORITHM 1
+A straightforward way to solve the problem is to go through all possible subarrays,
+The time complexity of the algorithm is O(n^3)
+
+The following code implements this algorithm:
+int best = 0;
+for (int a = 0; a < n; a++) 
+{
+	for (int b = a; b < n; b++) 
+	{
+		int sum = 0;
+		for (int k = a; k <= b; k++) 
+		{
+			sum += array[k];
+		}
+	best = max(best,sum);
+	}
+}
+cout << best << "\n";
+
+
+******************************************************************************************
+
+Algorithm 2
+It is easy to make Algorithm 1 more efficient by removing one loop from it. 
+After this change, the time complexity is O(n^2).
+
+The following code implements this algorithm:
+int best = 0;
+for (int a = 0; a < n; a++) 
+{
+	int sum = 0;
+	for (int b = a; b < n; b++) 
+	{
+		sum += array[b];
+		best = max(best,sum);
+	}
+}
+cout << best << "\n";
+
+*******************************************************************************************
+Algorithm 3 (Kadane algorithm)
+it is possible to solve the problem in O(n) time
+
+The following code implements the algorithm:
+int best = 0, sum = 0;
+for (int k = 0; k < n; k++) 
+{
+	sum = max(array[k],sum+array[k]);
+	best = max(best,sum);
+}
+cout << best << "\n";
