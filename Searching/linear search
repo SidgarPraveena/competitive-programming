@@ -1,0 +1,11 @@
+A general method for searching for an element in an array is to use a for loop that iterates through the elements of the array. 
+For example, the following code searches for an element x in an array:
+			for (int i = 0; i < n; i++) 
+			{
+				if (array[i] == x) 
+				{
+					// x found at index i
+				}
+			}
+
+The time complexity of this approach is O(n).
