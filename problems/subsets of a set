@@ -1,0 +1,100 @@
+We first consider the problem of generating all subsets of a set of n elements. 
+For example, the subsets of {0,1,2} are ;, {0}, {1}, {2}, {0,1}, {0,2}, {1,2} and {0,1,2}.
+There are two common methods to generate subsets: 
+1) we can either perform a recursive search  
+2) exploit the bit representation of integers.
+
+METHOD 1
+***********************************************************************************************************************************
+An elegant way to go through all subsets of a set is to use recursion. 
+The following function search generates the subsets of the set {0,1,...,n − 1}. 
+The function maintains a vector subset that will contain the elements of each subset.
+The search begins when the function is called with parameter 0.
+			void search(int k) 
+			{
+				if (k == n) 
+				{
+					// process subset
+				} 
+				else {
+					search(k+1);
+					subset.push_back(k);
+					search(k+1);
+					subset.pop_back();
+				}
+			}
+
+When the function search is called with parameter k, it decides whether to include the element k in the subset or not, and in both cases, then calls itself with parameter k + 1 However, if k = n, the function notices that all elements have been processed and a subset has been generated.
+
+CODE
+
+#include<iostream>
+#include<vector>
+using namespace std;
+int count;
+void subset_search(int k,int n,vector<int>subset)
+{
+	if(k==n)
+	{
+		count++;
+		cout<<count<<" : ";
+		for(int i=0;i<subset.size();i++)
+		{
+			cout<<subset[i]<<" ";
+		}
+		cout<<endl;
+		return;
+	}
+	subset_search(k+1,n,subset);
+	subset.push_back(k);
+	subset_search(k+1,n,subset);
+}
+int main()
+{
+	int n;
+	vector<int> subset;
+	cout<<"Enter n ";
+	cin>>n;
+	subset_search(0,n,subset);
+	cout<<"Total number of subsers : "<<count;
+	return 0;
+}
+
+***********************************************************************************************************************************
+
+METHOD 2
+
+Another way to generate subsets is based on the bit representation of integers.
+Each subset of a set of n elements can be represented as a sequence of n bits, which corresponds to an integer between 0...2 n −1. The ones in the bit sequence indicate which elements are included in the subset.
+The usual convention is that the last bit corresponds to element 0, the second last bit corresponds to element 1, and so on.
+
+CODE
+
+#include<iostream>
+#include<vector>
+using namespace std;
+int main()
+{
+	int n;
+	cout<<"Enter n: ";
+	cin>>n;
+	for (int b = 0; b < (1<<n); b++) 
+	{
+		vector<int> subset;
+		for (int i = 0; i < n; i++) 
+		{
+			if (b&(1<<i)) 
+			{
+				subset.push_back(i);
+			}
+		}
+		for(int i=0;i<subset.size();i++)
+		{
+			cout<<subset[i]<<" ";
+		}
+		cout<<endl;
+	}
+	return 0;
+}
+
+***********************************************************************************************************************************

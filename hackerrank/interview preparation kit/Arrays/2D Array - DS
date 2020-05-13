@@ -1,0 +1,68 @@
+// https://www.hackerrank.com/challenges/2d-array/problem?h_l=interview&playlist_slugs%5B%5D%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D%5B%5D=arrays
+
+Given a 6X6 2D Array, arr :
+
+1 1 1 0 0 0
+0 1 0 0 0 0
+1 1 1 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+We define an hourglass in A to be a subset of values with indices falling in this pattern in arr's graphical representation:
+
+a b c
+  d
+e f g
+There are 16 hourglasses in arr, and an hourglass sum is the sum of an hourglass' values. Calculate the hourglass sum for every hourglass in arr, then print the maximum hourglass sum.
+
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <limits.h>
+#include <stdbool.h>
+int fun(int m,int n,int a[6][6])
+{
+    int sum=0,j,k;
+    for(j=m;j<m+3;j++)
+    {
+        for(k=n;k<n+3;k++)
+        {
+            if(j==m+1)
+            {
+                k++;
+                sum=sum+a[j][k];
+                break;
+            }
+            sum=sum+a[j][k];
+        }
+    }
+    return sum;
+}
+int main()
+{
+    int i,j,k,m,n,a[6][6],sum=0,sum1;
+    for(i=0;i<6;i++)
+    {
+        for(j=0;j<6;j++)
+        {
+            scanf("%d",&a[i][j]);
+        }
+    }
+    int count=0;
+    for(m=0;m<4;m++)
+    {
+        for(n=0;n<4;n++)
+        {
+                count++;
+            sum1=fun(m,n,a);        
+            if(count==1)
+                sum=sum1;
+            if(sum1>sum)
+                sum=sum1;
+        }
+    }
+    printf("%d\n",sum);
+   return 0;
+}

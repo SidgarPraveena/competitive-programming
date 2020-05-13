@@ -1,0 +1,61 @@
+Using inbuilt function
+
+******************************************************************************************
+
+The following code sorts a vector in increasing order:
+		vector<int> v = {4,2,5,3,5,8,3};
+		sort(v.begin(),v.end());
+
+******************************************************************************************
+
+ The default sorting order is increasing, but a reverse order is possible as follows:
+ 		sort(v.rbegin(),v.rend());
+
+******************************************************************************************
+
+An ordinary array can be sorted as follows:
+		int n = 7; // array size
+		int a[] = {4,2,5,3,5,8,3};
+		sort(a,a+n);
+
+******************************************************************************************
+
+The following code sorts the string s:
+		string s = "monkey";
+		sort(s.begin(), s.end());
+
+******************************************************************************************
+
+Pairs (pair) are sorted primarily according to their first elements (first).
+However, if the first elements of two pairs are equal, they are sorted according to their second elements (second):
+		vector<pair<int,int>> v;
+		v.push_back({1,5});
+		v.push_back({2,3});
+		v.push_back({1,2});
+		sort(v.begin(), v.end());
+After this, the order of the pairs is (1,2), (1,5) and (2,3).
+
+******************************************************************************************
+
+In a similar way, tuples (tuple) are sorted primarily by the first element, secondarily by the second element, etc:
+		vector<tuple<int,int,int>> v;
+		v.push_back({2,1,4});
+		v.push_back({1,5,3});
+		v.push_back({2,1,3});
+		sort(v.begin(), v.end());
+After this, the order of the tuples is (1,5,3), (2,1,3) and (2,1,4)
+
+******************************************************************************************
+
+It is also possible to give an external comparison function to the sort function as a callback function. 
+For example, the following comparison function comp sorts strings primarily by length and secondarily by alphabetical order:
+		bool comp(string a, string b) 
+		{
+			if (a.size() != b.size()) 
+				return a.size() < b.size();
+			return a < b;
+		}
+Now a vector of strings can be sorted as follows:
+		sort(v.begin(), v.end(), comp);
+
+******************************************************************************************

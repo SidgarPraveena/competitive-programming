@@ -1,0 +1,13 @@
+A stack is a data structure that provides two O(1) time operations: 
+1) adding an element to the top, 
+2) removing an element from the top. 
+It is only possible to access the top element of a stack.
+The following code shows how a stack can be used:
+			stack<int> s;
+			s.push(3);
+			s.push(2);
+			s.push(5);
+			cout << s.top(); // 5
+			s.pop();
+			cout << s.top(); // 2
+

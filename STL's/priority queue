@@ -1,0 +1,22 @@
+A priority queue maintains a set of elements. 
+The supported operations are insertion and, depending on the type of the queue, retrieval and removal of either the minimum or maximum element. 
+Insertion and removal take O(logn) time, and retrieval takes O(1) time.
+While an ordered set efficiently supports all the operations of a priority queue, the benefit of using a priority queue is that it has smaller constant factors. 
+A priority queue is usually implemented using a heap structure that is much simpler than a balanced binary tree used in an ordered set.
+By default, the elements in a C++ priority queue are sorted in decreasing order, and it is possible to find and remove the largest element in the queue. 
+The following code illustrates this:
+			priority_queue<int> q;
+			q.push(3);
+			q.push(5);
+			q.push(7);
+			q.push(2);
+			cout << q.top() << "\n"; // 7
+			q.pop();
+			cout << q.top() << "\n"; // 5
+			q.pop();
+			q.push(6);
+			cout << q.top() << "\n"; // 6
+			q.pop();
+
+
+

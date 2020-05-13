@@ -1,0 +1,59 @@
+Lucky numbers are subset of integers.
+Take the set of integers
+1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,……
+
+First, delete every second number, we get following reduced set.
+1,3,5,7,9,11,13,15,17,19,…………
+
+Now, delete every third number, we get
+1, 3, 7, 9, 13, 15, 19,….….
+
+SOLUTION:
+
+Here position of element is important.
+Let number be 13
+1st check whether number is divided by "2", 
+1) If number is divided by two then it means the number appears in 2nd place and it gets deleted and its not a lucky number
+2) If number is not divided by two then it means then number dont appear in 2nd place and dont get deleted
+		(13%2) != 0
+i.e 13 dont appear in the 2nd place
+therefore we can remove numbers in even places, we are left with 7 numbers.
+
+Now divide the remaining numbers with "3"
+In above example we are left with 7 numbers i.e. we had 13 numbers among them 6 numbers get deleted as they are in 2nd position now we are left with 7 numbers
+If 7 gets divided by "3" then it means our number is in the position which gets divided by "3", hence gets deleted and its not a lucky number
+If 7 dont get divided by "3" then it means our number dont get deleted 
+		7%3 != 0
+
+Now we are left with 5 numbers (among 7 numbers we can delete 2 numbers when divided by "3", i.e 1,2,3,4,5,6,7   number 3,6 gets deleted)
+
+Now we divide remaining numbers with "4"
+similarily if our number gets divided by "4" then its not lucky number
+.
+.
+. 
+We stop it either when our number is not a lucky number or when no.of numbers is less than the number with which we divide (i.e in above example we are left with 5 numbers, we divide with "4" and we will be left with 4 numbers, now we stop as we have 4 numbers and we shud next divide by "5", as 4<5 we stop it here and 13 is a lucky number)
+
+CODE
+
+#include<iostream>
+using namespace std;
+int divisor=2;
+int isLuckyNumber(int n)
+{
+	if(divisor >  n)
+		return 1;
+	if(n%divisor == 0)
+		return 0;
+	n=n-n/divisor;
+	divisor++;
+	isLuckyNumber(n);
+}
+int main()
+{
+	int n;
+	cout<<"Enter number: ";
+	cin>>n;
+	cout<<isLuckyNumber(n);
+	return 0;
+}

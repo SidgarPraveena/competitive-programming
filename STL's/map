@@ -1,0 +1,27 @@
+A map is a generalized array that consists of key-value-pairs.
+The C++ standard library contains two map implementations that correspond to the set implementations: 
+1) The structure map is based on a balanced binary tree and accessing elements takes O(logn) time. 
+2) The structure unordered_map uses hashing and accessing elements takes O(1) time on average.
+
+The following code creates a map where the keys are strings and the values are integers:
+			map<String,int> m;
+			m["monkey"]=1;
+			m["banana"]=2;
+			m["papaya"]=3;
+			cout<<m["banana"]<<endl; // 2
+
+If the value of a key is requested but the map does not contain it, the key is automatically added to the map with a default value.
+			map<string,int> m;
+			cout << m["apple"] << "\n"; // 0
+
+The function count checks if a key exists in a map:
+			if (m.count("apple")) 
+			{
+				// key exists
+			}
+
+The following code prints all the keys and values in a map:
+			for(auto x: m)
+			{
+				cout<<x.first<<" "<<x.second;
+			}

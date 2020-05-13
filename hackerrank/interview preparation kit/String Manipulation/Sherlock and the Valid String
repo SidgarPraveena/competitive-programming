@@ -1,0 +1,60 @@
+// https://www.hackerrank.com/challenges/sherlock-and-valid-string/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=strings
+
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Complete the isValid function below.
+string isValid(string s) 
+{
+    int arr[26]={0};
+    for(int i=0;i<s.length();i++)
+    {
+        arr[s[i]-'a']+=1;
+    }
+
+    int result=-1;
+    int diff=0,temp=0;
+    for(int i=0;i<26;i++)
+    {
+        if(arr[i] != 0)
+        {
+            if(result == -1)
+            {
+                result = arr[i];
+            }
+            else if(result != arr[i])
+            {
+                diff+=1;
+            }
+            if(diff >= 2)
+            {
+                temp=1;
+                break;
+            }
+        }
+    }
+    if(temp == 1)
+    {
+        return "NO";
+    }
+    return "YES";
+}
+
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    string s;
+    getline(cin, s);
+
+    string result = isValid(s);
+
+    fout << result << "\n";
+
+    fout.close();
+
+    return 0;
+}

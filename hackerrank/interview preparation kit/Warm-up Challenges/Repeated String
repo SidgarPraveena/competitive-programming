@@ -1,0 +1,51 @@
+// https://www.hackerrank.com/challenges/repeated-string/copy-from/114482333?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=warmup
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main()
+{
+    char arr[102];
+    long int s,count=0,i,len,res,ex=0;
+    scanf("%s",arr);
+    scanf("%ld",&s);
+    if(strlen(arr)==1)
+    {
+        if(arr[0]=='a')
+        {
+            printf("%ld",s);
+        }
+        else 
+        {
+            printf("0");
+        }
+    }
+    else 
+    {
+        count=0;
+        for(i=0;i<strlen(arr);i++)
+        {
+            if(arr[i]=='a')
+            {
+                count++;
+            }
+        }
+        len=s%strlen(arr);
+        res=s/strlen(arr);
+        for(i=0;i<len;i++)
+        {
+            if(arr[i]=='a')
+            {
+                ex++;
+            }
+        }
+        printf("%ld",(res*count)+ex);
+    }
+}

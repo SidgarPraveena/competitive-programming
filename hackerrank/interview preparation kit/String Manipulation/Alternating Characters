@@ -1,0 +1,53 @@
+// https://www.hackerrank.com/challenges/alternating-characters/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=strings
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Complete the alternatingCharacters function below.
+int alternatingCharacters(string s) 
+{
+    int result=0;
+    vector<int> arr(s.length(),0);
+    for(int i=0;i<s.length();i++)
+    {
+        if(s[i] == 'A')
+        {
+            arr[i]=1;
+        }
+        else
+        {
+            arr[i]=0;
+        }
+    }
+    for(int i=0;i<arr.size()-1;i++)
+    {
+        if(arr[i]==arr[i+1])
+        {
+            result+=1;
+        }
+    }
+    return result;
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    int q;
+    cin >> q;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    for (int q_itr = 0; q_itr < q; q_itr++) {
+        string s;
+        getline(cin, s);
+
+        int result = alternatingCharacters(s);
+
+        fout << result << "\n";
+    }
+
+    fout.close();
+
+    return 0;
+}

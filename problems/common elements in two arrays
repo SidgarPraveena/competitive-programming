@@ -1,0 +1,20 @@
+Let us consider a problem where we are given two lists A and B that both contain n elements. Our task is to calculate the number of elements that belong to both of the lists. 
+For example, for the lists
+		A = [5,2,8,9,4] and B = [3,2,9,5],
+the answer is 3 because the numbers 2, 5 and 9 belong to both of the lists.
+A straightforward solution to the problem is to go through all pairs of elements in O(n^2) time, but next we will focus on more efficient algorithms.
+
+ALGORITHM 1
+We construct a set of the elements that appear in A, and after this, we iterate through the elements of B and check for each elements if it also belongs to A.
+This is efficient because the elements of A are in a set. Using the set structure, the time complexity of the algorithm is O(nlogn).
+
+ALGORITHM 2
+It is not necessary to maintain an ordered set, so instead of the set structure we can also use the unordered_set structure. This is an easy way to make the algorithm more efficient, because we only have to change the underlying data structure. 
+The time complexity of the new algorithm is O(n).
+
+ALGORITHM 3
+Instead of data structures, we can use sorting. First, we sort both lists A and B. 
+After this, we iterate through both the lists at the same time and find the common elements. 
+The time complexity of sorting is O(nlogn), and the rest of the algorithm works in O(n) time, so the total time complexity is O(nlogn).
+
+
