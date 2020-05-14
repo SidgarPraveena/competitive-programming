@@ -1,0 +1,50 @@
+// https://www.hackerrank.com/challenges/common-child/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=strings
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Complete the commonChild function below.
+int commonChild(string s1, string s2) 
+{
+    int n1,n2;
+    n1=s1.length();
+    n2=s2.length();
+    static int dp[5001][5001];
+    for(int i=0;i<n1;i++)
+    {
+        for(int j=0;j<n2;j++)
+        {
+            if(s1[i] == s2[j])
+            {
+                dp[i+1][j+1]=dp[i][j]+1;
+            }
+            else
+            {
+                dp[i+1][j+1]=max(dp[i][j+1],dp[i+1][j]);
+            }
+        }
+    }
+    return dp[n1][n2];
+    
+
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    string s1;
+    getline(cin, s1);
+
+    string s2;
+    getline(cin, s2);
+
+    int result = commonChild(s1, s2);
+
+    fout << result << "\n";
+
+    fout.close();
+
+    return 0;
+}

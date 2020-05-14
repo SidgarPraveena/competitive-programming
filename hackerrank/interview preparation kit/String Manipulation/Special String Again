@@ -1,2 +1,61 @@
 // https://www.hackerrank.com/challenges/special-palindrome-again/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=strings
 
+#include <bits/stdc++.h>
+#include<stdio.h>
+#include<vector>
+
+using namespace std;
+
+// Complete the substrCount function below.
+long substrCount(int n, string s) 
+{
+    long count=0;
+    vector<pair<char,int>> frequencies;
+    for(int i=0;i<n;i++)
+    {
+        int j;
+        for(j=i+1;j<n;j++)
+        {
+            if(s[j] == s[i])
+            {
+                continue;
+            }
+            else
+                break;
+        }
+        frequencies.push_back(make_pair(s[i],j-i));
+        i=j-1;
+    }
+    for(int i=0;i<frequencies.size();i++)
+    {
+        count+=((frequencies[i].second+1)*(frequencies[i].second))/2;
+    }
+    for(int i=1;i<frequencies.size()-1;i++)
+    {
+        if(frequencies[i].second == 1 && frequencies[i-1].first == frequencies[i+1].first)
+        {
+            count+=min(frequencies[i-1].second, frequencies[i+1].second);
+        }
+    }
+    return count;
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    int n;
+    cin >> n;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    string s;
+    getline(cin, s);
+
+    long result = substrCount(n, s);
+
+    fout << result << "\n";
+
+    fout.close();
+
+    return 0;
+}
