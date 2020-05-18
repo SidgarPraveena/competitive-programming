@@ -1,0 +1,32 @@
+// https://practice.geeksforgeeks.org/problems/sort-an-array-of-0s-1s-and-2s/0/?track=md-arrays&batchId=144
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    int t;
+    cin>>t;
+    for(int i=0;i<t;i++)
+    {
+        int n;
+        cin>>n;
+        int arr[3]={0};
+        for(int j=0;j<n;j++)
+        {
+            int ele;
+            cin>>ele;
+            arr[ele]++;
+        }
+        for(int j=0;j<3;j++)
+        {
+            for(int k=arr[j];k>0;k--)
+            {
+                cout<<j<<" ";
+            }
+        }
+        cout<<endl;
+    }
+	//code
+	return 0;
+}

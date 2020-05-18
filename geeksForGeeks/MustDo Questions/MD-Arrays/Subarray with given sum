@@ -1,0 +1,44 @@
+// https://practice.geeksforgeeks.org/problems/subarray-with-given-sum/0/?track=md-arrays&batchId=144
+
+#include <iostream>
+#include <map>
+using namespace std;
+
+int main() 
+{
+    int t;
+    cin>>t;
+    for(int k=0;k<t;k++)
+    {
+        int n,sum_req;
+        cin>>n>>sum_req;
+        int arr[n];
+        for(int i=0;i<n;i++)
+        {
+            cin>>arr[i];
+        }
+        int curr_sum=0;
+        int left=0,temp=0;
+        for(int i=0;i<n;i++)
+        {
+            curr_sum+=arr[i];
+            while(curr_sum > sum_req)
+            {
+                curr_sum-=arr[left];
+                left++;
+            }
+            if(curr_sum == sum_req)
+            {
+                cout<<left+1<<" "<<i+1<<endl;
+                temp=1;
+                break;
+            }
+        }
+        if(temp == 0)
+        {
+            cout<<"-1"<<endl;
+        }
+    }
+	//code
+	return 0;
+}

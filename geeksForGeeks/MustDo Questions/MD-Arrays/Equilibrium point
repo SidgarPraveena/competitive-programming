@@ -1,0 +1,49 @@
+//  https://practice.geeksforgeeks.org/problems/equilibrium-point/0/?track=md-arrays&batchId=144
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int t;
+    cin>>t;
+    for(int k=0;k<t;k++)
+    {
+        int n;
+        cin>>n;
+        int arr[n];
+        for(int i=0;i<n;i++)
+        {
+            cin>>arr[i];
+        }
+        int left[n];
+        int right[n];
+        int sum=0;
+        for(int i=0;i<n;i++)
+        {
+            sum=sum+arr[i];
+            left[i]=sum;
+        }
+        sum=0;
+        for(int i=n-1;i>=0;i--)
+        {
+            sum=sum+arr[i];
+            right[i]=sum;
+        }
+        int temp=0;
+        for(int i=0;i<n;i++)
+        {
+            if(left[i] == right[i])
+            {
+                temp=1;
+                cout<<i+1<<" ";
+            }
+        }
+        if(temp == 0)
+        {
+            cout<<"-1"<<" ";
+        }
+        cout<<endl;
+    }
+	//code
+	return 0;
+}
