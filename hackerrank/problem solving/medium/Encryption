@@ -1,0 +1,42 @@
+// https://www.hackerrank.com/challenges/encryption/problem
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Complete the encryption function below.
+string encryption(string s) 
+{
+    string res;
+    float sqrt_value;
+    sqrt_value=sqrt(s.size());
+    int ceil_value=ceil(sqrt_value);
+    int floor_value=floor(sqrt_value);
+    //cout<<ceil_value<<" "<<floor_value;
+    for(int i=0;i<ceil_value;i++)
+    {
+        for(int j=i;j<s.size();)
+        {
+            res=res+s[j];
+            j=j+ceil_value;
+        }
+        res=res+' ';
+    }
+    return res;
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    string s;
+    getline(cin, s);
+
+    string result = encryption(s);
+
+    fout << result << "\n";
+
+    fout.close();
+
+    return 0;
+}

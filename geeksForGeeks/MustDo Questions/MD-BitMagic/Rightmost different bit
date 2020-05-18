@@ -1,0 +1,33 @@
+//  https://practice.geeksforgeeks.org/problems/rightmost-different-bit/0/?track=md-bm&batchId=144
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    int t;
+    cin>>t;
+    for(int i=0;i<t;i++)
+    {
+        int m,n;
+        cin>>m>>n;
+        int diff=-1;
+        int j=1;
+        while(m > 0 || n > 0)
+        {
+            int m_bit=m&1;
+            int n_bit=n&1;
+            if(m_bit != n_bit)
+            {
+                diff=j;
+                break;
+            }
+            m=m>>1;
+            n=n>>1;
+            j=j+1;
+        }
+        cout<<diff<<endl;
+    }
+	//code
+	return 0;
+}

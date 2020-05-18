@@ -1,0 +1,29 @@
+// https://www.hackerrank.com/challenges/sansa-and-xor/problem
+
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int main() 
+{
+    int n,i,k,j,count=0;
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&k);
+        int a[k];
+        count=0;
+        for(j=0;j<k;j++)
+        {
+            scanf("%d",&a[j]);
+            if(j%2==0)
+                count=count^a[j];
+        }
+        if(k%2==0)
+            printf("0\n");
+        else
+            printf("%d\n",count);
+    }
+    return 0;
+}

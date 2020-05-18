@@ -1,0 +1,31 @@
+//  https://practice.geeksforgeeks.org/problems/check-whether-k-th-bit-is-set-or-not/0/?track=md-bm&batchId=144
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    int t;
+    cin>>t;
+    for(int i=0;i<t;i++)
+    {
+        int m,n;
+        cin>>m>>n;
+        int m_bit;
+        for(int i=0;i<=n;i++)
+        {
+            m_bit=m&1;
+            m=m>>1;
+        }
+        if(m_bit == 1)
+        {
+            cout<<"Yes"<<endl;
+        }
+        else
+        {
+            cout<<"No"<<endl;
+        }
+    }
+	//code
+	return 0;
+}

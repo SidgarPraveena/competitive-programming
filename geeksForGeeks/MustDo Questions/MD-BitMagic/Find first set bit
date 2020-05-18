@@ -1,0 +1,38 @@
+//  https://practice.geeksforgeeks.org/problems/find-first-set-bit/0/?track=md-bm&batchId=144
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+	int t;
+    cin>>t;
+    for(int i=0;i<t;i++)
+    {
+        int n;
+        cin>>n;
+        int j=1;
+        if(n == 0)
+        {
+            cout<<"0"<<endl;
+        }
+        else
+        {
+            
+        
+        while(n>0)
+        {
+            int o=n&1;
+            if(o == 1)
+            {
+                cout<<j<<endl;
+                break;
+            }
+            n=n>>1;
+            j++;
+        }
+        }
+    }
+	//code
+	return 0;
+}

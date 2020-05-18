@@ -1,0 +1,35 @@
+//  https://practice.geeksforgeeks.org/problems/longest-consecutive-1s/0/?track=md-bm&batchId=144
+
+#include <iostream>
+
+using namespace std;
+
+int main() 
+{
+	int t;
+    cin>>t;
+    for(int i=0;i<t;i++)
+    {
+        int n;
+        cin>>n;
+        int count=0,max_count=-1;
+        while(n>0)
+        {
+            int n_bit;
+            n_bit=n&1;
+            if(n_bit == 1)
+            {
+                count++;
+            }
+            else
+            {
+                count=0;
+            }
+            max_count=max(max_count,count);
+            n=n>>1;
+        }
+        cout<<max_count<<endl;
+    }
+	//code
+	return 0;
+}

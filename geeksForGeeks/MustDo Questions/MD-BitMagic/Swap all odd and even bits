@@ -1,0 +1,19 @@
+//  https://practice.geeksforgeeks.org/problems/swap-all-odd-and-even-bits/0/?track=md-bm&batchId=144
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    int t;
+    cin>>t;
+    for(int i=0;i<t;i++)
+    {
+        int n;
+        cin>>n;
+        int ans =(((n&170)>>1)|((n&85)<<1));
+        cout<<ans<<endl;
+    }
+	//code
+	return 0;
+}

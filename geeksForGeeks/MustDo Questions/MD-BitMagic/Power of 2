@@ -1,0 +1,30 @@
+//  https://practice.geeksforgeeks.org/problems/power-of-2/0/?track=md-bm&batchId=144
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    int t;
+    cin>>t;
+    for(int i=0;i<t;i++)
+    {
+        long long n;
+        cin>>n;
+        long long bit_value=0;
+        while(n>1)
+        {
+            int bit=n&1;
+            bit_value=bit_value|bit;
+            n=n>>1;
+        }
+        if(bit_value == 1)
+            cout<<"NO"<<endl;
+        else if(n == 0)
+            cout<<"NO"<<endl;
+        else
+            cout<<"YES"<<endl;
+    }
+	//code
+	return 0;
+}

@@ -1,0 +1,39 @@
+// https://www.hackerrank.com/challenges/counter-game/problem
+
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+unsigned long long int power(unsigned long long int n)
+{
+       unsigned long long int x=0;
+       while(n)
+       {
+              n = n&(n-1);
+              x++;
+       }
+       printf("%d",x);
+       return x;
+}
+
+
+int main()
+{
+       int t;
+       scanf("%d",&t);
+       while(t--)
+       {
+              int x=0;
+              unsigned long long int n,i;
+              scanf("%llu",&n);
+              if(power(n-1)&1)
+              {
+                     printf("Louise\n");
+              }
+              else
+              {
+                     printf("Richard\n");
+              }
+       }
+       return 0;
+}

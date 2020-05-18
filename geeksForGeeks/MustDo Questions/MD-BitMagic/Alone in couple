@@ -1,0 +1,27 @@
+//  https://practice.geeksforgeeks.org/problems/alone-in-couple/0/?track=md-bm&batchId=144
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    int t;
+    cin>>t;
+    for(int i=0;i<t;i++)
+    {
+        int n;
+        cin>>n;
+        //vector<int> arr;
+        int res=0;
+        for(int i=0;i<n;i++)
+        {
+            int ele;
+            cin>>ele;
+            //arr.push_back(ele);
+            res=res^ele;
+        }
+        cout<<res<<endl;
+    }
+	//code
+	return 0;
+}

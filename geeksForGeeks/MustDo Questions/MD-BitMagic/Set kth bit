@@ -1,0 +1,35 @@
+// https://practice.geeksforgeeks.org/problems/set-kth-bit/0/?track=md-bm&batchId=144
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin>>t;
+    for(int i=0;i<t;i++)
+    {
+        int m,n;
+        int val;
+        cin>>m>>n;
+        val=m;
+        int m_bit;
+        for(int i=0;i<=n;i++)
+        {
+            m_bit=m&1;
+            m=m>>1;
+        }
+        if(m_bit == 1)
+        {
+            cout<<val<<endl;
+        }
+        else
+        {
+            int p=pow(2,n);
+            cout<<val+p<<endl;
+        }
+    }
+	//code
+	return 0;
+}
