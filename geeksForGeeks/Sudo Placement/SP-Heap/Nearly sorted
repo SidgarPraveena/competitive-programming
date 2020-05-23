@@ -1,0 +1,58 @@
+// { Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+void nearlySorted(int arr[], int num, int k)
+{
+    priority_queue<int,vector<int>, greater<int>> pr;
+    for(int i=0;i<=k && i<num;i++)
+    {
+        pr.push(arr[i]);
+    }
+    int index=0;
+    for(int i=k+1;i<num;i++)
+    {
+        arr[index++]=pr.top();
+        pr.pop();
+        pr.push(arr[i]);
+    }
+    while(pr.empty() == false)
+    {
+        arr[index++]=pr.top();
+        pr.pop();
+    }
+    for(int i=0;i<num;i++)
+    {
+        cout<<arr[i]<<" ";
+    }
+    // Your code here
+}
+
+// { Driver Code Starts.
+
+int main()
+ {
+	int T;
+	cin>> T;
+	
+	while (T--)
+	{
+	    int num, K;
+	    cin>>num>>K;
+	    
+	    int arr[num];
+	    for(int i = 0; i<num; ++i){
+	        cin>>arr[i];
+	    }
+	    
+	    nearlySorted(arr, num, K);
+	    cout<<endl;
+	}
+	
+	return 0;
+}
+  // } Driver Code Ends
