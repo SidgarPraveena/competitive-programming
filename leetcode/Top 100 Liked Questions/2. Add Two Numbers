@@ -1,0 +1,53 @@
+//  https://leetcode.com/problems/add-two-numbers/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution
+{
+    
+public:
+    void addUtil(ListNode* l1, ListNode* l2, int &carry)
+    {
+        if(l2 == NULL || l2 == NULL)
+        {
+            return;
+        }
+        int l=l1->val;
+        int r=l2->val;
+        l1->val =(l+r+carry)%10;
+        carry=(l+r)/10;
+        if(l1->next == NULL && l2->next != NULL)
+        {
+            l1->next = l2->next;
+            return;
+        }
+        if(carry >0)
+        {
+            if(l1->next == NULL && l2->next == NULL)
+            {
+                ListNode* temp=new ListNode(carry);
+                temp->next=NULL;
+                l1->next=temp;
+            }
+            else if(l2->next == NULL)
+            {
+                l1->next->val=l1->next->val+carry;
+            }
+        }
+        addUtil(l1->next, l2->next, carry);
+        
+    }
+public:
+    ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
+    {
+        int carry=0;
+        addUtil(l1, l2, carry);
+        return l1;
+    }
+};
