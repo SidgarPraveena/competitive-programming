@@ -1,0 +1,91 @@
+//  https://www.hackerrank.com/challenges/maximizing-xor/problem
+
+// METHOD 1
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Complete the maximizingXor function below.
+int maximizingXor(int l, int r) 
+{
+    int max_xor=-1;
+    for(int i=l;i<=r;i++)
+    {
+        for(int j=i+1;j<=r;j++)
+        {
+            int max;
+            max=i^j;
+            if(max_xor < max)
+            {
+                max_xor=max;
+            }
+        }
+    }
+    return max_xor;
+
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    int l;
+    cin >> l;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    int r;
+    cin >> r;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    int result = maximizingXor(l, r);
+
+    fout << result << "\n";
+
+    fout.close();
+
+    return 0;
+}
+
+
+// METHOD 2
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Complete the maximizingXor function below.
+int maximizingXor(int l, int r) 
+{
+    int xor_value=l^r;
+    int bit_count=0;
+    int ans;
+    while(xor_value > 0)
+    {
+        bit_count++;
+        xor_value = xor_value>>1;
+    }
+    ans = pow(2,bit_count)-1;
+    return ans;
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    int l;
+    cin >> l;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    int r;
+    cin >> r;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    int result = maximizingXor(l, r);
+
+    fout << result << "\n";
+
+    fout.close();
+
+    return 0;
+}
