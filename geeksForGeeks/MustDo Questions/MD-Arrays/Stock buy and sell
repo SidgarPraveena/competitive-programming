@@ -1,5 +1,7 @@
 // https://practice.geeksforgeeks.org/problems/stock-buy-and-sell/0/?track=md-arrays&batchId=144
 
+
+// METHOD 1
 #include<bits/stdc++.h>
 #include<iostream>
 using namespace std;
@@ -33,3 +35,5 @@ int main()
     }
     return 0;
 }
+
+
