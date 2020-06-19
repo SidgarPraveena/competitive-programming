@@ -1,0 +1,63 @@
+// { Driver Code Starts
+//Initial Template for C++
+
+
+// CPP program to generate power set
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+//User function Template for C++
+
+//Complete this function
+void powerSetUtil(string s,string curr,int index,vector<string> &res)
+{
+    if(index == s.length())
+    {
+        //if(curr != "")
+        //{
+            //cout<<curr<<endl;
+            res.push_back(curr);
+        //}
+        return;
+    }
+    powerSetUtil(s,curr,index+1,res);
+    powerSetUtil(s,curr+s[index],index+1,res);
+}
+vector <string> powerSet(string s)
+{
+    vector<string> res;
+    string curr="";
+    int index=0;
+    powerSetUtil(s,curr,index,res);
+    return res;
+   //Your code here
+}
+
+
+// { Driver Code Starts.
+
+
+// Driver code
+int main()
+{
+    int T;
+    cin>>T;
+    while(T--)
+    {
+        string s;
+        cin>>s;
+        vector<string> ans = powerSet(s);
+        sort(ans.begin(),ans.end());
+        for(auto x:ans)
+        cout<<x<<" ";
+        cout<<endl;
+        
+        
+    }
+
+return 0;
+}   // } Driver Code Ends

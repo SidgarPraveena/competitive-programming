@@ -1,0 +1,101 @@
+// Iterative method
+
+
+#include <iostream>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+//User function Template for C++
+
+//Complete this function
+int digitalRoot(int n)
+{
+    int res=0;
+    //Your code here
+    do
+    {
+        res=res+n%10;
+        n=n/10;
+        if(n == 0 && res/10 != 0)
+        {
+            n=res;
+            res=0;
+        }
+    }while(n > 0);
+    return res;
+}
+
+// { Driver Code Starts.
+
+
+int main() {
+	int T;
+	cin>>T;
+	while(T--)
+	{
+	    int n;
+	    cin>>n;
+	    
+	    cout<<digitalRoot(n)<<endl;
+	    
+	    
+	}
+	return 0;
+}  // } Driver Code Ends
+
+//Recursive solution
+
+//Initial Template for C++
+
+
+#include <iostream>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+//User function Template for C++
+int sumOfDigits(int n)
+{
+    if(n == 0)
+    {
+        return 0;
+    }
+    return (n%10)+sumOfDigits(n/10);
+}
+//Complete this function
+int digitalRoot(int n)
+{
+    //Your code here
+    int m=sumOfDigits(n);
+    if(m<10)
+    {
+        return m;
+    }
+    else
+    {
+        return digitalRoot(m);
+    }
+}
+
+// { Driver Code Starts.
+
+
+int main() {
+    int T;
+    cin>>T;
+    while(T--)
+    {
+        int n;
+        cin>>n;
+        
+        cout<<digitalRoot(n)<<endl;
+        
+        
+    }
+    return 0;
+}  // } Driver Code Ends
