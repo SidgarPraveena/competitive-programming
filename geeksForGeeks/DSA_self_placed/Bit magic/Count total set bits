@@ -1,0 +1,51 @@
+// { Driver Code Starts
+//Initial Template for C++
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+//User function Template for C++
+
+// Function to count set bits in the given number x
+// n: input to count the number of set bits
+
+int countSetBits(int n)
+{
+    n=n+1;
+    int powerOf2=2;
+    int cnt=n/2;
+    while(powerOf2 <= n)
+    {
+        int totalPairs=n/powerOf2;
+        cnt+=(totalPairs/2)*powerOf2;
+        if(totalPairs %2 == 1)
+        {
+            cnt+=n%powerOf2;
+        }
+        powerOf2*=2;
+    }
+    return cnt;
+}
+
+
+// { Driver Code Starts.
+
+// Driver code
+int main()
+{
+	 int t;
+	 cin>>t;// input testcases
+	 while(t--) //while testcases exist
+	 {
+	       int n;
+	       cin>>n; //input n
+	       
+	       cout << countSetBits(n) << endl;// print the answer
+	  }
+	  return 0;
+}
+  // } Driver Code Ends

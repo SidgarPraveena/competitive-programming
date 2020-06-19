@@ -1,0 +1,72 @@
+#include <bits/stdc++.h>
+#include<stdio.h>
+
+using namespace std;
+
+void palin(int i,int j,string s,int len,bool *dp)
+{
+    int res=1,m,n;
+    if(i > j)
+        return ;
+    if(i == j)
+    {
+        *((dp+i*len) + j)=1;
+        return ;
+    }
+    for(m=i,n=j;m<n;m++,n--)
+    {
+        if(s[m] != s[n])
+        {
+            res=0;
+            break;
+        }
+    }
+    if(res == 1)
+    {
+        *((dp+i*len) + j)=1;
+    }
+    palin(i+1,j,s,len,dp);
+    palin(i,j-1,s,len,dp);
+}
+// Complete the substrCount function below.
+long substrCount(int n, string s) 
+{
+    int len=s.length();
+    bool dp[len][len]={0};
+    long result=0;
+    palin(0,len-1,s,len,(bool *)dp);
+    for(int i=0;i<len;i++)
+    {
+        for(int j=0;j<len;j++)
+        {
+            cout<<dp[i][j]<<" ";
+            if(dp[i][j] == 1)
+            {
+                result+=1;
+            }
+        }
+        cout<<endl;
+    }
+    
+    return result;
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    int n;
+    cin >> n;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    string s;
+    getline(cin, s);
+
+    long result = substrCount(n, s);
+
+    fout << result << "\n";
+
+    fout.close();
+
+    return 0;
+}
