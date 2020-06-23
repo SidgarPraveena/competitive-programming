@@ -1,0 +1,55 @@
+// { Driver Code Starts
+//Initial Template for C++
+
+
+#include<iostream> 
+using namespace std; 
+
+
+ // } Driver Code Ends
+
+
+//User function Template for C++
+
+//Complete this function
+int maxEvenOdd(int arr[], int n) 
+{ 
+   //Your code here
+   int curr=1,res=1;
+   for(int i=1;i<n;i++)
+   {
+       if((arr[i]%2 == 0 && arr[i-1]%2 != 0) || arr[i]%2 != 0 && arr[i-1]%2 == 0)
+       {
+           curr++;
+           res=max(res,curr);
+       }
+       else
+            curr=1;
+   }
+   return res;
+} 
+
+// { Driver Code Starts.
+
+
+
+/* Driver program to test maxSubArraySum */
+int main() 
+{ 
+    int testcases;
+    cin>>testcases;
+    while(testcases--)
+    {
+        int sizeOfArray;
+        cin>>sizeOfArray;
+        int arr[sizeOfArray];
+        
+        for(int i=0;i<sizeOfArray;i++)
+        {
+            cin>>arr[i];
+        }
+        cout  << maxEvenOdd(arr, sizeOfArray)<<endl; 
+    }
+   return 0; 
+} 
+  // } Driver Code Ends

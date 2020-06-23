@@ -1,0 +1,66 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+
+ // } Driver Code Ends
+
+
+// L and R are input array
+// maxx : maximum in R[]
+// n: size of array
+// arr[] : declared globally with size equal to maximum in L[] and R[]
+int maxOccured(int L[], int R[], int n, int maxx)
+{
+    vector<int> arr(maxx+2,0);
+    int res=-1,index=0;
+    for(int i=0;i<n;i++)
+    {
+        arr[L[i]]+=1;
+        arr[R[i]+1]-=1;
+    }
+    for(int j=1;j<=maxx+1;j++)
+    {
+        arr[j]+=arr[j-1];
+        if(res < arr[j])
+        {
+            res=arr[j];
+            index=j;
+        }
+    }
+    // Your code here
+    return index;
+}
+
+// { Driver Code Starts.
+
+int main() {
+	
+	int t;
+	cin >> t;
+	
+	while(t--){
+	    int n;
+	    cin >> n;
+	    int L[n];
+	    int R[n];
+	    for(int i = 0;i<n;i++){
+	        cin >> L[i];
+	    }
+	    
+	    int maxx = 0;
+	    for(int i = 0;i<n;i++){
+	        
+	        cin >> R[i];
+	        if(R[i] > maxx){
+	            maxx = R[i];
+	        }
+	    }
+	    
+	    cout << maxOccured(L, R, n, maxx) << endl;
+	}
+	
+	return 0;
+}  // } Driver Code Ends

@@ -1,0 +1,63 @@
+// { Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+// Function to find circular subarray with maximum sum
+// arr: input array
+// num: size of array
+int maxSumSubArray(int arr[],int num)
+{
+    int res=arr[0],sum=arr[0];
+    for(int i=1;i<num;i++)
+    {
+        sum=max(sum+arr[i],arr[i]);
+        if(res < sum)
+        {
+            res=sum;
+        }
+    }
+    return res;
+}
+int circularSubarraySum(int arr[], int num)
+{
+    int max_normal=maxSumSubArray(arr,num);
+    if(max_normal < 0)
+        return max_normal;
+    int arr_sum=0;
+    for(int i=0;i<num;i++)
+    {
+        arr_sum+=arr[i];
+        arr[i]=-arr[i];
+    }
+    int max_circular=maxSumSubArray(arr,num)+arr_sum;
+    return max(max_normal, max_circular);
+    
+    // your code here
+}
+
+// { Driver Code Starts.
+
+int main()
+ {
+	int T;
+	cin>> T;
+	
+	while (T--)
+	{
+	    int num;
+	    cin>>num;
+	    int arr[num];
+	    for(int i = 0; i<num; i++)
+	        cin>>arr[i];
+	    
+	    
+	    cout << circularSubarraySum(arr, num) << endl;
+	    
+	}
+	
+	return 0;
+}  // } Driver Code Ends

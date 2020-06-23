@@ -1,0 +1,71 @@
+// { Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+int get_gcd(int d,int n)
+{
+    if(d == 0)
+    {
+        return n;
+    }
+    return get_gcd(n%d,d);
+}
+
+
+void rotateArr(int arr[], int d, int n)
+{
+    d=d%n;
+    int g_c_d=get_gcd(d,n);
+    int j;
+    for(int i=0;i<g_c_d;i++)
+    {
+        int temp=arr[i];
+        j=i;
+        while(1)
+        {
+            int k=j+d;
+            if(k >= n)
+            {
+                k=k%n;
+            }
+            if(k == i)
+                break;
+            arr[j]=arr[k];
+            j=k;
+        }
+        arr[j]=temp;
+    }
+    // code here
+}
+
+
+
+
+// { Driver Code Starts.
+
+int main() {
+	int t;
+	cin >> t;
+	
+	while(t--){
+	    int n, d;
+	    cin >> n >> d;
+	    
+	    int arr[n];
+	    
+	    for(int i = 0; i < n; i++){
+	        cin >> arr[i];
+	    }
+	    
+	    rotateArr(arr, d,n);
+	    
+	    for(int i =0;i<n;i++){
+	        cout << arr[i] << " ";
+	    }
+	    cout << endl;
+	}
+	return 0;
+}  // } Driver Code Ends
