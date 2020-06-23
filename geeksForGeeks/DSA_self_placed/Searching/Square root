@@ -1,0 +1,53 @@
+// { Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+long long int floorSqrt(long long int x);
+  
+
+ // } Driver Code Ends
+
+
+// Function to find square root
+// x: element to find square root
+long long int floorSqrtUtil(long long int low, long long int high,long long int num)
+{
+    if(low > high)
+        return high;
+    int mid=(low+high)/2;
+    if(mid == num/mid)
+        return mid;
+    if(mid < num/mid)
+        return floorSqrtUtil(mid+1,high,num);
+    else
+        return floorSqrtUtil(low,mid-1,num);
+    
+    
+}
+long long int floorSqrt(long long int x) 
+{
+    // Your code goes here  
+    if(x == 0)
+        return 0;
+    if(x == 1)
+        return 1;
+    if(x == 2)
+        return 1;
+    return floorSqrtUtil(0,x,x);
+}
+
+// { Driver Code Starts.
+
+int main()
+{
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		long long n;
+		cin>>n;
+		cout << floorSqrt(n) << endl;
+	}
+    return 0;   
+}
+  // } Driver Code Ends

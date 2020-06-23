@@ -1,0 +1,40 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() 
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int m;
+        cin>>m;
+        vector<int> arr(m);
+        for(int i=0;i<m;i++)
+        {
+            cin>>arr[i];
+        }
+        int count,res=0,ele=-1;
+        for(int i=1;i<m;i++)
+        {
+            if(arr[i] >  arr[i-1])
+            {
+                count=1;
+            }
+            else
+            {
+                count++;
+            }
+            if(res < count)
+            {
+                ele=arr[i];
+                res=count;
+            }
+            
+        }
+        cout<<ele<<" "<<res<<endl;
+    }
+	//code
+	return 0;
+}

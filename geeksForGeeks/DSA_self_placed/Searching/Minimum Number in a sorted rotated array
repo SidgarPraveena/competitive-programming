@@ -1,0 +1,51 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+// Function to find the minimum element in sorted and rotated array
+// arr: input array
+// low and high are 0 and n-1, where n is the size of arr
+int minNumberUtil(int arr[],int low,int high,int n)
+{
+    if(low > high)
+        return -1;
+    int mid=(low+high)/2;
+    if(mid == n-1 || (arr[mid+1] < arr[mid]))
+        return arr[mid+1];
+    if(mid == 0 || (arr[mid-1] > arr[mid]))
+        return arr[mid];
+    if(arr[high] > arr[mid])
+        return minNumberUtil(arr,low, mid-1,n);
+    else
+        return minNumberUtil(arr,mid+1,high,n);
+}
+int minNumber(int arr[], int low, int high)
+{
+    // Your code here
+    return minNumberUtil(arr,0,high,high+1);
+    
+}
+
+// { Driver Code Starts.
+
+
+int main()
+{
+	
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		int n;
+		cin>>n;
+		int a[n];
+		for(int i=0;i<n;++i)
+			cin>>a[i];		
+		cout << minNumber(a,0,n-1) << endl;
+	}
+	return 0;
+}  // } Driver Code Ends

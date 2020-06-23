@@ -1,0 +1,68 @@
+// { Driver Code Starts
+#include <iostream>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+// Function to find element in sorted array
+int leftIndexUtil(int arr[],int X,int low,int high)
+{
+    if(low > high)
+    {
+        return -1;
+    }
+    int mid=(low+high)/2;
+    if(arr[mid] == X && (mid == 0 || arr[mid-1] < X))
+    {
+        return mid;
+    }
+    if(arr[mid] < X)
+    {
+        leftIndexUtil(arr,X,mid+1,high);
+    }
+    else
+    {
+        leftIndexUtil(arr,X,low,mid-1);
+    }
+}
+
+int leftIndex(int N, int arr[], int X){
+    
+    // Your code here
+    return leftIndexUtil(arr,X,0,N-1);
+}
+
+
+
+
+// { Driver Code Starts.
+
+// Driver Code
+int main() {
+	
+	// Testcase input
+	int testcases;
+	cin >> testcases;
+    
+    // Looping through all testcases
+	while(testcases--){
+	    int sizeOfArray;
+	    cin >> sizeOfArray;
+	    
+	    int arr[sizeOfArray];
+	    
+	    // Array input
+	    for(int index = 0; index < sizeOfArray; index++){
+	        cin >> arr[index];
+	    }
+	    
+	    int elemntToSearch;
+	    cin >> elemntToSearch;
+	    
+	    cout << leftIndex(sizeOfArray, arr, elemntToSearch) << endl;
+	}
+	
+	return 0;
+}  // } Driver Code Ends

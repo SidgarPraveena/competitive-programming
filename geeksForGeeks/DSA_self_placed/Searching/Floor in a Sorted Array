@@ -1,0 +1,57 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+// Function to find floor of x
+// n: size of vector
+// x: element whose floor is to find
+int findFloorUtil(vector<long long> v,long long n,long long x,int low,int high)
+{
+    if(low > high)
+        return -1;
+    int mid=(low+high)/2;
+    if(v[mid] == x || (v[mid] < x && (mid == n-1 || v[mid+1] > x) ))
+        return mid;
+    if(v[mid] > x)
+        return findFloorUtil(v,n,x,low,mid-1);
+    if(v[mid] < x)
+        return findFloorUtil(v,n,x,mid+1,high);
+}
+int findFloor(vector<long long> v, long long n, long long x){
+    
+    // Your code here
+    return findFloorUtil(v,n,x,0,n-1);
+    
+}
+
+// { Driver Code Starts.
+
+int main() {
+	
+	long long t;
+	cin >> t;
+	
+	while(t--){
+	    long long n;
+	    cin >> n;
+	    long long x;
+	    cin >> x;
+	    
+	    vector<long long> v;
+	    
+	    for(long long i = 0;i<n;i++){
+	        long long temp;
+	        cin >> temp;
+	        v.push_back(temp);
+	    }
+	    
+	    cout << findFloor(v, n, x) << endl;
+	   
+	}
+	
+	return 0;
+}  // } Driver Code Ends
