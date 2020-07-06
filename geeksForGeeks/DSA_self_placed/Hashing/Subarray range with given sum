@@ -1,0 +1,40 @@
+// { Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+int subArraySum(int arr[], int n, int sum);
+
+int main()
+{
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    int n,sum=0;
+	    cin>>n;
+	    int arr[n];
+	    for(int i=0;i<n;i++)
+	    cin>>arr[i];
+	    cin>>sum;
+	    cout<<subArraySum(arr, n, sum)<<endl;
+	}
+	return 0;
+}// } Driver Code Ends
+
+
+int subArraySum(int arr[], int n, int sum)
+{
+    int res=0,cum_sum=0;
+    unordered_map <int,int> s;
+    for(int i=0;i<n;i++)
+    {
+        cum_sum+=arr[i];
+        if(cum_sum == sum)
+            res++;
+        if(s.find(cum_sum - sum) != s.end())
+            res=res+(s[cum_sum-sum]);
+        s[cum_sum]++;
+    }
+    return res;
+    //Your code here
+}

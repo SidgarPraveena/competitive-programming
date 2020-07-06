@@ -1,0 +1,61 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+void QuadraticProbing(vector <int> &hash, int hashSize,int arr[],int sizeOfArray);
+
+int main() {
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    int hashSize;
+	    cin>>hashSize;
+	    
+	    
+	    int  sizeOfArray;
+	    cin>>sizeOfArray;
+	    int arr[sizeOfArray];
+	    
+	    for(int i=0;i<sizeOfArray;i++)
+	    cin>>arr[i];
+	    
+	    vector<int> hash (hashSize);
+	    
+	    QuadraticProbing (hash, hashSize, arr, sizeOfArray);
+	    
+	    for(int i = 0;i < hashSize; i++)
+	    cout<<hash[i]<<" ";
+	    
+	    cout<<endl;
+	    
+	}
+	return 0;
+}
+
+// } Driver Code Ends
+
+
+
+// Insert all the element of array arr[] (size N)
+// fill the hash table hash[] (size hashSize)
+void QuadraticProbing(vector <int>&hash, int hashSize, int arr[], int N)
+{
+    //Your code here
+    for(int i=0;i<hashSize;i++)
+    {
+        hash[i]=-1;
+    }
+    for(int i=0;i<N;i++)
+    {
+        int ele=(arr[i]%hashSize);
+        int count=0;
+        while(count < hashSize && hash[ele] != -1)
+        {
+            count++;
+            ele=(arr[i]+(count*count))%hashSize;
+        }
+        hash[ele]=arr[i];
+    }
+}
+

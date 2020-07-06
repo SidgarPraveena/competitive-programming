@@ -1,0 +1,65 @@
+// { Driver Code Starts
+#include <iostream>
+#include <map>
+#include <algorithm>
+#include <cstdlib>
+#include<bits/stdc++.h>
+
+using namespace std;
+
+pair <string,int> winner(string arr[],int n);
+
+int main()
+{
+    int t;
+    cin>>t;
+    
+    for(int i=0;i<t;i++)
+    {
+        
+        
+        int n;
+        cin>>n;
+        
+        string arr[n];
+        
+        for (int i=0;i<n;i++)
+        cin>>arr[i];
+        
+        pair <string,int> result = winner(arr,n);
+        
+        cout<<result.first << " " << result.second << endl;
+    }
+    return 0;
+}
+// } Driver Code Ends
+
+
+
+// Funtion to find winner
+// arr[]: input array
+// n: size of array
+
+pair <string,int> winner(string arr[],int n)
+{
+    // Your code here
+    // Return the string containing the name and an integer
+    // representing the number of votes the winning candidate got
+    map<string,int> s;
+    int max=INT_MIN;
+    for(int i=0;i<n;i++)
+    {
+        s[arr[i]]++;
+    }
+    string str;
+    for(auto x: s)
+    {
+        if(x.second > max)
+        {
+            max=x.second;
+            str=x.first;
+        }
+    }
+    
+    return make_pair(str,max);
+}

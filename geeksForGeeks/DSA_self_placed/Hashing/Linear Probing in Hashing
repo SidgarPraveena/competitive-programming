@@ -1,0 +1,64 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+vector<int> linearProbing(int hashSize,int arr[],int sizeOfArray);
+int main() {
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    int hashSize;
+	    cin>>hashSize;
+	    
+	    int  sizeOfArray;
+	    cin>>sizeOfArray;
+	    int arr[sizeOfArray];
+	    
+	    for(int i=0;i<sizeOfArray;i++)
+	    cin>>arr[i];
+	    
+	    vector<int> hash;
+	    
+	    hash = linearProbing( hashSize, arr, sizeOfArray);
+	    
+	    for(int i=0;i<hashSize;i++)
+	    cout<<hash[i]<<" ";
+	    
+	    cout<<endl;
+	    
+	    
+	}
+	return 0;
+}
+
+// } Driver Code Ends
+
+
+//Complete this function
+
+// insert all the elements of the array arr[] (having size N)
+// into the hash table hash[] (having size hashSize)
+vector<int> linearProbing(int hashSize, int arr[], int N)
+{
+    vector<int> res(hashSize,-1);
+    for(int i=0;i<N;i++)
+    {
+        bool temp=1;
+        int pos=(arr[i] % hashSize);
+        while(res[pos] != -1)
+        {
+            pos=(pos+1)%hashSize;
+            if(pos == (arr[i]%hashSize))
+            {
+                temp=0;
+                break;   
+            }
+        }
+        if(temp == 1)
+            res[pos]=arr[i];
+    }
+    return res;
+    //Your code here
+}

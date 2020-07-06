@@ -1,0 +1,47 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        vector<int> res;
+        for(int i=0;i<n;i++)
+        {
+            int num;
+            cin>>num;
+            if(num == 0)
+                continue;
+            int s=num;
+            bool flag=0;
+            while(s != 0)
+            {
+                if (s%10 == 4 || s%10 == 5 || s%10 == 6 || s%10 == 7 || s%10 == 8 || s%10 == 9 || s%10 == 0)
+                {
+                    flag=1;
+                    break;
+                }
+                s=s/10;
+            }
+            if(flag == 0)
+                res.push_back(num);
+        }
+        if(res.size() == 0)
+            cout<<"-1";
+        else
+        {
+            sort(res.begin(),res.end());
+            for(int i=0;i<res.size();i++)
+            {
+                cout<<res[i]<<" ";
+            }
+        }
+        cout<<endl;
+    }
+	//code
+	return 0;
+}
