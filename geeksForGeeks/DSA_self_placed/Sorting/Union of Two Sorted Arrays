@@ -1,0 +1,97 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+//arr1,arr2 : the arrays
+// n, m: size of arrays
+vector<int> findUnion(int arr1[], int arr2[], int m, int n)
+{
+    //Your code here
+    //return vector with correct order of elements
+    int i=0,j=0;
+    vector<int> res;
+    while(i < m && j < n)
+    {
+        if(i>0 && arr1[i] == arr1[i-1])
+        {
+            i++;
+            continue;
+        }
+        if(j>0 && arr2[j] == arr2[j-1])
+        {
+            j++;
+            continue;
+        }
+        if(arr1[i] < arr2[j])
+        {
+            res.push_back(arr1[i]);
+            i++;
+        }
+        else if(arr1[i] > arr2[j])
+        {
+            res.push_back(arr2[j]);
+            j++;
+        }
+        else
+        {
+            res.push_back(arr1[i]);
+            i++;
+            j++;
+        }
+    }
+    while(i<m)
+    {
+        if(i == 0 || arr1[i] != arr1[i-1])
+        {
+            res.push_back(arr1[i]);
+        }
+        i++;
+    }
+    while(j<n)
+    {
+        if(j == 0 || arr2[j] != arr2[j-1])
+        {
+            res.push_back(arr2[j]);
+        }
+        j++;
+    }
+    return res;
+}
+
+// { Driver Code Starts.
+
+int main() {
+	
+	int T;
+	cin >> T;
+	
+	while(T--){
+	    
+	    
+	    
+	    int N, M;
+	    cin >>N >> M;
+	    
+	    int arr1[N];
+	    int arr2[M];
+	    
+	    for(int i = 0;i<N;i++){
+	        cin >> arr1[i];
+	    }
+	    
+	    for(int i = 0;i<M;i++){
+	        cin >> arr2[i];
+	    }
+	    
+	    vector<int> ans = findUnion(arr1,arr2, N, M);
+	    for(int i: ans)cout<<i<<' ';
+	    cout << endl;
+	    
+	}
+	
+	return 0;
+}  // } Driver Code Ends

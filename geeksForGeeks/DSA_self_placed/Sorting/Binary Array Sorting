@@ -1,0 +1,62 @@
+// A Sample C++ program for beginners with Competitive Programming
+#include <iostream>
+using namespace std;
+
+void binSort(int A[], int N);
+
+
+int main() {
+	int T;
+	cin>>T;
+	// Input the number of testcases
+	while(T--)
+	{
+	    int N;
+	    cin>>N; //Input size of array N
+	    int A[N]; 
+	    
+	    for(int i = 0; i  < N; i++)
+	      cin>>A[i];
+	      
+	    binSort(A,N);
+	    
+	    for(int x:A)
+	    cout<<x<<" ";
+	      
+	    cout<<endl;
+	}
+	return 0;
+}
+
+
+
+// } Driver Code Ends
+
+
+// Function to sort the array A[]
+// A[]: input array
+// N: input array
+void binSort(int arr[], int n)
+{
+   //Your code here
+   
+   int i=-1,j=n;
+   while(true)
+   {
+       do
+       {
+           i++;
+       }while(arr[i] <= 0);
+       do
+       {
+           j--;
+       }while(arr[j] > 0);
+       if(i >= j)
+            return;
+        swap(arr[i],arr[j]);
+   }
+   
+   /**************
+    * No need to print the array
+    * ************/
+}
