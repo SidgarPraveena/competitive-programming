@@ -1,0 +1,50 @@
+// { Driver Code Starts
+// C++ implementation to find the character in first 
+// string that is present at minimum index in second
+// string
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+
+
+int minIndexChar(string str, string patt)
+{
+    // Your code here
+    bool alpha[26]={0};
+    for(int i=0;i<patt.size();i++)
+    {
+        alpha[patt[i]-'a']=1;
+    }
+    for(int i=0;i<str.size();i++)
+    {
+        if(alpha[str[i]-'a'] == 1)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+// { Driver Code Starts.
+
+int main()
+{
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    string str;
+	    string patt;
+	    cin>>str;
+	    cin>>patt;
+	    int ans = minIndexChar(str, patt);
+	    if(ans == -1)cout<<"No character present";
+	    else cout<<str[ans];
+	    cout<<endl;
+	}return 0;
+}
+  // } Driver Code Ends 

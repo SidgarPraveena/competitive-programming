@@ -1,0 +1,61 @@
+// { Driver Code Starts
+// C++ program Find concatenated string with 
+// uncommon characters of given strings 
+#include <bits/stdc++.h> 
+using namespace std; 
+
+string concatenatedString(string, string);
+
+/* Driver program to test above function */
+int main() 
+{ 
+	int t;
+	cin >> t;
+	
+	while(t--){
+    	string s1, s2;
+    	cin >> s1 >> s2;
+    	string res = concatenatedString(s1, s2);
+    	cout<<res<<endl;
+	}
+	return 0; 
+}
+// } Driver Code Ends
+
+
+// Function which concatenate two strings
+// after removing common characters
+string concatenatedString(string s1, string s2) 
+{ 
+    // Your code here
+    int alpha1[26]={0},alpha2[26]={0};
+    string res;
+    for(int i=0;i<s1.size();i++)
+    {
+        alpha1[s1[i]-'a']=1;
+    }
+    for(int i=0;i<s2.size();i++)
+    {
+        alpha2[s2[i]-'a']=1;
+    }
+    int temp=0;
+    for(int i=0;i<s1.size();i++)
+    {
+        if(alpha2[s1[i]-'a'] != 1)
+        {
+            temp=1;
+            res=res+s1[i];
+        }
+    }
+    for(int i=0;i<s2.size();i++)
+    {
+        if(alpha1[s2[i]-'a'] != 1)
+        {
+            temp=1;
+            res=res+s2[i];
+        }
+    }
+    if(temp == 0)
+        return "-1";
+    return res;
+}
