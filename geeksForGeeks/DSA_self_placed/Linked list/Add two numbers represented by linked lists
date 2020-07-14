@@ -1,0 +1,137 @@
+// { Driver Code Starts
+// driver
+
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+using namespace std;
+
+/* Linked list Node */
+struct Node {
+    int data;
+    struct Node* next;
+    Node(int x) {
+        data = x;
+        next = NULL;
+    }
+};
+
+struct Node* buildList(int size)
+{
+    int val;
+    cin>> val;
+    
+    Node* head = new Node(val);
+    Node* tail = head;
+    
+    for(int i=0; i<size-1; i++)
+    {
+        cin>> val;
+        tail->next = new Node(val);
+        tail = tail->next;
+    }
+    
+    return head;
+}
+
+void printList(Node* n)
+{
+    while(n)
+    {
+        cout<< n->data << " ";
+        n = n->next;
+    }
+    cout<< endl;
+}
+
+struct Node* addTwoLists(struct Node* first, struct Node* second);
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n, m;
+        
+        cin>>n;
+        Node* first = buildList(n);
+        
+        cin>>m;
+        Node* second = buildList(m);
+        
+        Node* res = addTwoLists(first,second);
+        printList(res);
+    }
+    return 0;
+}
+// } Driver Code Ends
+
+
+/* node for linked list:
+
+struct Node {
+    int data;
+    struct Node* next;
+    Node(int x) {
+        data = x;
+        next = NULL;
+    }
+};
+
+*/
+#include<stack>
+struct Node* addTwoLists(struct Node* first, struct Node* second)
+{
+    // code here
+    stack<int> num1;
+    while(first != NULL)
+    {
+        num1.push(first->data);
+        first=first->next;
+    }
+    stack<int> num2;
+    while(second != NULL)
+    {
+        num2.push(second->data);
+        second=second->next;
+    }
+    int carry=0;
+    Node * temp=NULL;
+    int n1,n2;
+    while(1)
+    {
+        if(num1.empty() && num2.empty())
+        {
+            if(carry != 0)
+            {
+                Node *t=new Node(carry);
+                t->next=temp;
+                temp=t;
+            }
+            break;
+        }
+        
+        if(num1.empty())
+            n1=0;
+        else
+        {
+            n1=num1.top();
+            num1.pop();
+        }
+        
+        if(num2.empty())
+            n2=0;
+        else
+        {
+            n2=num2.top();
+            num2.pop();
+        }
+        int sum=carry+n1+n2;
+        Node *t=new Node(sum%10);
+        t->next=temp;
+        temp=t;
+        carry=sum/10;
+    }
+    return temp;
+}

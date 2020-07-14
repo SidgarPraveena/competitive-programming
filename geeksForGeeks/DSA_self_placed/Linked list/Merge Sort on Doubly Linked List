@@ -1,0 +1,161 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+	int data;
+	struct Node *next, *prev;
+	
+	Node (int x){
+	    data = x;
+	    next = NULL;
+	    prev = NULL;
+	}
+};
+
+
+ // } Driver Code Ends
+
+
+/*
+Structure of the node of the list is as
+struct Node
+{
+	int data;
+	struct Node *next, *prev;
+	Node (int x){
+	    data = x;
+	    next = prev = NULL;
+	}
+}; */
+void partition(Node *head,Node **first,Node **back)
+{
+    if(head == NULL || head->next == NULL)
+    {
+        *first = head;
+        *back = NULL;
+    }
+    else
+    {
+        Node *slow=head,*fast=head->next;
+        while(fast != NULL)
+        {
+            fast=fast->next;
+            if(fast != NULL)
+            {
+                fast=fast->next;
+                slow=slow->next;
+            }
+        }
+        *first=head;
+        *back=slow->next;
+        slow->next->prev=NULL;
+        slow->next=NULL;
+    }
+}
+Node *mergeList(Node *a,Node *b)
+{
+    if(a == NULL)
+        return b;
+    if(b == NULL)
+        return a;
+    Node *mergedList=NULL;
+    if(a->data < b->data)
+    {
+        mergedList=a;
+        mergedList->next=mergeList(a->next,b);
+        mergedList->next->prev=mergedList;
+    }
+    else
+    {
+        mergedList=b;
+        mergedList->next=mergeList(a,b->next);
+        mergedList->next->prev=mergedList;
+    }
+    return mergedList;
+}
+void sort_double(struct Node ** head)
+{
+    Node *a,*b,*temp=*head;
+    if(temp == NULL || temp->next == NULL)
+    {
+        return;
+    }
+    partition(temp,&a,&b);
+    sort_double(&a);
+    sort_double(&b);
+    *head=mergeList(a,b);
+    
+}
+// Function to merge two DLLs
+struct Node *sortDoubly(struct Node *head)
+{
+	// Your code here
+	sort_double(&head);
+	return head;
+}
+
+
+// { Driver Code Starts.
+
+void insert(struct Node **head, int data)
+{
+	struct Node *temp = new Node (data);
+	if (!(*head))
+		(*head) = temp;
+	else
+	{
+		temp->next = *head;
+		(*head)->prev = temp;
+		(*head) = temp;
+	}
+}
+
+void print(struct Node *head)
+{
+	struct Node *temp = head;
+	while (head)
+	{
+		cout<<head->data<<' ';
+		temp = head;
+		head = head->next;
+	}
+	cout<<endl;
+	while (temp)
+	{
+		cout<<temp->data<<' ';
+		temp = temp->prev;
+	}
+	cout<<endl;
+}
+
+// Utility function to swap two integers
+void swap(int *A, int *B)
+{
+	int temp = *A;
+	*A = *B;
+	*B = temp;
+}
+
+
+// Driver program
+int main(void)
+{
+    long test;
+    cin>>test;
+    while(test--)
+    {
+        int n, tmp;
+        struct Node *head = NULL;
+        cin>>n;
+        while(n--){
+            cin>>tmp;
+            insert(&head, tmp);
+        }
+        head = sortDoubly(head);
+        print(head);
+    }
+	return 0;
+}
+  // } Driver Code Ends
