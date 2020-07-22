@@ -1,0 +1,54 @@
+// { Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+// Function to return if the paranthesis are balanced or not
+bool ispar(string x)
+{
+    // Your code here
+    stack<char> stk;
+    for(int i=0;i<x.size();i++)
+    {
+        if(x[i] == '{' || x[i] == '[' || x[i] == '(')
+        {
+            stk.push(x[i]);
+        }
+        else
+        {
+            if(stk.empty())
+                return false;
+            char t=stk.top();
+            if((t == '(' && x[i] == ')') || (t == '{' && x[i] == '}') || (t == '[' && x[i] == ']'))
+            {
+                stk.pop();
+            }
+            else
+                return 0;
+        }
+    }
+    if(stk.empty())
+        return true;
+    return false;
+}
+
+
+// { Driver Code Starts.
+
+int main()
+{
+   int t;
+   string a;
+   cin>>t;
+   while(t--)
+   {
+       cin>>a;
+       if(ispar(a))
+        cout<<"balanced"<<endl;
+       else
+        cout<<"not balanced"<<endl;
+   }
+}  // } Driver Code Ends

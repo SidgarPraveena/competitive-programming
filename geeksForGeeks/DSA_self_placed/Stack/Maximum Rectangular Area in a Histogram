@@ -1,0 +1,64 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+// Function to return Maximum Rectangular area in a histogram
+// arr[]: input array
+// n: size of array
+long getMaxArea(long long arr[], int n){
+    
+    // Your code here
+    long long max_area=0,max_with_top=0,i=0;
+    stack<long long> stk;
+    while(i<n)
+    {
+        if(stk.empty() || arr[stk.top()] <= arr[i])
+        {
+            stk.push(i++);
+        }
+        else
+        {
+            int tp=stk.top();
+            stk.pop();
+            max_with_top=arr[tp]*(stk.empty()?i:i-stk.top()-1);
+            if(max_area < max_with_top)
+                max_area = max_with_top;
+        }
+    }
+    while(!stk.empty())
+    {
+        int tp=stk.top();
+        stk.pop();
+        max_with_top=arr[tp]*(stk.empty()?i:i-stk.top()-1);
+        if(max_area < max_with_top)
+            max_area = max_with_top;
+    }
+    return max_area;
+}
+
+// { Driver Code Starts.
+
+int main()
+ {
+    long long t;
+
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        
+        long long arr[n];
+        for(int i=0;i<n;i++)
+            cin>>arr[i];
+        
+        cout<<getMaxArea(arr, n)<<endl;
+    
+    }
+	return 0;
+}
+  // } Driver Code Ends
