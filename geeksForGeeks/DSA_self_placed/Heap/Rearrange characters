@@ -1,0 +1,62 @@
+// { Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+const int MAX_CHAR = 26;
+
+
+ // } Driver Code Ends
+
+
+string rearrangeString(string s)
+{
+	// Your code here
+	int a[26]={0};
+    for(int i=0;i<s.length();i++)
+    {
+        a[s[i]-'a']+=1;
+    }
+    int temp=0;
+    for(int i=0;i<26;i++)
+    {
+        if(a[i] > s.length()/2)
+        {
+            temp=1;
+            break;
+        }
+    }
+    if(temp == 0)
+    {
+        return "ab";
+    }
+    return "aa";
+    
+}
+
+// { Driver Code Starts.
+
+int main()
+{
+	int t;
+	cin>>t;
+	cin.ignore(INT_MAX, '\n');
+	while(t--)
+	{
+	    string str;
+	    cin>>str;
+	    str = rearrangeString(str);
+	    int flag = 1;
+	    if(str != "-1"){
+    	for(int i=1;i<str.length();i++){
+    		if(str[i-1]==str[i])
+    			flag=0;
+	    }
+    	if(flag == 1)
+    		cout<<"1\n";
+    	else
+    	    cout<<"0\n";
+	    }
+	    else
+	        cout<<"0\n";
+	}
+return 0;
+}  // } Driver Code Ends
