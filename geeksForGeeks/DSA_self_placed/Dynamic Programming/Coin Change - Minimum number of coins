@@ -1,0 +1,62 @@
+// { Driver Code Starts
+//Initial Template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+ // } Driver Code Ends
+
+
+//Complete this function
+long long minimumNumberOfCoins(int coins[],int n,int value)
+{
+    int dp[value+1] ;
+    dp[0] = 0;
+    for(int i=1;i<=value;i++)
+    {
+        dp[i] = INT_MAX;
+    }
+    for(int i=1;i<=value;i++)
+    {
+        for(int j=0; j<n; j++)
+        {
+            if(coins[j] <= i)
+            {
+                if(dp[i-coins[j]] != INT_MAX)
+                    dp[i] = min(1+dp[i-coins[j]],dp[i]);
+                
+            }
+        }
+    }
+    if(dp[value] == INT_MAX)
+        return -1;
+    return dp[value];
+}
+
+// { Driver Code Starts.
+
+
+
+int main() {
+	int testcases;
+	cin>>testcases;
+	while(testcases--)
+	{
+	    int value;
+	    cin>>value;
+	    int numberOfCoins;
+	    cin>>numberOfCoins;
+	    int coins[numberOfCoins];
+	    
+	    for(int i=0;i<numberOfCoins;i++)
+	    cin>>coins[i];
+	    
+	    int answer=minimumNumberOfCoins(coins,numberOfCoins,value);
+	    if(answer==-1)
+	    cout<<"Not Possible"<<endl;
+	    else
+	    cout<<answer<<endl;
+	    
+	}
+	return 0;
+}  // } Driver Code Ends

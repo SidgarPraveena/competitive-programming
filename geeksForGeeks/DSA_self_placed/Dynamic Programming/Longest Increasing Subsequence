@@ -1,0 +1,59 @@
+// { Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+int longestSubsequence(int, int[]);
+
+int main()
+{
+    int t,n;
+    cin>>t;
+    while(t--)
+    {
+        cin>>n;
+        int a[n];
+        for(int i=0;i<n;i++)
+            cin>>a[i];
+
+        cout << longestSubsequence(n, a) << endl;
+    }
+}
+// } Driver Code Ends
+
+
+// return length of longest strictly increasing subsequence
+int ceilIndex(int tail[],int l,int r,int val)
+{
+    while(r > l)
+    {
+        int m = l+(r-l)/2;
+        if(tail[m] >= val)
+        {
+            r = m;
+        }
+        else
+        {
+            l = m+1;
+        }
+    }
+    return r;
+}
+int longestSubsequence(int n, int a[])
+{
+    int tail[n],len = 1;
+    tail[0] = a[0];
+    for(int i=1;i<n;i++)
+    {
+        if(a[i] > tail[len-1])
+        {
+            tail[len] = a[i];
+            len++;
+        }
+        else
+        {
+            int c = ceilIndex(tail,0,len-1,a[i]);
+            tail[c] = a[i];
+        }
+    }
+    return len;
+}

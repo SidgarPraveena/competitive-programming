@@ -1,0 +1,47 @@
+// { Driver Code Starts
+//Initial Template for C++
+
+#include <bits/stdc++.h>
+#include <fstream>
+using namespace std;
+
+long long findNthFibonacci(int number);
+
+ // } Driver Code Ends
+
+
+//User function Template for C++
+// You need to complete this function
+
+// Return the number-th Fibonacci 
+long long findNthFibonacci(int number)
+{
+    // Your Code Here
+    long long arr[100];
+    arr[0] = 0;
+    arr[1] = 1;
+    for(int i=2; i<=number; i++)
+    {
+        arr[i] = arr[i-1] + arr[i-2];
+    }
+    return arr[number];
+}
+
+// { Driver Code Starts.
+
+int main()
+ {
+    
+    int testcases;
+    cin>>testcases;
+    
+    while(testcases--)
+    {
+        int number;
+        cin>>number;
+        cout<<findNthFibonacci(number)<<endl;
+    }
+    
+	return 0;
+}
+  // } Driver Code Ends

@@ -1,0 +1,42 @@
+// { Driver Code Starts
+// Initial template for C++
+
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+ll count(ll n);
+
+int main()
+{
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		ll n;
+		cin>>n;
+		cout << count(n) << "\n";
+	}
+	return 0;
+}// } Driver Code Ends
+
+
+//User function tempate for C++
+
+// n :  given score 
+
+ll count(ll n) 
+{
+    ll dp[n+1] = {0};
+    dp[0] = 1;
+    int c[]= {3,5,10};
+    for(int i=0;i<3;i++)
+    {
+        for(int j = c[i];j<=n;j++)
+        {
+            dp[j] = dp[j] + dp[j-c[i]];
+        }
+    }
+    return dp[n];
+    //code here
+}

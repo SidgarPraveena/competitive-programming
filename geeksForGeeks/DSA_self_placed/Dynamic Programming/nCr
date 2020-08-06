@@ -1,0 +1,50 @@
+// { Driver Code Starts
+// A Dynamic Programming based solution to compute nCr % p 
+#include<bits/stdc++.h> 
+using namespace std; 
+
+const int p = 1e9+7;
+
+int nCrModp(int, int);
+
+// Driver program 
+int main() 
+{ 
+  int t, n, r;
+  cin >> t;
+  
+  while(t--){
+      cin >> n >> r;
+      cout << nCrModp(n, r) << endl;
+  }
+  
+  return 0; 
+}
+// } Driver Code Ends
+
+
+// Returns nCr % p 
+int nCrModp(int n, int r) 
+{ 
+    if(r > n)
+        return 0;
+    int dp[n+1][n+1] = {0};
+    dp[0][0] = 1;
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=0;j<=i;j++)
+        {
+            dp[i][j] = 0;
+            if(j >= 0 && j < i)
+            {
+                dp[i][j] = (dp[i][j] + dp[i-1][j])%1000000007;
+            }
+            
+            if(j-1 >= 0 && j-1 < i)
+            {
+                dp[i][j] = (dp[i][j] + dp[i-1][j-1])%1000000007;
+            }
+        }
+    }
+    return dp[n][r];
+} 
