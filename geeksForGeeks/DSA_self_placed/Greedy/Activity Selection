@@ -1,0 +1,54 @@
+// { Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+bool myCmp(pair<int,int> a,pair<int,int> b)
+{
+    return a.second < b.second;
+}
+int activitySelection(int start[], int end[], int n)
+{
+    vector<pair<int,int>> arr;
+    for(int i=0;i<n;i++)
+    {
+        arr.push_back({start[i] , end[i]});
+    }
+    sort(arr.begin(),arr.end(),myCmp);
+    int prev = 0;
+    int res = 1;
+    for(int i=1; i<n; i++)
+    {
+        if(arr[i].first >= arr[prev].second)
+        {
+            res++;
+            prev = i;
+        }
+    }
+    return res;
+    // Your code here
+}
+
+// { Driver Code Starts.
+int main()
+{
+    int t;
+    cin >> t;
+    while(t--)
+    {
+        int n;
+        cin >> n;
+        int start[n], end[n];
+        
+        for(int i=0;i<n;i++)
+            cin>>start[i];
+        for(int i=0;i<n;i++)
+            cin>>end[i];
+        
+        cout << activitySelection(start, end, n) << endl;
+    }
+    return 0;
+}
+  // } Driver Code Ends
