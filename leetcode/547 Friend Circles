@@ -1,0 +1,90 @@
+// using dfs
+class Solution {
+public:
+    void dfs(vector<vector<int>> adj,vector<bool> &visited, int parent)
+    {
+        visited[parent] = true;
+        for(auto u: adj[parent])
+        {
+            if(visited[u] == false)
+            {
+                dfs(adj,visited,u);
+            }
+        }
+    }
+public:
+    int findCircleNum(vector<vector<int>>& M) 
+    {
+        int n=M.size();
+        vector<vector<int>> adj(n);
+        for(int i=0; i<M.size(); i++)
+        {
+            for(int j=0; j<M[i].size(); j++)
+            {
+                if(M[i][j] == 1)
+                {
+                    adj[i].push_back(j);
+                    adj[j].push_back(i);
+                }
+            }
+        }
+        vector<bool> visited(n,false);
+        int res=0;
+        for(int i=0;i<n;i++)
+        {
+            if(visited[i] == false)
+            {
+                res++;
+                dfs(adj,visited,i);
+            }
+        }
+        return res;
+    }
+};
+
+// using union_find
+
+class Solution {
+    vector<int> friends;
+public:
+    void do_union(int i,int j)
+    {
+        int x = find(i);
+        int y = find(j);
+        friends[x] = y;
+    }
+public: 
+    int find(int v)
+    {
+        if(friends[v] != v)
+            return find(friends[v]);
+        return v;
+    }
+public:
+    int findCircleNum(vector<vector<int>>& M) 
+    {
+        int n=M.size();
+        friends.resize(n);
+        for(int i=0;i<n;i++)
+        {
+            friends[i] = i;
+        }
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                if(M[i][j] == 1)
+                {
+                    do_union(i,j);
+                }
+            }
+        }
+        int res = 0;
+        for(int i=0;i<n;i++)
+        {
+            if(friends[i] == i)
+                res++;
+        }
+        return res;
+    }
+};
