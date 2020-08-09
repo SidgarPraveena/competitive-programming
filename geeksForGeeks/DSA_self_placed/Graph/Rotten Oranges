@@ -1,0 +1,92 @@
+// { Driver Code Starts
+//Initial template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+//User function template for C++
+
+// matrix : given matrix
+// R and C : number of rows and columns respectively
+
+int rotOranges(vector<vector<int> > &matrix, int R, int C)
+{
+    // Your code goes here
+    queue<pair<int,pair<int,int>>> q;
+    for(int i=0;i<R;i++)
+    {
+        for(int j=0;j<C;j++)
+        {
+            if(matrix[i][j] == 2)
+            {
+                q.push(make_pair(0,make_pair(i,j)));
+            }
+        }
+    }
+    int max_level = INT_MIN;
+    while(!q.empty())
+    {
+        auto curr = q.front();
+        q.pop();
+        int level = curr.first;
+        if(max_level < level)
+            max_level = level;
+        int x = curr.second.first;
+        int y = curr.second.second;
+        if(x < R && y+1 < C && matrix[x][y+1] == 1)
+        {
+            q.push(make_pair(level+1,make_pair(x,y+1)));
+            matrix[x][y+1] = 2;
+        }
+        if(x+1 < R && y < C && matrix[x+1][y] == 1)
+        {
+            q.push(make_pair(level+1,make_pair(x+1,y)));
+            matrix[x+1][y] = 2;
+        }
+        if(x < R && y-1 >= 0 && matrix[x][y-1] == 1)
+        {
+            q.push(make_pair(level+1,make_pair(x,y-1)));
+            matrix[x][y-1] = 2;
+        }
+        if(x-1 >= 0 && y < C && matrix[x-1][y] == 1)
+        {
+            q.push(make_pair(level+1,make_pair(x-1,y)));
+            matrix[x-1][y] = 2;
+        }
+    }
+    for(int i=0;i<R;i++)
+    {
+        for(int j=0;j<C;j++)
+        {
+            if(matrix[i][j] == 1)
+                return -1;
+        }
+    }
+    return max_level;
+}
+
+// { Driver Code Starts.
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int R,C;
+        cin>>R>>C;
+        vector<vector<int> > matrix(R);
+        for(int i=0;i<R;++i)
+        {
+            matrix[i].resize(C);
+            for(int j=0;j<C;++j)
+                cin>>matrix[i][j];
+        }
+        cout<<rotOranges(matrix,R,C)<<endl;
+    }
+    return 0;
+}  // } Driver Code Ends

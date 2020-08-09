@@ -1,0 +1,73 @@
+// { Driver Code Starts
+//Initial Template for C++
+
+
+#include <bits/stdc++.h> 
+using namespace std; 
+
+
+ // } Driver Code Ends
+
+
+/*
+ * Function to find if there is a mother vertex in the given graph 
+ * V: number of vertices in the graph
+ * g[]: graph representation
+ */
+void dfs(vector<int> g[],int s,vector<bool> &vis)
+{
+    vis[s] = true;
+    for(auto x: g[s])
+    {
+        if(vis[x] == false)
+        {
+            dfs(g,x,vis);
+        }
+    }
+}
+int findMother(int V, vector<int> g[]) 
+{ 
+    int mother = 0;
+    vector<bool> vis(V,false);
+    for(int i=0;i<V;i++)
+    {
+        if(vis[i] == false)
+        {
+            dfs(g,i,vis);
+            mother = i;
+        }
+    }
+    
+    vector<bool> visited(V,false);
+    dfs(g,mother,visited);
+    for(int i=0;i<V;i++)
+    {
+        if(visited[i] == false)
+            mother = -1;
+    }
+    return mother;
+} 
+
+// { Driver Code Starts.
+
+int main() 
+{ 
+    int T;
+    cin>>T;
+    while(T--){
+        int num, edges;
+        cin>>num>>edges;
+        
+        vector<int> adj[num];
+        
+        int u, v;
+        while(edges--){
+            cin>>u>>v;
+            adj[u].push_back(v);
+        }
+        
+        cout<<findMother(num, adj)<<endl;
+    }
+
+	return 0;
+}   // } Driver Code Ends

@@ -1,0 +1,60 @@
+// { Driver Code Starts
+//Initial funciton template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int Shape(vector<string> &,int,int);
+
+int main(){
+	int t;
+	cin>>t;
+	while(t--){
+		int n;
+		cin>>n;
+		int m;
+		cin>>m;
+		vector<string> arr;
+		for(int i=0;i<n;i++){
+			string S;
+			cin>>S;
+			arr.push_back(S);
+		}
+		cout<< Shape(arr,n,m)<<endl;
+	}
+}// } Driver Code Ends
+
+
+//User function template for C++
+
+// A : vector of given strings
+void shape_util(vector<string> &arr,int i,int j,int n,int m)
+{
+    if(i<0 || i>=n || j<0 || j>=m || arr[i][j] == 'O')
+        return;
+    if(arr[i][j] == 'X')
+        arr[i][j] = 'O';
+        
+    shape_util(arr,i,j+1,n,m);
+    shape_util(arr,i+1,j,n,m);
+    shape_util(arr,i-1,j,n,m);
+    shape_util(arr,i,j-1,n,m);
+    
+}
+int Shape(vector<string> &arr,int n,int m) 
+{
+    int res = 0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            if(arr[i][j] == 'X')
+            {
+                res++;
+                shape_util(arr,i,j,n,m);
+            }
+        }
+    }
+    return res;
+    //code here
+}
