@@ -1,0 +1,44 @@
+class Solution {
+    void dfs(int i,int j,vector<vector<int>> &A)
+    {
+        if(i < 0 || i >= A.size() || j < 0 || j >= A[0].size() || A[i][j] != 1)
+            return;
+        A[i][j] = 2;
+        dfs(i+1,j,A);
+        dfs(i-1,j,A);
+        dfs(i,j+1,A);
+        dfs(i,j-1,A);
+    }
+public:
+    int numEnclaves(vector<vector<int>>& A) 
+    {
+        if(A.size() == 0 || A[0].size() == 0)
+            return 0;
+        int m = A.size();
+        int n = A[0].size();
+        for(int i=0; i<n; i++)
+        {
+            if(A[0][i] == 1)
+                dfs(0,i,A);
+            if(A[m-1][i] == 1)
+                dfs(m-1,i,A);
+        }
+        for(int i=0; i<m; i++)
+        {
+            if(A[i][0] == 1)
+                dfs(i,0,A);
+            if(A[i][n-1] == 1)
+                dfs(i,n-1,A);
+        }
+        int res = 0;
+        for(int i=0;i<A.size();i++)
+        {
+            for(int j=0;j<A[0].size();j++)
+            {
+                if(A[i][j] == 1)
+                    res++;
+            }
+        }
+        return res;
+    }
+};

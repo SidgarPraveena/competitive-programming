@@ -1,0 +1,22 @@
+class Solution {
+    void dfs(vector<vector<int>> &rooms, int source, set<int> &room_set)
+    {
+        if(room_set.find(source) != room_set.end())
+            return;
+        room_set.insert(source);
+        for(auto v: rooms[source])
+        {
+            dfs(rooms,v,room_set);
+        }
+    }
+public:
+    bool canVisitAllRooms(vector<vector<int>>& rooms) 
+    {
+        bool res = true;
+        set<int> room_set;
+        dfs(rooms,0,room_set);
+        if(room_set.size() != rooms.size())
+            return false;
+        return res;
+    }
+};
