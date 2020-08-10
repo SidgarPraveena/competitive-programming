@@ -1,0 +1,42 @@
+class Solution {
+    vector<int> friends;
+int find(int x)
+{
+    if(friends[x] != x)
+        return find(friends[x]);
+    return x;
+}
+void do_union(int x, int y,int &res)
+{
+    int i = find(x);
+    int j = find(y);
+    if(i == j)
+    {
+        res++;
+    }
+    friends[j] = i;
+}
+public:
+    int makeConnected(int n, vector<vector<int>>& connections) 
+    {
+        if(connections.size() < n-1)
+            return -1;
+        friends.resize(n);
+        int res = 0;
+        for(int i=0; i<n; i++)
+        {
+            friends[i] = i;
+        }
+        for(int i=0; i<connections.size(); i++)
+        {
+            int x = connections[i][0];
+            int y = connections[i][1];
+            do_union(x, y,res);
+        }
+        int r = connections.size() - (n-1);
+        if(r > 0)
+            res = res-r;
+        return res;
+    }
+    
+};

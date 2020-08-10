@@ -1,0 +1,32 @@
+class Solution {
+    vector<vector<int>> adj;
+    vector<bool> seen;
+public:
+    int dfs(int u) {
+        seen[u] = true;
+        int cur = 0;
+        for (auto v : adj[u]) 
+            if (!seen[v]) 
+                cur += (1 + dfs(v));
+        return cur;
+    }
+public:
+    int removeStones(vector<vector<int>>& stones) 
+    {
+        int n = stones.size();
+        adj = vector<vector<int>>(n, vector<int>());
+        for (int i = 0; i<n; i++) 
+            for (int j = i+1; j<n; j++) 
+                if (stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1]) {
+                    adj[i].push_back(j);
+                    adj[j].push_back(i);
+                }
+
+        int ans = 0;
+        seen = vector<bool>(n, false);
+        for (int i = 0; i<n; i++) 
+            if (!seen[i])
+                ans += dfs(i);
+        return ans;   
+    }
+};

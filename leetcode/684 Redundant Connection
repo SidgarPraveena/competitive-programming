@@ -1,0 +1,42 @@
+class Solution {
+    vector<int> friends;
+public:
+    int find(int x)
+    {
+        if(friends[x] != x)
+            return find(friends[x]);
+        return x;
+    }
+public: 
+    bool do_union(int x,int y)
+    {
+        int i = find(x);
+        int j = find(y);
+        friends[j] = i;
+        if(i == j)
+            return true;
+        return false;
+    }
+public:
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) 
+    {
+        int n = edges.size();
+        friends.resize(n+1);
+        for(int i = 0; i<= n; i++)
+        {
+            friends[i] = i;
+        }
+        vector<int> res;
+        for(int i=0;i<edges.size();i++)
+        {
+            int x = edges[i][0];
+            int y = edges[i][1];
+            if(do_union(x,y))
+            {
+                res = edges[i];
+            }
+        }
+        
+        return res;
+    }
+};

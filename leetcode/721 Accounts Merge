@@ -1,0 +1,44 @@
+class Solution {
+public:
+    map<string,set<string>> g;
+    unordered_set<string> vis;
+    unordered_set<string> emails;
+    unordered_map<string,string> emailToName;
+    
+    void dfs(string u,set<string> &rec){
+        if(vis.find(u)!=vis.end())
+            return;
+        vis.insert(u);
+        rec.insert(u);
+        for(auto x:g[u]){
+            dfs(x,rec);
+        }
+    }
+    
+    vector<vector<string>> accountsMerge(vector<vector<string>>& arr) {
+        for(auto x:arr){
+            for(int i=1;i<x.size();++i){
+                emailToName[x[i]]=x[0];
+                emails.insert(x[i]);
+                for(int j=i+1;j<x.size();++j){
+                    g[x[i]].insert(x[j]);
+                    g[x[j]].insert(x[i]);
+                }
+            }
+        }
+        vector<vector<string>> ans;
+        for(auto x:emails){
+            if(vis.find(x)==vis.end()){
+                set<string> rec;
+                dfs(x,rec);
+                vector<string> v;
+                v.push_back(emailToName[x]);
+                for(auto y:rec){
+                    v.push_back(y);
+                }
+                ans.push_back(v);
+            }
+        }
+        return ans;
+    }
+};
