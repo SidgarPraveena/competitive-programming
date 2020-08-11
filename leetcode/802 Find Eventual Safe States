@@ -1,0 +1,31 @@
+class Solution {
+    bool find_cycle(int source, vector<vector<int>>& graph, vector<int> &visited)
+    {
+        if(visited[source] == -1)
+            return false;
+        if(visited[source] == 1)
+            return true;
+        visited[source] = -1;
+        for(auto u: graph[source])
+        {
+            if(!find_cycle(u, graph, visited))
+                return false;
+        }
+        visited[source] = 1;
+        return true;
+    }
+    
+public:
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) 
+    {
+        vector<int> res;
+        int n = graph.size();
+        vector<int> visited(n,0);
+        for(int i=0;i<n;i++)
+        {
+            if(find_cycle(i,graph,visited))
+                res.push_back(i);                
+        }
+        return res;
+    }
+};

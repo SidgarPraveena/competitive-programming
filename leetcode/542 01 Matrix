@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<vector<int>> updateMatrix(vector<vector<int>>& matrix) 
+    {
+        int m = matrix.size();
+        int n = matrix[0].size();
+        vector<vector<bool>> visited(m,vector<bool>(n,0));
+        queue<pair<int,int>> q;
+        for(int i=0; i<m; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                if(matrix[i][j] == 0)
+                {
+                    q.push({i,j});
+                    visited[i][j] = true;
+                }
+                else
+                    matrix[i][j] = INT_MAX;
+            }
+        }
+        int dirs[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};
+        while( !q.empty())
+        {
+            pair<int,int> p = q.front();
+            q.pop();
+            int x = p.first,y = p.second;
+            for(int i=0;i<4;i++)
+            {
+                int nX=x+dirs[i][0],nY=y+dirs[i][1];
+                if(nX>=0 and nX<m and nY>=0 and nY<n && visited[nX][nY] == false )
+                {
+                    visited[nX][nY] = true;
+                    matrix[nX][nY]=min(matrix[x][y]+1, matrix[nX][nY]);
+                    q.push({nX,nY});
+                }
+            }
+        }
+        return matrix;
+    }
+};
