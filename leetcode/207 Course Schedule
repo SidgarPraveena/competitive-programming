@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool canFinish(int n, vector<vector<int>>& pre) 
+    {
+        vector<vector<int>> graph(n);
+        vector<int> indegree(n,0);
+        for(int i=0; i<pre.size(); i++)
+        {
+            graph[pre[i][0]].push_back(pre[i][1]);
+            indegree[pre[i][1]]++;
+        }
+        queue<int> q;
+        for(int i=0; i<n; i++)
+        {
+            if(indegree[i] == 0)
+            {
+                q.push(i);
+            }
+        }
+        while(!q.empty())
+        {
+            int curr = q.front();
+            q.pop();
+            for(auto u: graph[curr])
+            {
+                indegree[u]--;
+                if(indegree[u] == 0)
+                    q.push(u);
+            }
+            n--;
+        }
+        return n == 0;
+    }
+};
