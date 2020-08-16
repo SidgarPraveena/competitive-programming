@@ -1,0 +1,45 @@
+class Solution {
+    void dfs(vector<vector<int>> &graph, vector<vector<int>> &res,vector<int> &low, vector<int> &discovered, vector<bool> &visited, int time, int parent, int current)
+    {
+        visited[current] = true;
+        low[current] = time;
+        discovered[current] = time;
+        time++;
+        for(auto u: graph[current])
+        {
+            if(u == parent)
+                continue;
+            if(visited[u] == false)
+            {
+                dfs(graph,res,low,discovered,visited,time,current,u);
+                low[current] = min(low[current], low[u]);
+                cout<<current<<" "<<u<<endl;
+                if(low[u] > discovered[current])
+                {
+                    res.push_back({current,u});
+                }
+            }
+            else
+            {
+                low[current] = min(low[current],discovered[u]);
+            }
+        }
+    }
+public:
+    vector<vector<int>> criticalConnections(int n, vector<vector<int>>& connections) 
+    {
+        vector<vector<int>> res;
+        vector<vector<int>> graph(n);
+        for(int i=0; i<connections.size(); i++)
+        {
+            graph[connections[i][0]].push_back(connections[i][1]);
+            graph[connections[i][1]].push_back(connections[i][0]);
+
+        }
+        vector<int> low(n),discovered(n);
+        vector<bool> visited(n,false);
+        int time = 0;
+        dfs(graph,res,low,discovered,visited,time,-1,0);
+        return res;
+    }
+};
