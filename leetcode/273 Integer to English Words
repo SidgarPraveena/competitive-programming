@@ -1,0 +1,97 @@
+class Solution {
+    string getName_1(int n)
+    {
+        vector<string> ones({"Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"});
+        vector<string> tens({"Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"});
+        vector<string> hundreds({"","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"});
+        string res = "";
+        if(n/10 == 0)
+        {
+            res = ones[n];
+        }
+        else if(n/100 == 0)
+        {
+            if(n/10 == 1)
+            {
+                res = tens[n%10];
+            }
+            else
+            {
+                if(n%10 == 0)
+                    res = hundreds[n/10];
+                else
+                    res = hundreds[n/10]+" "+ones[n%10];
+            }
+        }
+        return res;
+    }
+    string getName(int n)
+    {
+        vector<string> ones({"","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"});
+        string res = "";
+        if(n/100 == 0)
+        {
+            res = getName_1(n);
+        }
+        else
+        {
+            int p = n/100;
+            n = n%100;
+            if(n == 0)
+                res = ones[p]+" Hundred";
+            else
+                res = ones[p]+" Hundred "+getName_1(n);
+        }
+        return res;
+    }
+public:
+    string numberToWords(int num) 
+    {
+        if(num == 0)
+            return "Zero";
+        string res;
+        vector<int> divide({1000000000,1000000,1000,1});
+        for(int i=0; i<4; i++)
+        {
+            int n = num/divide[i];
+            if(n > 0)
+            {
+                if(i == 0)
+                    res = res+getName(n)+" Billion";
+                else if(i == 1)
+                {
+                    if(res == "")
+                    {
+                        res = res+getName(n)+" Million";
+                    }
+                    else
+                    {
+                        res = res+" "+getName(n)+" Million";
+                    }
+                }
+                else if(i == 2)
+                {
+                    if(res == "")
+                    {
+                        res = res+getName(n)+" Thousand";
+                    }
+                    else
+                    {
+                        res = res+" "+getName(n)+" Thousand";
+                    }
+                }
+                else
+                {
+                    if(res == "")
+                    {
+                        res = res+getName(n);
+                    }
+                    else
+                        res = res+" "+getName(n);
+                }
+            }
+            num = num%divide[i];
+        }
+        return res;
+    }
+};

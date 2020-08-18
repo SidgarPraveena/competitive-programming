@@ -1,5 +1,3 @@
-//  https://leetcode.com/problems/merge-intervals/
-
 bool compare(vector<int> v1, vector<int> v2)
 {
     return v1[0] < v2[0];
