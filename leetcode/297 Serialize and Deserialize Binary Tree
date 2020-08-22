@@ -1,0 +1,87 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+
+class Codec {
+public:
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) 
+    {
+        ostringstream res;
+        deque<TreeNode *> dq;
+        dq.push_back(root);
+        while(!dq.empty())
+        {
+            TreeNode * t = dq.front();
+            if(t)
+            {   
+                dq.push_back(t->left);
+                dq.push_back(t->right);
+                res << t->val;
+            }
+            else
+            {
+                res << '.';
+            }
+            res<< ',';
+            dq.pop_front();
+        }
+        return res.str();
+    }
+    TreeNode* readNode(istringstream& iss) 
+    {
+        TreeNode* node;
+        
+        if (iss.eof()) return nullptr;
+        
+        char c = iss.peek();                
+        if (c == '.') {           
+            iss >> c;
+            node = nullptr;    
+        } 
+        else if ((c <= '9' && c >= '0') || c == '-') 
+        {
+            int val;
+            iss >> val;
+            node = new TreeNode(val);            
+        }   
+        
+        iss >> c; // read the delimiter
+        return node;
+    }
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) 
+    {
+        istringstream iss(data);
+        deque<TreeNode*> dq;
+        
+        TreeNode* root = readNode(iss);
+        dq.push_back(root);
+        while(dq.size())
+        {
+            TreeNode* node = dq.front();
+            if (node) 
+            {
+                node->left = readNode(iss);
+                node->right = readNode(iss);
+                if (node->left) 
+                    dq.push_back(node->left);
+                if (node->right) 
+                    dq.push_back(node->right);
+            }            
+            dq.pop_front();
+        }
+        return root;
+    }
+};
+
+// Your Codec object will be instantiated and called as such:
+// Codec codec;
+// codec.deserialize(codec.serialize(root));

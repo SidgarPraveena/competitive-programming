@@ -1,0 +1,77 @@
+class Solution {
+    int checkIfAlive(vector<vector<int>> &board, int i, int j)
+    {
+        int new_i = i, new_j = j;
+        int res = 0;
+        
+        new_i = i+1;
+        if(new_i < board.size() && board[new_i][new_j] == 1)
+            res++;
+        
+        new_i = i-1;
+        if(new_i >= 0 && board[new_i][new_j] == 1)
+            res++;
+        
+        new_i = i;
+        new_j = j+1;
+        if(new_j < board[0].size() && board[new_i][new_j] == 1)
+            res++;
+        
+        new_j = j-1;
+        if(new_j >= 0 && board[new_i][new_j] == 1)
+            res++;
+        
+        new_i = i+1;
+        new_j = j+1;
+        if(new_i < board.size() && new_j < board[0].size() && board[new_i][new_j] == 1)
+            res++;
+        
+        new_i = i-1;
+        new_j = j-1;
+        if(new_i >= 0 && new_j >= 0 && board[new_i][new_j] == 1)
+            res++;
+        
+        new_i = i+1;
+        new_j = j-1;
+        if(new_i < board.size() && new_j >= 0 && board[new_i][new_j] == 1)
+            res++;
+        
+        new_i = i-1;
+        new_j = j+1;
+        if(new_i >= 0 && new_j < board[0].size() && board[new_i][new_j] == 1)
+            res++;
+        return res;
+    }
+public:
+    void gameOfLife(vector<vector<int>>& board) 
+    {
+        vector<pair<int, int>> v_0;
+        vector<pair<int, int>> v_1;
+        for(int i=0 ;i<board.size() ;i++)
+        {
+            for(int j=0; j<board[i].size(); j++)
+            {
+                if(board[i][j] == 0)
+                {
+                    int r = checkIfAlive(board, i, j);
+                    if(r == 3)
+                    {
+                        v_1.push_back({i,j});
+                    }
+                }
+                else
+                {
+                    int r = checkIfAlive(board, i, j);
+                    if(r < 2 || r > 3)
+                    {
+                        v_0.push_back({i,j});
+                    }
+                }
+            }
+        }
+        for(auto v: v_0)
+            board[v.first][v.second] = 0;
+        for(auto v: v_1)
+            board[v.first][v.second] = 1;
+    }
+};

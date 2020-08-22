@@ -1,0 +1,26 @@
+class Solution {
+    int isHappyUtil(int n)
+    {
+        int res = 0;
+        while(n > 0)
+        {
+            int t = n%10;
+            n = n/10;
+            res = res+(t*t);
+        }
+        return res;
+    }
+public:
+    bool isHappy(int n) 
+    {
+        int temp = n;
+        while(1)
+        {
+            if(temp == 89)
+                return false;
+            if(temp == 1)
+                return true;
+            temp = isHappyUtil(temp);
+        }
+    }
+};
