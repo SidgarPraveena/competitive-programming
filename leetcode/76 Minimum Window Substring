@@ -1,0 +1,64 @@
+class Solution {
+    bool isSame(vector<int> s_count, vector<int> t_count)
+    {
+        for(int i=0; i<256; i++)
+        {
+            if(t_count[i] > s_count[i])
+                return false;
+        }
+        return true;
+    }
+public:
+    string minWindow(string s, string t) 
+    {
+        string res = "";
+        int res_pos, res_length = INT_MAX;
+        vector<int> t_count(256,0);
+        vector<int> s_count(256,0);
+        for(auto a: t)
+        {
+            t_count[a]++;
+        }
+        int left=0, right=0;
+        while(right < s.size())
+        {
+            bool b = isSame(s_count,t_count);
+            if(b == false)
+            {
+                s_count[s[right]]++;
+                right++;
+            }
+            else
+            {
+                s_count[s[left]]--;
+                if(res_length > right-left)
+                {
+                    res_length = right-left;
+                    res_pos = left;
+                }
+                if(s_count[s[left]] < 0)
+                    s_count[s[left]] = 0;
+                left++;
+            }
+        }
+        while(isSame(s_count,t_count))
+        {
+            s_count[s[left]]--;
+            if(res_length > right-left)
+            {
+                res_length = right-left;
+                res_pos = left;
+            }
+            if(s_count[s[left]] < 0)
+                s_count[s[left]] = 0;
+            left++;
+        }
+        if(res_length == INT_MAX)
+            return res;
+        for(int i = res_pos; i<res_pos+res_length; i++)
+        {
+            res = res+s[i];
+        }
+        return res;
+    }
+};

@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<string> subdomainVisits(vector<string>& cpdomains) 
+    {
+        vector<string> res;
+        map<string, int> mp;
+        for(auto c: cpdomains)
+        {
+            stringstream ss(c);
+            int number;
+            ss>>number;
+            string s;
+            ss>>s;
+            while(1)
+            {
+                mp[s] = mp[s] + number;
+                if(s.find('.') > s.size())
+                    break;
+                s = s.substr(s.find('.')+1);
+            }
+        }
+        for(auto m: mp)
+        {
+            ostringstream sp;
+            sp<<m.second;
+            sp<<" ";
+            sp<<m.first;
+            res.push_back(sp.str());
+        }
+        return res;
+    }
+};

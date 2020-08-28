@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string addStrings(string num1, string num2) 
+    {
+        string res;
+        int m = num1.size();
+        int n = num2.size();
+        if(m < n)
+        {
+            string add(abs(m-n),'0');
+            num1 = add+num1;
+        }
+        else if(m > n)
+        {
+            string add(abs(m-n),'0');
+            num2 = add+num2;
+        }
+        n = max(m,n);
+        int carry = 0;
+        for(int i=n-1; i>=0; i--)
+        {
+            int l = num1[i]-'0';
+            int r = num2[i]-'0';
+            int sum = l+r+carry;
+            char c = sum%10 + '0';
+            res = c+res;
+            carry = sum/10;
+        }
+        if(carry > 0)
+        {
+            char p = carry+'0';
+            res = p+res;
+        }
+        return res;
+    }
+};

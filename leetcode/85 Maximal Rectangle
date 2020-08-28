@@ -1,0 +1,64 @@
+class Solution {
+    void getVector(vector<int> &t, vector<vector<char>>& matrix, int i)
+    {
+        for(int j=0; j<matrix[i].size(); j++)
+        {
+            if(matrix[i][j] == '0')
+            {
+                t[j] = 0;
+            }
+            else
+            {
+                t[j] = t[j]+1;
+            }
+        }
+    }
+    int getMaxArea(vector<int> t)
+    {
+        stack<int> stk;
+        int i=0,max_area = 0,curr_area;
+        while(i<t.size())
+        {
+            if(stk.empty() || t[stk.top()] <= t[i])
+            {
+                stk.push(i++);
+            }
+            else
+            {
+                int tp = stk.top();
+                stk.pop();
+                curr_area = t[tp]*(stk.empty()?i:i-stk.top()-1);
+                if(max_area < curr_area)
+                    max_area = curr_area;
+            }
+        }
+        while(stk.empty() ==  false)
+        {
+            int tp = stk.top();
+            stk.pop();
+            curr_area = t[tp]*(stk.empty()?i:i-stk.top()-1);
+            if(max_area < curr_area)
+                max_area = curr_area;
+        }
+        return max_area;
+    }
+    
+public:
+    int maximalRectangle(vector<vector<char>>& matrix) 
+    {
+        if(matrix.size() == 0)
+            return 0;
+        int res = 0,max_area = INT_MIN;
+        vector<int> t(matrix[0].size(),0);
+        for(int i=0; i<matrix.size(); i++)
+        {
+            getVector(t,matrix,i);
+            res = getMaxArea(t);
+            if(max_area < res)
+            {
+                max_area = res;
+            }
+        }
+        return max_area;
+    }
+};

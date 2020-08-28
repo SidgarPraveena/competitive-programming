@@ -1,0 +1,28 @@
+class Solution {
+
+    
+public:
+    bool wordBreak(string s, vector<string> &dict) 
+    {
+        if(dict.size()==0) 
+            return false;
+        vector<int> stk;
+        stk.push_back(0);
+        for(int i=1;i<=s.size();i++)
+        {
+            for(int j=0;j<stk.size();j++)
+            {
+                string word=s.substr(stk[j],i-stk[j]);
+
+                if(find(dict.begin(),dict.end(),word) != dict.end())
+                {
+                    stk.push_back(i);
+                    break;
+                }
+            }
+        }
+        if(stk.back() == s.size())
+            return true;
+        return false;
+    }
+};

@@ -1,0 +1,44 @@
+class Solution {
+    
+public: 
+    bool existUtil(vector<vector<char>>& board, string word, int i, int j,int k)
+    {
+        if(i<0 || j<0 || i>= board.size() || j>=board[i].size())
+        {
+            return false;
+        }
+        
+        if(board[i][j] == word[k])
+        {
+            char temp = board[i][j];
+            board[i][j]='#';
+            if(k == word.length()-1)
+            {
+                return true;
+            }
+            else if(existUtil(board,word,i-1,j,k+1) || existUtil(board,word,i+1,j,k+1) || existUtil(board,word,i,j-1,k+1) || existUtil(board,word,i,j+1,k+1))
+            {
+                return true;
+            }
+             board[i][j]=temp;
+        }
+        return false;
+    }
+public:
+    bool exist(vector<vector<char>>& board, string word) 
+    {
+        bool res=false;
+        for(int i=0;i<board.size();i++)
+        {
+            for(int j=0;j<board[i].size();j++)
+            {
+                res=existUtil(board,word,i,j,0);
+                if(res == true)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+};

@@ -1,0 +1,29 @@
+class Solution {
+    void permute_util(vector<int> &nums, vector<int> &temp, vector<vector<int>> &res)
+    {
+        if(nums.size() == temp.size())
+        {
+            res.push_back(temp);
+            return;
+        }
+        for(int i=0; i<nums.size(); i++)
+        {
+            if(find(temp.begin(), temp.end(), nums[i]) != temp.end())
+                continue;
+            else
+            {
+                temp.push_back(nums[i]);
+                permute_util(nums,temp,res);
+                temp.pop_back();
+            }
+        }
+    }
+public:
+    vector<vector<int>> permute(vector<int>& nums) 
+    {
+        vector<vector<int>> res;
+        vector<int> temp;
+        permute_util(nums,temp,res);
+        return res;
+    }
+};

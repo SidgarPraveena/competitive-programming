@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) 
+    {
+        if(matrix.size() == 0)
+            return false;
+        int m = matrix.size(), n = matrix[0].size();
+        int l = 0, r = matrix[0].size()-1;
+        while( l < m && r >= 0)
+        {
+            if(matrix[l][r] == target)
+                return true;
+            else if(matrix[l][r] > target)
+            {
+                r = r-1;
+            }
+            else
+            {
+                l = l+1;
+            }
+        }
+        return false;    
+    }
+};

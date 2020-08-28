@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) 
+    {
+        unordered_map <string, vector<string>> mp;
+        vector<vector<string>> res;
+        int count[26];
+        for(int i=0; i<strs.size(); i++)
+        {
+            memset(count,0,sizeof(count));
+            for(int j=0;j<strs[i].size();j++)
+            {
+                count[strs[i][j]-'a']++;
+            }
+            stringstream ss;
+            for(int j=0;j<26;j++)
+            {
+                ss<<count[j];
+            }
+            mp[ss.str()].push_back(strs[i]);
+        }
+        
+        for(auto p: mp)
+        {
+            res.push_back(p.second);
+        }
+        return res;
+    }
+};

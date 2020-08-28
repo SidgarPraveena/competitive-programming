@@ -1,0 +1,44 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& arr) 
+    {
+        vector<int> res;
+        int m = arr.size();
+        if(m == 0)
+            return res;
+        int n = arr[0].size();
+        
+        int top=0,left=0,bottom=m-1,right=n-1,i;
+        
+        while(top<=bottom && left<=right)
+        {
+            for(i=left;i<=right;i++)
+            {
+                res.push_back(arr[top][i]);
+            }
+            top++;
+            for(i=top;i<=bottom;i++)
+            {
+                res.push_back(arr[i][right]);
+            }
+            right--;
+            if(top <= bottom)
+            {
+                for(i=right;i>=left;i--)
+                {
+                    res.push_back(arr[bottom][i]);
+                }
+                bottom--;
+            }
+            if(left <= right)
+            {
+                for(i=bottom;i>=top;i--)
+                {
+                    res.push_back(arr[i][left]);
+                }
+                left++;
+            }
+        }
+        return res;
+    }
+};

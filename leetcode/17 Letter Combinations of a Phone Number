@@ -1,0 +1,73 @@
+class Solution {
+public:
+    void letterUtil(vector<string>in, int level, vector<string> &res,vector<char> str)
+    {
+        if(level>=in.size())
+        {
+            if(str.size()<=0)
+                return;
+            string t;
+            for(int i=0;i<str.size();i++)
+            {
+                t=t+str[i]; 
+            }
+            res.push_back(t);
+            return;
+        }
+        string temp=in[level];
+        for(int i=0; i<temp.size(); i++)
+        {
+            str.push_back(temp[i]);
+            letterUtil(in, level+1, res, str);
+            str.pop_back();
+        }
+            
+    }
+public:
+    vector<string> letterCombinations(string digits) 
+    {
+        vector<string> res;
+        
+        vector<string> in;
+        for(int i=0;i<digits.size();i++)
+        {
+            if(digits[i] == '2')
+            {
+                in.push_back("abc");
+            }
+            else if(digits[i] == '3')
+            {
+                in.push_back("def");
+            }
+            else if(digits[i] == '4')
+            {
+                in.push_back("ghi");
+            }
+            else if(digits[i] == '5')
+            {
+                in.push_back("jkl");
+            }
+            else if(digits[i] == '6')
+            {
+                in.push_back("mno");
+            }
+            else if(digits[i] == '7')
+            {
+                in.push_back("pqrs");
+            }
+            else if(digits[i] == '8')
+            {
+                in.push_back("tuv");
+            }
+            else if(digits[i] == '9')
+            {
+                in.push_back("wxyz");
+            }
+        }
+        
+        vector<char> str;
+        
+        letterUtil(in,0,res,str);
+        return res;
+    }
+};

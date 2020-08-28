@@ -1,0 +1,66 @@
+class Solution {
+    string evaluate(string t)
+    {
+        int n=t.size();
+        if(n==1)
+            return t;
+        for(int i=1;i<n;i++)
+        {
+            if(t[i]=='-')
+            {
+                if(t[i-1]=='+')
+                {
+                    t.erase(i-1,1);
+                    i--;
+                }
+                if(t[i-1]=='-')
+                {   
+                    t[i]='+';
+                    t.erase(i-1,1);
+                    i--;
+                }
+            }
+        }
+        stringstream ss(t);
+        int a, res = 0;
+        while(ss>>a)
+        {
+            res = res+a;
+        }
+        return to_string(res);
+    }
+public:
+    int calculate(string s) 
+    {
+        s.insert(0,"(");
+        s.push_back(')');
+        int res = 0;
+        stack<string> stk;
+        string t ="";
+        for(int i=0; i<s.size(); i++)
+        {
+            if(s[i] == ' ')
+                continue;
+            else if(s[i] == '(')
+            {
+                if(t != "")
+                    stk.push(t);
+                stk.push("(");
+                t = "";
+            }
+            else if(s[i] == ')')
+            {
+                t = evaluate(t);
+                stk.pop();
+                while(!stk.empty() && stk.top() != "(")
+                {
+                    t = stk.top()+t;
+                    stk.pop();
+                }
+            }
+            else
+                t = t+s[i];
+        }
+        return stoi(t);
+    }
+};
