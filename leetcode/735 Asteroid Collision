@@ -1,0 +1,46 @@
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& a) 
+    {
+        stack<int> stk;
+        vector<int> res;
+        for(auto u: a)
+        {
+            if(u > 0)
+            {
+                stk.push(u);
+            }
+            else
+            {
+                bool flag = true;
+                while(!stk.empty() && stk.top() > 0)
+                {
+                    if(stk.top() == abs(u))
+                    {
+                        stk.pop();
+                        flag = false;
+                        break;
+                    }
+                    else if(stk.top() >  abs(u))
+                    {
+                        flag = false;
+                        break;
+                    }
+                    else
+                    {
+                        stk.pop();
+                        flag = true;
+                    }
+                }
+                if(flag == true)
+                    stk.push(u);
+            }
+        }
+        while(!stk.empty())
+        {
+            res.insert(res.begin(),stk.top());
+            stk.pop();
+        }
+        return res;
+    }
+};

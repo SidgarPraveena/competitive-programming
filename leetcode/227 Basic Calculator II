@@ -1,0 +1,82 @@
+class Solution {
+public:
+    int calculate(string s) 
+    {
+        stringstream ss(s);
+        map<char,int> mp;
+        mp['+'] = 0;
+        mp['-'] = 0;
+        mp['*'] = 1;
+        mp['/'] = 1;
+        int num, res = 0;
+        char c;
+        stack<int> num_stk;
+        stack<char> char_stk;
+        while(1)
+        {
+            ss >> num;
+            num_stk.push(num);
+            if(ss >> c)
+            {
+                if(char_stk.empty() || mp[char_stk.top()] < mp[c])
+                {
+                    char_stk.push(c);
+                }
+                else
+                {
+                    while(!char_stk.empty() && mp[char_stk.top()] >= mp[c] )
+                    {
+                        int l = num_stk.top();
+                        num_stk.pop();
+                        int r = num_stk.top();
+                        num_stk.pop();
+                        char sym = char_stk.top();
+                        char_stk.pop();
+                        int sum;
+                        switch(sym)
+                        {
+                            case '+':sum = r + l;
+                                break;
+                            case '-':sum = r - l;
+                                break;
+                            case '*':sum = r*l;
+                                break;
+                            case '/':sum = r/l;
+                                break;
+                        }
+                        num_stk.push(sum);
+                    }
+                    char_stk.push(c);
+                }
+            }
+            else
+                break;
+            
+        }
+        while(!char_stk.empty() )
+        {
+            int l = num_stk.top();
+            num_stk.pop();
+            int r = num_stk.top();
+            num_stk.pop();
+            //cout<<l<<" "<<r<<endl;
+            char sym = char_stk.top();
+            char_stk.pop();
+            int sum;
+            switch(sym)
+            {
+                case '+':sum = r + l;
+                    break;
+                case '-':sum = r - l;
+                    break;
+                case '*':sum = r*l;
+                    break;
+                case '/':sum = r/l;
+                    break;
+            }
+            num_stk.push(sum);
+        }
+        //cout<<num_stk.top();
+        return num_stk.top();
+    }
+};

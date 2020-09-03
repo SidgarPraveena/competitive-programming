@@ -1,0 +1,45 @@
+class Solution {
+public:
+    string decodeString(string s) 
+    {
+        string res ="";
+        stack<char> stk;
+        for(int i=0; i<s.size(); i++)
+        {
+            if(s[i] == ']')
+            {
+                string t="";
+                while(stk.top() != '[')
+                {
+                    t = stk.top()+t;
+                    stk.pop();
+                }
+                stk.pop();
+                string n = "";
+                while(!stk.empty() && (stk.top()-'0' >= 0 && stk.top()-'0' <= 9))
+                {
+                    n = stk.top()+n;
+                    stk.pop();
+                }
+                int num = stoi(n);
+                for(int i=0; i<num; i++)
+                {
+                    for(int j=0; j<t.size(); j++)
+                    {
+                        stk.push(t[j]);
+                    }
+                }
+            }
+            else
+            {
+                stk.push(s[i]);
+            }
+        }
+        while(!stk.empty())
+        {
+            res = stk.top() + res;
+            stk.pop();
+        }
+        return res;
+    }
+};

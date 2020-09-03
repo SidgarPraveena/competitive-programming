@@ -1,0 +1,27 @@
+class Solution {
+    void eulerian_cycle(map<string,vector<string>> &graph,string root,vector<string> &res)
+    {
+        while(graph[root].size() > 0)
+        {
+            string g = graph[root].back();
+            graph[root].pop_back();
+            eulerian_cycle(graph,g,res);
+        }
+        res.push_back(root);
+    }
+public:
+    vector<string> findItinerary(vector<vector<string>>& tickets) 
+    {
+        vector<string> res;
+        sort(tickets.begin(),tickets.end());
+        reverse(tickets.begin(), tickets.end());
+        map<string,vector<string>> graph;
+        for(auto u: tickets)
+        {
+            graph[u[0]].push_back(u[1]);
+        }
+        eulerian_cycle(graph,"JFK",res);
+        reverse(res.begin(),res.end());
+        return res;
+    }
+};

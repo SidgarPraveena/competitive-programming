@@ -1,0 +1,44 @@
+// Method 1
+class Solution {
+public:
+    int maxnum (long num){
+	    return (int)((sqrt(1+(8*num))-1)/2);
+    }
+    int consecutiveNumbersSum(int num) 
+    {
+        int maxConsec=maxnum(num);
+        cout<<maxConsec;
+        int res=0;
+        for(int i=2;i<=maxConsec;i++)
+        {
+            if(i%2==1&&num%i==0)
+            {
+                res++;
+            }
+            else if(i%2==0&&num%i==i/2){res++;}
+        }
+        return res+1;
+    }
+};
+
+// Method 2
+N = (x + 1) + (x + 2) + ... + (x + k)
+There are K consective numbers in N
+x >=0
+k >=2 since we already count itself
+N = kx + 1 + 2 + 3 + ...+ k
+N = kx + (1 + k)*k/2
+kx = N - (1 + k)*k/2
+class Solution {
+public:
+    int consecutiveNumbersSum(int N) {
+        int count = 1;
+        for( int k = 2; k < sqrt( 2 * N ); k++ ) {
+            int x = (2 * N - k * (k + 1)) / (2 * k);
+            int r = (2 * N - k * (k + 1)) % (2 * k);
+            if (x >= 0 && r == 0)
+                count++;
+        }
+        return count;
+    }
+};

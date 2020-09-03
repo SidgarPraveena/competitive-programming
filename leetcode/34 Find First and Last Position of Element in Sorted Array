@@ -1,0 +1,39 @@
+class Solution 
+{
+public:
+    int searchUtil(vector<int> &nums, int target, bool left)
+    {
+        int l=0;
+        int r=nums.size();
+        while(l<r)
+        {
+            int m=l+(r-l)/2;
+            if(nums[m]>target || left && target == nums[m])
+            {
+                r=m;
+            }
+            else
+            {
+                l=m+1;
+            }
+                
+        }
+        return l;
+    }
+public:
+    vector<int> searchRange(vector<int>& nums, int target) 
+    {
+        
+        vector<int> res;
+        res.push_back(-1);
+        res.push_back(-1);
+        if(nums.size()<1)
+            return res;
+        int index=searchUtil(nums,target,true);
+        if(index == nums.size() || nums[index] != target)
+            return res;
+        res[0]=index;
+        res[1]=searchUtil(nums,target,false)-1;
+        return res;
+    }
+};

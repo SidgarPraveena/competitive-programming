@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) 
+    {
+        int res = 0;
+        set<string> set_words,seen;
+        for(auto word: wordList)
+        {
+            set_words.insert(word);
+        }
+        if(set_words.find(endWord) == set_words.end())
+            return 0;
+        queue<pair<string, int>> q;
+        q.push({beginWord,1});
+        while(!q.empty())
+        {
+            pair<string, int> tp = q.front();
+            q.pop();
+            if(tp.first == endWord)
+            {
+                return tp.second;
+            }
+            for(auto & p: tp.first)
+            {
+                auto temp = p;
+                for(char c= 'a'; c <= 'z'; c++)
+                {
+                    p = c;
+                    if(set_words.find(tp.first) != set_words.end() && seen.find(tp.first) == seen.end())
+                    {
+                        q.push({tp.first,tp.second+1});
+                        seen.insert(tp.first);
+                    }
+                }
+                p = temp;
+            }
+            
+        }
+        return res;
+    }
+};

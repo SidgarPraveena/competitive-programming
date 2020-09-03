@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int mctFromLeafValues(vector<int>& arr) 
+    {
+        int res = 0;
+        stack<int> stk;
+        stk.push(INT_MAX);
+        for(auto a: arr)
+        {
+            while(a > stk.top())
+            {
+                int tp  =stk.top();
+                stk.pop();
+                res = res + tp*min(stk.top(),a);
+            }
+            stk.push(a);
+        }
+        while(stk.top() != INT_MAX)
+        {
+            int tp = stk.top();
+            stk.pop();
+            if(stk.top() != INT_MAX)
+            {
+                res = res + tp*stk.top();
+            }
+        }
+        return res;
+    }
+};
