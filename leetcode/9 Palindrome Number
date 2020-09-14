@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool isPalindrome(int x) 
+    {
+        int dup=x;
+        if(x<0)
+            return false;
+        int ele,res=0;
+        while(x!=0)
+        {
+            ele=x%10;
+            if ( res > (INT_MAX/10 - ele) ) 
+                return false;
+            res=res*10+ele;
+            x=x/10;
+        }
+        //cout<<res;
+        if(res == dup)
+            return true;
+        return false;
+    }
+};

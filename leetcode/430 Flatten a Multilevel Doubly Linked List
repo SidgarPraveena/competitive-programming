@@ -1,0 +1,45 @@
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* prev;
+    Node* next;
+    Node* child;
+};
+*/
+
+class Solution {
+    void traverse(Node * head, Node * &res,Node * &start_res)
+    {
+        if(head == NULL)
+            return ;
+        if(res == NULL )
+        {
+            Node *t = new Node(head->val);
+            res = t;
+            start_res = t;
+            //prev = t;
+        }
+        else
+        {
+            Node *t = new Node(head->val);
+            res->next = t;
+            t->prev = res;
+            res = t;
+        }
+        //cout<<head->val<<" ";
+        traverse(head->child, res, start_res);
+        traverse(head->next, res, start_res);
+        
+    }
+public:
+    Node* flatten(Node* head) 
+    {
+        if(head == NULL )
+            return NULL;
+        Node * res = NULL, *start_res =NULL;
+        traverse(head, res,start_res);
+        return start_res;
+    }
+};

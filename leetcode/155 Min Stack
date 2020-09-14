@@ -1,0 +1,56 @@
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    void mapInsert(map<int, int> &list, int n)
+    {
+        auto itr = list.find(n);
+        
+        if(itr != list.end()) 
+            itr->second++;  
+        else 
+            list.insert(make_pair(n, 1));
+        
+    }
+    void mapDelete(map<int, int> &list, int n)
+    {
+        auto itr = list.find(n);
+        itr->second--;
+
+        if(itr->second == 0)
+            list.erase(n);
+    }
+    public:
+    stack<int> stk;
+    map<int, int> list;
+
+    void push(int num)
+    {
+        stk.push(num);
+        mapInsert(list, num);
+    }
+
+    void pop()
+    {
+        mapDelete(list, stk.top());
+        stk.pop();
+    }
+
+    int top()
+    {
+        return stk.top();
+    }
+
+    int getMin()
+    {
+        return list.begin()->first;
+    }
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(x);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */

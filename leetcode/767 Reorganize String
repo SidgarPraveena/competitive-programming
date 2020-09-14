@@ -1,0 +1,43 @@
+class Solution {
+public:
+    string reorganizeString(string S) 
+    {
+        string res = S;
+        vector<int> alpha(26,0);
+        int max = INT_MIN;
+        for(auto s: S)
+        {
+            alpha[s-'a']++;
+            if(alpha[s-'a'] > max)
+                max = alpha[s-'a'];
+        }
+        if(S.size()%2 == 0 && max > S.size()/2)
+        {
+            return "";
+        }
+        else if(max > (S.size()/2)+1)
+            return "";
+        priority_queue<pair<int,int>> pq;
+        for(int i=0; i<26; i++)
+        {
+            if(alpha[i] > 0)
+                pq.push({alpha[i],i});
+        }
+        int index = 0;
+        while(!pq.empty())
+        {
+            auto p = pq.top();
+            char c = p.second+'a';
+            int n = p.first;
+            while(n--)
+            {
+                res[index] = c;
+                index = index+2;
+                if(index >= S.size())
+                    index = 1;
+            }
+            pq.pop();
+        }
+        return res;
+    }
+};

@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int compress(vector<char>& chars) 
+    {
+        int i=0, index = 0;
+        while(i < chars.size())
+        {
+            char c = chars[i];
+            int count = 1;
+            i++;
+            while(i < chars.size() && chars[i] == c)
+            {
+                count++;
+                i++;
+            }
+            chars[index] = c;
+            index++;
+            if(count > 1)
+            {
+                for(char& ch: to_string(count))
+                {
+                    chars[index] = ch;
+                    index++;
+                }
+            }
+        }
+        return index;
+    }
+};

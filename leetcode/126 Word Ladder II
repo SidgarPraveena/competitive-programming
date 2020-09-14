@@ -1,0 +1,72 @@
+class Solution {
+    void dfs(string& beginWord, string& endWord, vector<vector<string>> &res,vector<string> &v,
+            unordered_map<string, vector<string>> &neighbours,
+            unordered_map<string, int> &dist)
+    {
+        v.push_back(beginWord);
+        if(beginWord == endWord)
+        {
+            res.push_back(v);
+            return;
+        }
+        for(auto nxt: neighbours[beginWord])
+        {
+            if(dist[beginWord] == dist[nxt] - 1)
+            {
+                dfs(nxt,endWord,res,v,neighbours,dist);
+                v.pop_back();
+            }
+        }
+    }
+public:
+    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) 
+    {
+        vector<vector<string>> res;
+        unordered_map<string, vector<string>> neighbours;
+        unordered_set<string> words(wordList.begin(), wordList.end());
+        unordered_map<string, int> dist;
+        queue<string> q;
+        q.push(beginWord);
+        dist[beginWord] = 0;
+        int level = 1;
+        while(!q.empty())
+        {
+            int n = q.size();
+            unordered_set<string> visited;
+            for(int i=0; i<n; i++)
+            {
+                string next = q.front();
+                q.pop();
+                string curr = next;
+                for(int j=0; j<next.size(); j++)
+                {
+                    char c = next[j];
+                    for(char p = 'a'; p<='z'; p++)
+                    {
+                        next[j] = p;
+                        if(words.find(next) != words.end())
+                        {
+                            neighbours[curr].push_back(next);
+                            //words.erase(next);
+                            visited.insert(next);
+                            if(dist.find(next) == dist.end())
+                            {
+                                dist[next] = level;
+                                q.push(next);
+                            }
+                        }
+                    }
+                    next[j] = c;
+                }
+            }
+            level++;
+            for(string w: visited)
+            {
+                words.erase(w);
+            }
+        }
+        vector<string> v;
+        dfs(beginWord, endWord,res,v,neighbours, dist);
+        return res;
+    }
+};s

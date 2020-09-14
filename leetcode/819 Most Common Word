@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string mostCommonWord(string paragraph, vector<string>& banned) 
+    {
+        map<string,int> mp;
+        string para = "";
+        for(auto&c : paragraph)
+        {
+            c = ispunct(c) ? ' ' : tolower(c);
+        }
+        unordered_set<string> b(banned.begin(), banned.end());
+        string res,t;
+        stringstream ss(paragraph);
+        while(ss >> t)
+        {
+            mp[t]++;
+            if(b.find(t) == b.end() && mp[res] < mp[t])
+                res = t;
+        }
+        
+        return res;
+    }
+};

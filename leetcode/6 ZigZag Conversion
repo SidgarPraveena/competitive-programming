@@ -1,0 +1,66 @@
+class Solution {
+public:
+    string convert(string s, int numRows) 
+    {
+        string zigzag;
+        zigzag=s;
+        int len=s.size();
+        if(len<=1)
+            return s;
+        if(numRows == 1)
+            return s;
+        char arr[numRows][s.size()];
+        memset(arr,'\0', sizeof(arr));
+        
+        int index=0;
+        
+        int r=0,c=0,row,col;
+        while(index<len)
+        {
+            while(r<numRows-1)
+            {
+                if(index<len)
+                {
+                    arr[r][c]=s[index];
+                }
+                index++;
+                if(index == len)
+                {
+                    row=r;
+                    col=c;
+                    break;
+                }
+                r++;
+            }
+            while(r>0)
+            {
+                if(index<len)
+                {
+                    arr[r][c]=s[index];
+                }
+                index++;
+                if(index == len)
+                {
+                    row=r;
+                    col=c;
+                    break;
+                }
+                r--;
+                c++;
+            }
+        }
+        int z=0;
+        for(int m=0;m<numRows;m++)
+        {
+            for(int n=0;n<len;n++)
+            {
+                if(arr[m][n] != '\0')
+                {
+                    zigzag[z++]=arr[m][n];
+                }
+            }
+        }
+        zigzag[z]='\0';
+        return zigzag;
+    }
+};

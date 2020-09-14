@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int cherryPickup(vector<vector<int>>& grid)
+    {
+        int N = grid.size();
+        int maxDiag = 2*N - 2;
+        vector<vector<int>> dp(N, vector<int>(N, -1));
+        dp[0][0] = grid[0][0];  // Pick (0, 0), diag = 0
+        
+        for (int diag = 1; diag <= maxDiag; diag++) 
+        {
+            int rowMax = min(diag, N-1), rowMin = max(0, diag-N+1);
+            //cout<<rowMax<<" "<<rowMin<<endl;
+            for (int i=rowMax; i>=rowMin; i--) 
+            {
+                for (int j=i; j>=rowMin; j--) 
+                {
+                    if (grid[i][diag-i] == -1 || grid[j][diag-j] == -1) {
+                        dp[i][j] = -1;
+                        continue;
+                    }
+                    int prev = dp[i][j];
+                    if (i > 0) 
+                        prev = max(prev, dp[i-1][j]);
+                    if (j > 0) 
+                        prev = max(prev, dp[i][j-1]);
+                    if (i > 0 && j > 0) 
+                        prev = max(prev, dp[i-1][j-1]);
+                    if (prev == -1) 
+                    {
+                        dp[i][j] = -1;
+                        continue;
+                    }
+                    dp[i][j] = prev + grid[i][diag-i] + (i!=j ? grid[j][diag-j] : 0);
+                }
+            }
+        }
+        
+        return max(dp[N-1][N-1], 0);
+    }
+};

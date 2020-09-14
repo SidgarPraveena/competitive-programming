@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int minDominoRotations(vector<int>& A, vector<int>& B) {
+        if(A.empty() || B.empty()){
+            return -1;
+        }
+        int res = A.size() + 1;
+        for(int i = 1; i <= 6; i++){
+            int first = 0, second = 0, k = 0;
+            while(k < A.size() && (A[k] == i || B[k] == i))
+            {
+                if(A[k] != i)
+                    first++;
+                if(B[k] != i)
+                    second++;
+                k++;
+            }
+            if(k == A.size())
+                res = min(res, min(first, second));
+        }
+        if(res == A.size() + 1)
+            return -1;
+        return res;
+    }
+};

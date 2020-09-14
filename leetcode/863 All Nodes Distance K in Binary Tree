@@ -1,0 +1,65 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    void dfs(unordered_map<TreeNode*, TreeNode*> &mp,TreeNode *root, TreeNode *parent)
+    {
+        if(!root)
+            return ;
+        if(!parent)
+            parent = root;
+        else
+            mp[root] = parent;
+        dfs(mp,root->left,root);
+        dfs(mp,root->right,root);
+    }
+public:
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int K) 
+    {
+        unordered_map<TreeNode*, TreeNode*> mp;
+        TreeNode* parent = NULL;
+        dfs(mp,root,parent);
+        queue<TreeNode *> q;
+        q.push(target);
+        int distance = -1;
+        set<TreeNode *> st;
+        while(!q.empty())
+        {
+            int n = q.size();
+            vector<int> res;
+            while(n--)
+            {
+                TreeNode *t = q.front();
+                q.pop();
+                res.push_back(t->val);
+                st.insert(t);
+            
+                if(t->left && st.find(t->left) == st.end())
+                {
+                    st.insert(t->left);
+                    q.push(t->left);
+                }
+                if(t->right && st.find(t->right) == st.end())
+                {
+                    st.insert(t->right);
+                    q.push(t->right);
+                }
+                if(mp.find(t) != mp.end() && st.find(mp[t]) == st.end())
+                {
+                    st.insert(mp[t]);
+                    q.push(mp[t]);
+                }
+            }
+            distance++;
+            if(distance == K)
+                return res;
+        }
+        return {};
+    }
+};

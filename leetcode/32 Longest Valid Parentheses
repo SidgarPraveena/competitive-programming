@@ -1,0 +1,69 @@
+// using stack
+
+class Solution {
+public:
+    int longestValidParentheses(string s) 
+    {
+        stack<int> stk;
+        stk.push(-1);
+        int res = INT_MIN;
+        for(int i=0; i<s.size(); i++)
+        {
+            if(s[i] == '(')
+            {
+                stk.push(i);
+            }
+            else
+            {
+                stk.pop();
+                if(stk.empty())
+                {
+                    stk.push(i);
+                }
+                else
+                {
+                    res = max(res, i-stk.top());
+                }
+            }
+        }
+        if(res == INT_MIN)
+            return 0;
+        return res;
+    }
+};
+
+// using dp
+
+class Solution {
+public:
+    int longestValidParentheses(string s) 
+    {
+        int n = s.size(),res = INT_MIN;
+        vector<int> dp(n,0);
+        stack<pair<int,int>> stk;
+        for(int i=0; i<n; i++)
+        {
+            if(s[i] == '(')
+            {
+                stk.push({i, i>0 ? dp[i-1]:0});
+            }
+            else
+            {
+                if(!stk.empty())
+                {
+                    auto t = stk.top();
+                    stk.pop();
+                    dp[i] = t.second + 2;
+                    if(t.first != i-1)
+                    {
+                        dp[i] = dp[i] + dp[i-1];
+                    }
+                }
+                res = max(res, dp[i]);
+            }
+        }
+        if(res == INT_MIN)
+            return 0;
+        return res;
+    }
+};
