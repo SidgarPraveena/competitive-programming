@@ -1,0 +1,47 @@
+class Solution {
+public:
+    bool checkUtil(string s1, string s2)
+    {
+        int l=0;
+        int r=0;
+        int s1Arr[26], s2Arr[26];
+        memset(s1Arr, 0, sizeof(s1Arr));
+        memset(s2Arr, 0, sizeof(s2Arr));
+        for(int i=0;i<s1.size();i++)
+        {
+            s1Arr[s1[i]-'a']++;
+        }
+        int cnt=0;
+        while(r<s2.size())
+        {
+            s2Arr[s2[r]-'a']++;
+            cnt++;
+            
+            if(cnt>s1.size())
+            {
+                s2Arr[s2[l]-'a']--;
+                cnt--;
+                l++;
+            }
+            int temp=0;
+            for(int i=0;i<26;i++)
+            {
+                if(s1Arr[i] != s2Arr[i])
+                {
+                    temp=1;
+                    break;
+                }
+            }
+            if(temp == 0)
+                return 1;
+            r++;
+        }
+        return 0;
+    }
+public:
+    bool checkInclusion(string s1, string s2) 
+    {
+        bool res=checkUtil(s1, s2);
+        return res;
+    }
+};

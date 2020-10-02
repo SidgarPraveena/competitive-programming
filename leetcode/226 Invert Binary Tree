@@ -1,0 +1,23 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {206. Reverse Linked List
+public:
+    TreeNode* invertTree(TreeNode* root) 
+    {
+		if (root == NULL)
+            return NULL;
+        TreeNode* tmp_left = root->left;
+		TreeNode* tmp_right = root->right;
+        root->right=invertTree(tmp_left);
+        root->left=invertTree(tmp_right);
+        
+        return root;
+    }
+};

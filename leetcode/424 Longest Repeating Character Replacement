@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int charUtil(string str, int k,char c)
+    {
+        int n=str.size();
+        int maxLen=1;
+        int l=0,r=0;
+        int cnt=0;
+        while(r<n)
+        {
+            if(str[r] != c)
+            {
+                cnt++;
+            }
+            if(cnt > k)
+            {
+                if(str[l] != c)
+                    cnt--;
+                l++;
+            }
+            maxLen=max(maxLen,r-l+1);
+            r++;
+        }
+        return maxLen;
+    }
+    
+public:
+    int characterReplacement(string s, int k) 
+    {
+        string str=s;
+        if(s.size()<=0)
+            return 0;
+        //int res=charUtil(str,k);
+        int res=-1;
+        for(int i=0;i<26; i++)
+        {
+            res=max(res, charUtil(str,k,i+'A'));
+        }
+        return res;
+    }
+};

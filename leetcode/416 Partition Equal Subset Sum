@@ -1,0 +1,39 @@
+class Solution {
+public:
+    bool parUtil(vector<int> nums, int n, int sum)
+    {
+        bool dp[sum+1][n+1];
+        for(int i=0;i<=n;i++)
+        {
+            dp[0][i]=true;
+        }
+        for(int i=1;i<=sum; i++)
+        {
+            dp[i][0]=false;
+        }
+        for(int i=1;i<=sum;i++)
+        {
+            for(int j=1;j<=n;j++)
+            {
+                dp[i][j]=dp[i][j-1];
+                if(nums[j-1]<=i)
+                {
+                    dp[i][j]=dp[i][j]||dp[i-nums[j-1]][j-1];
+                }
+            }
+        }
+        return dp[sum][n];
+    }
+public:
+    bool canPartition(vector<int>& nums) 
+    {
+        int total_sum=0;
+        for(int i=0;i<nums.size();i++)
+        {
+            total_sum+=nums[i];
+        }
+        if(total_sum%2 == 1)
+            return false;
+        return parUtil(nums, nums.size(), total_sum/2);
+    }
+};

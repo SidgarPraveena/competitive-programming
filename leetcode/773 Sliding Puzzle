@@ -1,0 +1,90 @@
+class Solution {
+    string to_string(vector<vector<int>> &board)
+    {
+        string res = "";
+        for(int i=0; i<board.size(); i++)
+        {
+            for(int j=0;j<board[i].size(); j++)
+            {
+                switch(board[i][j])
+                {
+                    case 1: res = res+"1";
+                        break;
+                    case 2: res = res+"2";
+                        break;
+                    case 3: res = res+"3";
+                        break;
+                    case 4: res = res+"4";
+                        break;
+                    case 5: res = res+"5";
+                        break;
+                    case 0: res = res+"0";
+                        break;
+                }
+            }
+        }
+        return res;
+    }
+public:
+    int slidingPuzzle(vector<vector<int>>& board) 
+    {
+        int res = 0;
+        queue<pair<int,int>> q;
+        queue<vector<vector<int>>> b;
+        set<string> done;
+        string required ="123450";
+        if(required == to_string(board))
+            return 0;
+        for(int i=0; i<2; i++)
+        {
+            for(int j=0; j<3; j++)
+            {
+                if(board[i][j] == 0)
+                {
+                    q.push({i,j});
+                    b.push(board);
+                    done.insert(to_string(board));
+                    break;
+                }
+            }
+        }
+        vector<vector<int>> directions {{0,-1}, {-1,0},{0,1},{1,0}};
+        while(!q.empty())
+        {
+            res++;
+            int n = q.size();
+            for(int i=0; i<n; i++)
+            {
+                pair<int,int> t = q.front();
+                board = b.front();
+                int x = t.first,y = t.second;
+                q.pop();
+                b.pop();
+                for(int j=0; j<4; j++)
+                {
+                    int new_x = x + directions[j][0];
+                    int new_y = y + directions[j][1];
+                    if(new_x >= 0 && new_x <2 && new_y >=0 && new_y < 3)
+                    {
+                        
+                        swap(board[x][y], board[new_x][new_y]);
+                        string r = to_string(board);
+                        if(r == required)
+                        {
+                            cout<<r<<endl;
+                            return res;
+                        }
+                        if(done.find(r) == done.end())
+                        {
+                            q.push({new_x, new_y});
+                            b.push(board);
+                            done.insert(r);
+                        }
+                        swap(board[x][y], board[new_x][new_y]);
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};

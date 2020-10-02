@@ -1,0 +1,21 @@
+#include <queue>
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int K) 
+    {
+        vector<vector<int>> res;
+        priority_queue<pair<double,int>,vector<pair<double,int>>, greater<pair<double,int>>> pq;
+        for(int i=0; i<points.size(); i++)
+        {
+            double r = sqrt((points[i][0])*(points[i][0]) + (points[i][1])*(points[i][1]));
+            pq.push({r,i});
+        }
+        for(int i=0 ;i<K; i++)
+        {
+            pair<double, int> t = pq.top();
+            pq.pop();
+            res.push_back({points[t.second][0],points[t.second][1]});
+        }
+        return res;
+    }
+};

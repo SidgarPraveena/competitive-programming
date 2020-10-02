@@ -1,0 +1,55 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+	
+        ListNode* temp = headA;
+        
+		
+        int cntA = 0;
+        int cntB = 0;
+		
+        temp = headA;
+        while (temp) {
+            cntA++; // Count the length of each list.
+            temp = temp->next;
+        }
+        
+        temp = headB;
+        while (temp) {
+            cntB++;
+            temp = temp->next;
+        }
+		
+        while (headA && headB) {
+            if (cntB == cntA) break; // If the lists are of equal length, break.
+            while (cntB != cntA) { // Else, if they differ, we want to make the longer list the same length as the shorter.
+                if (cntB > cntA) {
+                    headB = headB->next; // Hence we'd afvance down the longest list.
+                    cntB--;
+                } else {
+                    headA = headA->next;
+                    cntA--;
+                }
+            }
+        }
+        
+        while (headA && headB) { // Now they are at the same starting point. 
+               if (headA == headB) { // Since the winning condition is that they are incremented in tandem, 
+                   return headA; //  they either point to the same chunk of memory or they don't. If they do, return one of the heads.
+               } else { // if they don't keep going until you exhaust them.
+                   headA = headA->next; 
+                   headB = headB->next;
+               }
+        }
+       
+        return nullptr; // If we've gotten to the end of both lists, and they never touched return nullptr (no intersection).
+    }
+};

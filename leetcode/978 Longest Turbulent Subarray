@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int maxUtil(vector<int>& arr, int flag)
+    {
+        int l=0,r=0;
+        int maxLen=-1;
+        int count=1;
+        while(r<arr.size()-1)
+        {
+            if(flag == 0)
+            {
+                if(arr[r]>arr[r+1])
+                {
+                    count++;
+                }
+                else
+                {
+                    count=1;
+                }
+                flag=1;
+            }
+            else if(flag == 1)
+            {
+                if(arr[r]<arr[r+1])
+                {
+                    count++;
+                }
+                else
+                {
+                    count=1;
+                }
+                flag=0;    
+            }
+            if(maxLen < count)
+                maxLen=count;
+            r++;
+        }
+        return maxLen;
+    }
+public:
+    int maxTurbulenceSize(vector<int>& A) 
+    {
+        if(A.size() <= 1)
+            return 1;
+        int res;
+        int val1=maxUtil(A,0);
+        //cout<<val1<<endl;
+        int val2=maxUtil(A,1);
+        //cout<<val2;
+        res=max(val1,val2);
+        return res;
+    }
+};

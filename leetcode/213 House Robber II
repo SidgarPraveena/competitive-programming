@@ -1,0 +1,54 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) 
+    {
+        if(nums.empty())
+            return 0;
+        int size = nums.size();
+        if(size == 1)
+        {
+            return nums[0];
+        }
+        else if(size == 2)
+        {
+            if(nums[0] >  nums[1])
+                return nums[0];
+            else
+                return nums[1];
+        }
+        else
+        {
+            int maxl,maxr;
+            int dp[size+1];
+            
+            //case 1: 0 to n-1
+            dp[0]=nums[0];
+            dp[1]=nums[1];
+            if(nums[0] > nums[1])
+                dp[1]=nums[0];
+            for(int i=2; i<size-1; i++)
+                dp[i]=max(dp[i-1], nums[i]+dp[i-2]);
+            maxl=dp[size-2];
+            //cout<<maxl<<endl;
+            
+            
+            //case 2: 1 to n
+            dp[1]=nums[1];
+            dp[2]=nums[2];
+            if(nums[1] > nums[2])
+                dp[2]=nums[1];
+            for(int i=3;i<size;i++)
+                dp[i]=max(dp[i-1], nums[i]+dp[i-2]);
+            maxr=dp[size-1];
+            //cout<<maxr<<endl;
+            
+            
+            if(maxl > maxr)
+                return maxl;
+            else
+                return maxr;
+            
+        }
+        return 0;
+    }
+};

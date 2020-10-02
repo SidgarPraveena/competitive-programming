@@ -1,0 +1,36 @@
+class Solution {
+public:
+    void paranUtil(int pos, int n,  int open, int close, vector<string> &res)
+    {
+        static char str[200];      
+        if(close == n)  
+        { 
+            str[2*n]='\0';
+            res.push_back(str);
+            return; 
+        } 
+        else
+        { 
+            if(open > close)  
+            { 
+                str[pos] = ')'; 
+                paranUtil(pos+1, n, open, close+1,res); 
+                str[pos]=' ';
+            } 
+          
+            if(open < n) 
+            { 
+                str[pos] = '('; 
+                paranUtil(pos+1, n, open+1, close,res); 
+                str[pos]=' ';
+            } 
+        } 
+    }
+public:
+    vector<string> generateParenthesis(int n) 
+    {
+        vector<string> res;
+        paranUtil(0,n,0,0,res);
+        return res;
+    }
+};
