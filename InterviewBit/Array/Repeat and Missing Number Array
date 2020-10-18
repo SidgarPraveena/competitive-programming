@@ -1,0 +1,17 @@
+vector<int> Solution::repeatedNumber(const vector<int> &A) 
+{
+    long long int n = A.size();
+    long long int sum = (n*(n+1))/2,sum_sq = (n*(n+1)*(2*n+1))/6;
+    
+    for(int i = 0; i < n; i++)
+    {
+        sum = sum-(long long int)A[i];
+        sum_sq = sum_sq - ((long long int)A[i]*(long long int)A[i]);
+    }
+    vector<int> ans;
+    int missing = ((sum_sq/sum)+sum)/2;
+    int duplicate = missing - sum;
+    ans.push_back(duplicate);
+    ans.push_back(missing);
+    return ans;
+}

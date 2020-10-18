@@ -1,0 +1,34 @@
+vector<int> Solution::flip(string A) 
+{
+    int one_count = 0;
+    vector<int> res;
+    for(int i = 0; i < A.size(); i++)
+    {
+        if(A[i] == '1')
+            one_count++;
+    }
+    if(one_count == A.size())
+        return res;
+    int count = 0, r= INT_MIN,left = 0,right = 0,l_temp = 0;
+    for(int i = 0; i < A.size(); i++)
+    {
+        if(A[i] == '1')
+            count--;
+        else
+            count++;
+        if(r < count)
+        {
+            r = count;
+            left = l_temp;
+            right = i;
+        }
+        if(count < 0)
+        {
+            l_temp = i+1;
+            count = 0;
+        }
+    }
+    res.push_back(left+1);
+    res.push_back(right+1);
+    return res;
+}

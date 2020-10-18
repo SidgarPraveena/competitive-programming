@@ -1,0 +1,21 @@
+vector<int> Solution::findPerm(const string A, int n) 
+{
+    string t =  A;
+    t = t+'I';
+    vector<int> dp(n,0);
+    int min = 0;
+    for(int i = 0; i < t.size(); i++)
+    {
+        if(t[i] == 'I')
+        {
+            dp[i] = min+1;
+            min = i+1;
+        }
+    }
+    for(int i = n-1; i >= 0; i--)
+    {
+        if(dp[i] == 0)
+            dp[i] = dp[i+1]+1;
+    }
+    return dp;
+}

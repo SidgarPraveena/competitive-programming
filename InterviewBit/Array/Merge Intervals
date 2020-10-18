@@ -1,0 +1,25 @@
+vector<Interval> Solution::insert(vector<Interval> &intervals, Interval newInterval) 
+{
+    vector<Interval> ret;
+    for(int i = 0; i < intervals.size(); i++)
+    {
+        Interval currentInterval = intervals[i];
+        if(newInterval.end < currentInterval.start)
+        {
+            ret.push_back(newInterval);
+            newInterval = currentInterval;
+        } 
+        else if(currentInterval.end < newInterval.start)
+        {
+            ret.push_back(currentInterval);
+        } 
+        else 
+        {
+            newInterval.start = min(currentInterval.start, newInterval.start);
+            newInterval.end = max(currentInterval.end, newInterval.end);
+        }
+    }
+    ret.push_back(newInterval);
+    
+    return ret;
+}

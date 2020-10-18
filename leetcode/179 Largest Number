@@ -1,0 +1,31 @@
+class Solution {
+    static bool cmp(string &s1, string &s2)
+    {
+        return s1+s2 > s2+s1;
+    }
+public:
+    string largestNumber(vector<int>& nums) 
+    {
+        vector<string> s;
+        int x_count = 0;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            if(nums[i] == 0)
+            {
+                x_count++;
+            }
+            s.push_back(to_string(nums[i]));
+        }
+        if(x_count == nums.size())
+        {
+            return "0";
+        }
+        sort(s.begin(), s.end(), cmp);
+        string res = "";
+        for(int i = 0; i < s.size(); i++)
+        {
+            res = res+s[i];
+        }
+        return res;
+    }
+};

@@ -1,0 +1,46 @@
+class Solution {
+public:
+    void go(string s,int pos,vector<string> &x,vector<vector<string>> &ans,vector<vector<bool>> &dp)
+        {
+            if(pos>s.size()) return;
+            if(pos==s.size())
+            {
+                if(x.size()>0)
+                    ans.push_back(x);
+                return;
+            }
+            for(int i=pos;i<s.size();i++)
+            {
+                if(dp[pos][i])
+                {
+                    string t= s.substr(pos,i+1-pos);
+                    x.push_back(t);
+                    go(s,i+1,x,ans,dp);
+                    x.pop_back();
+                }
+                
+            }
+        }
+        vector<vector<string>> partition(string s) {
+            vector<vector<bool>> dp(s.size(),vector<bool>(s.size(),false));
+            vector<vector<string>> ans;
+            int n = s.size();
+            if(!n) return ans;
+            for(int i=0;i<n;i++) 
+                dp[i][i]=true;
+            for(int i=0;i<n-1;i++) 
+                if(s[i]==s[i+1]) 
+                    dp[i][i+1]=true;
+            for(int l=3;l<=n;l++)
+            {
+                for(int i=0;i<=n-l;i++)
+                {
+                    int j= i+l-1;
+                    if(dp[i+1][j-1]== true && s[i]==s[j]) dp[i][j]=true;
+                }
+            }
+            vector<string> x;
+            go(s,0,x,ans,dp);
+            return ans;
+        }
+};s
