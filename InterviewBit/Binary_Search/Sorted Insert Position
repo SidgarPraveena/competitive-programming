@@ -1,0 +1,17 @@
+int Solution::searchInsert(vector<int> &A, int B) {
+    int l = 0, r = A.size();
+    while( l <= r)
+    {
+        int m = l + (r-l)/2;
+        if(A[m] == B)
+            return m;
+    
+        if(A[m] > B)
+        {
+            r = m-1;
+        }
+        else
+            l = m+1;
+    }
+    return l;
+}

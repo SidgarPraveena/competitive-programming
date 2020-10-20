@@ -1,0 +1,42 @@
+int Solution::maximumGap(const vector<int> &A) {
+
+    if (A.size() == 1)
+        return 0;
+
+    int mn = A[0];
+    int mx = A[0];
+
+    for (int i = 0; i < A.size(); i++) {
+        mn = min(mn, A[i]);
+        mx = max(mx, A[i]);
+    }
+
+    int gap = sqrt(mx - mn + 1);
+    int k = (mx - mn + 1) / gap;
+    if ((mx - mn + 1) % gap)
+        k++;
+
+    int mini[k], maxi[k], flag[k];
+
+    for (int i = 0; i < k; i++) {
+        mini[i] = INT_MAX;
+        maxi[i] = INT_MIN;
+        flag[i] = 0;
+    }
+
+    for (int i = 0; i < A.size(); i++) {
+        mini[(A[i] - mn) / gap] = min(A[i], mini[(A[i] - mn) / gap]);
+        maxi[(A[i] - mn) / gap] = max(A[i], maxi[(A[i] - mn) / gap]);
+        flag[(A[i] - mn) / gap] = 1;
+    }
+
+    int cur = -1, ans = 0;
+
+    for (int i = 0; i < k; i++) {
+        if (flag[i] && cur >= 0)
+            ans = max(ans, mini[i] - maxi[cur]);
+        if (flag[i])
+            cur = i;
+    }
+    return ans;
+}

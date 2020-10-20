@@ -1,0 +1,23 @@
+vector<vector<int> > Solution::solve(int A) 
+{
+    vector<vector<int>> res;
+    if(A < 1)
+        return res;
+    else if(A == 1)
+    {
+        res.push_back({1});
+        return res;
+    }
+    res.push_back({1});
+    for(int i = 1; i < A; i++)
+    {
+        vector<int> temp(i+1,1);
+        vector<int> &v = res[i-1];
+        for(int j = 1; j < temp.size()-1; j++)
+        {
+            temp[j] = v[j] + v[j-1];
+        }
+        res.push_back(temp);
+    }
+    return res;
+}

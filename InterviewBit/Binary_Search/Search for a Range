@@ -1,0 +1,27 @@
+int search(const vector<int> &A, int target, bool flag)
+{
+    
+    int l = 0, r = A.size();
+    while(l < r)
+    {
+        int m = l + (r-l)/2;
+        if(A[m] > target || (flag && target == A[m]))
+            r = m;
+        else
+            l = m+1;
+    }
+    return l;
+}
+vector<int> Solution::searchRange(const vector<int> &A, int B) 
+{
+    vector<int> res(2, -1);
+    if(A.size() < 1)
+        return res;
+    int i1 = search(A, B, true);
+    if(i1 == A.size() || A[i1] != B)
+        return res;
+    int i2 = search(A, B, false);
+    res[0] = i1;
+    res[1] = i2-1;
+    return res;
+}

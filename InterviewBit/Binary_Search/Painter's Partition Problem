@@ -1,0 +1,26 @@
+int split(vector<long> &sum, long target) {
+    int cnt=0;
+    auto it=sum.begin()+1;
+    while (it!=sum.end()) {
+        it--;
+        it=upper_bound(it+1,sum.end(),*it+target);
+        cnt++;
+    }
+    return cnt;
+}
+
+int Solution::paint(int A, int B, vector<int> &C) {
+    vector<long> sum(C.size()+1,0);
+    long lo(INT_MIN), hi;
+    for (int i=0; i<C.size(); ++i) {
+        lo=max(lo,(long)C[i]);
+        sum[i+1]=C[i]+sum[i];
+    }
+    hi=sum.back();
+    while (lo<hi) {
+        long mid = lo+(hi-lo)/2;
+        if (split(sum,mid)>A) lo=mid+1;
+        else hi=mid;
+    }
+    return (lo*B)%10000003;
+}

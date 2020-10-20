@@ -1,0 +1,53 @@
+vector<int> Solution::subUnsort(vector<int> &A) 
+{
+    int s = -1,e=-1,n=A.size();
+    for(int i = 0; i < n-1; i++)
+    {
+        if(A[i] > A[i+1])
+        {
+            s = i;
+            break;
+        }
+    }
+    if(s == n-1)
+        return {-1};
+    for(int i = A.size()-1; i > 0; i--)
+    {
+        if(A[i] < A[i-1])
+        {
+            e = i;
+            break;
+        }
+    }
+    int max,min;
+    max = A[s]; min = A[s]; 
+    for(int i = s + 1; i <= e; i++) 
+    { 
+        if(A[i] > max) 
+            max = A[i]; 
+        if(A[i] < min) 
+            min = A[i]; 
+    } 
+    for(int i = 0; i < s; i++) 
+    { 
+        if(A[i] > min) 
+        {  
+            s = i; 
+            break; 
+        }      
+    }  
+    for(int i = n -1; i >= e+1; i--) 
+    { 
+        if(A[i] < max) 
+        { 
+            e = i; 
+            break; 
+        }  
+    }  
+    if(s == -1 || e == -1)
+        return {-1};
+    vector<int> res;
+    res.push_back(s);
+    res.push_back(e);
+    return res;
+}

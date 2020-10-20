@@ -1,0 +1,43 @@
+vector<vector<int> > Solution::generateMatrix(int A) 
+{
+    //int n = A.size();
+    vector<vector<int>> res(A,vector<int> (A,0));
+    if(A == 0)
+        return res;
+    if(A == 1)
+    {
+        res[0][0] = 1;
+        return res;
+    }
+    int left = 0, top = 0, right = A-1, bottom = A-1,i, p = 1;
+    while(left <= right && top <= bottom)
+    {
+        for(i = left ; i <= right; i++)
+        {
+            res[top][i] = p++;
+        }
+        top++;
+        for(i = top; i <= bottom; i++)
+        {
+            res[i][right] = p++;
+        }
+        right--;
+        if(top <= bottom)
+        {
+            for(i = right; i>= left; i--)
+            {
+                res[bottom][i] = p++;
+            }
+            bottom--;
+        }
+        if(left <= right)
+        {
+            for(i = bottom; i >= top; i--)
+            {
+                res[i][left] = p++;
+            }
+            left++;
+        }
+    }
+    return res;
+}

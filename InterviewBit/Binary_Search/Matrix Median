@@ -1,0 +1,25 @@
+int Solution::findMedian(vector<vector<int> > &A) 
+{
+    int max_num = INT_MIN, min_num = INT_MAX;
+    int r = A.size(), c = A[0].size();
+    for(int i = 0; i < r; i++)
+    {
+        max_num = max(max_num, A[i][c-1]);
+        min_num = min(min_num, A[i][0]);
+    }
+    int desired = (r*c+1)/2;
+    while(min_num < max_num)
+    {
+        int mid = min_num + (max_num-min_num)/2;
+        int place = 0;
+        for(int i = 0; i < r; i++)
+        {
+            place += upper_bound(&A[i][0], &A[i][c], mid) - &A[i][0];
+        }
+        if(place < desired)
+            min_num = mid+1;
+        else
+            max_num = mid;
+    }
+    return min_num;
+}

@@ -1,0 +1,26 @@
+double Solution::findMedianSortedArrays(const vector<int> &A, const vector<int> &B) {
+    if(A.size() > B.size())
+        return findMedianSortedArrays(B,A);
+    int b = 0, e = A.size();
+    while(b <= e)
+    {
+        int px = b + (e-b)/2;
+        int py = (A.size()+B.size()+1)/2-px;
+        int mLx = (px == 0)?INT_MIN:A[px-1];
+        int mLy = (py == 0)?INT_MIN:B[py-1];
+        int mRx = (px == A.size())?INT_MAX:A[px];
+        int mRy = (py == B.size())?INT_MAX:B[py];
+        if(mLx <= mRy && mLy <= mRx)
+        {
+            if((A.size()+B.size())%2 == 0)
+                return (double)(max(mLx, mLy)+min(mRx, mRy))/2.0;
+            else
+                return (float)max(mLx, mLy);
+        }
+        else if(mLx > mRy)
+            e = px-1;
+        else
+            b = px+1;
+    }
+    return -1;
+}

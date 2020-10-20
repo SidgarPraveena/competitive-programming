@@ -1,0 +1,10 @@
+int Solution::trailingZeroes(int A) 
+{
+    int res = 0;
+    while(A)
+    {
+        res = res+A/5;
+        A = A/5;
+    }
+    return res;
+}

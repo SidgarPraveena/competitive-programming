@@ -1,0 +1,17 @@
+vector<int> Solution::getRow(int A) 
+{
+    if(A == 1)
+        return {1,1};
+    vector<int> res;
+    res.push_back(1);
+    for(int i = 1; i <= A; i++)
+    {
+        vector<int> temp(i+1,1);
+        for(int j = 1; j <temp.size()-1; j++)
+        {
+            temp[j] = res[j]+res[j-1];
+        }
+        res = temp;
+    }
+    return res;
+}
