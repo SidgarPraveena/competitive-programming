@@ -1,0 +1,20 @@
+int Solution::trap(const vector<int> &A) 
+{
+    int n = A.size(),res = 0;
+    vector<int> lA(n,0), rA(n,0);
+    lA[0] = A[0];
+    for(int i = 1; i < n; i++)
+    {
+        lA[i] = max(A[i], lA[i-1]);
+    }
+    rA[n-1] = A[n-1];
+    for(int i = n-2; i >= 0 ; i--)
+    {
+        rA[i] = max(rA[i+1], A[i]);
+    }
+    for(int i = 0; i < n; i++)
+    {
+        res = res+(min(lA[i],rA[i])-A[i]);
+    }
+    return res;
+}

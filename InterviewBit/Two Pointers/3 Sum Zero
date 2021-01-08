@@ -1,0 +1,39 @@
+vector<vector<int> > Solution::threeSum(vector<int> &A)
+{
+    sort(A.begin(), A.end());
+    vector<vector<int>> res;
+    if(A.size() == 0)
+        return res;
+    set<vector<int>> s;
+    for(int i = 0; i < A.size()-1; i++)
+    {
+        int j = i+1, k = A.size()-1;
+        while(j < k)
+        {
+            long long int sum = (long long int)A[i] + A[j] + A[k];
+            if(sum == 0)
+            {
+                vector<int> temp;
+                temp.push_back(A[i]);
+                temp.push_back(A[j]);
+                temp.push_back(A[k]);
+                s.insert(temp);
+                j++;
+                k--;
+            }
+            else if(sum < 0)
+            {
+                j++;
+            }
+            else
+                k--;
+        }
+    }
+    set<vector<int>>::iterator it=s.begin();
+    while(it!=s.end())
+    {
+        res.push_back(*it);
+        it++;
+    }
+    return res;
+}

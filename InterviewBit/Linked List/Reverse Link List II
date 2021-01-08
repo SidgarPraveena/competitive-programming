@@ -1,0 +1,29 @@
+ListNode* Solution::reverseBetween(ListNode* head, int m, int n) 
+{
+    int k=1 ; 
+    ListNode *temp = head;
+    ListNode *e1 = NULL, *prev = NULL , *next = NULL;
+        
+    for( ; k<m ; e1 = temp , temp = temp->next , k++);
+        
+    while(k<=n)
+    {
+        next = temp->next;
+        temp->next = prev;
+        prev = temp;
+        temp = next;
+        k++;
+    }
+        
+    if(e1 == NULL)
+    {
+        head->next = temp;
+        head = prev;
+    }
+    else{
+        e1->next->next = temp;
+        e1->next = prev;
+    }
+        
+    return head;
+}

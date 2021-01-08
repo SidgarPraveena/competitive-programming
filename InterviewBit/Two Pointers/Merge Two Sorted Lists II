@@ -1,0 +1,21 @@
+void Solution::merge(vector<int> &A, vector<int> &B) {
+    int m = A.size(), n = B.size();
+    int end = m+n-1;
+    A.resize(m+n);
+    m = m-1, n = n-1;
+    
+    while(n >= 0)
+    {
+        if(m >= 0 && A[m] > B[n])
+        {
+            A[end] = A[m];
+            m--;
+        }
+        else
+        {
+            A[end] = B[n];
+            n--;
+        }
+        end--;
+    }
+}

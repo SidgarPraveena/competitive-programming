@@ -1,0 +1,24 @@
+#include<vector>
+string Solution::solve(string A) 
+{
+    vector <string>v;
+    string revstring;
+    
+    stringstream s(A);
+    string words;
+    
+    while(s>>words)
+    {
+        v.push_back(words);
+    }
+    
+    for(int i=v.size()-1;i>=0;--i)
+    {
+        revstring.append(v[i]);
+        
+        if(i!=0)
+        revstring+=" ";
+    }
+    
+    return revstring;
+}

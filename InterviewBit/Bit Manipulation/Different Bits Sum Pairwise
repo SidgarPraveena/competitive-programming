@@ -1,0 +1,21 @@
+int Solution::cntBits(vector<int> &A) 
+{
+    long long int count = 0;
+    
+    for(int i = 0; i < 32; i++)
+    {
+        long long int o = 0, t = 0;
+        for(int j = 0; j < A.size(); j++)
+        {
+            if((A[j])&(1<<i))
+            {
+                o++;
+            }
+            else
+                t++;
+        }
+        count += ((o%1000000007)*(t%1000000007)*2)%1000000007;
+        count %= 1000000007;
+    }
+    return count%1000000007;
+}

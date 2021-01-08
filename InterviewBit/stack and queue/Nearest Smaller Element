@@ -1,0 +1,22 @@
+vector<int> Solution::prevSmaller(vector<int> &A) 
+{
+    vector<int> G;
+    stack<int> S;
+    int n = A.size();
+    if(n==0){
+        return G;
+    }
+    G.resize(n);
+    G[0] = -1;
+    S.push(A[0]);
+    for(int i=1;i<n;i++)
+    {
+       while(!S.empty() && S.top()>=A[i])
+       {
+           S.pop();
+       }
+       G[i] = (S.size()==0) ? -1 : S.top();
+       S.push(A[i]);
+    }
+    return G;
+}

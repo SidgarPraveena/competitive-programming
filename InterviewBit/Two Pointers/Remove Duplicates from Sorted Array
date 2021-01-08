@@ -1,0 +1,14 @@
+int Solution::removeDuplicates(vector<int> &A) {
+    int pos = 0;
+    int i = 1;
+    while(i < A.size())
+    {
+        if(A[pos] != A[i])
+        {
+            pos++;
+            A[pos] = A[i];
+        }
+        i++;
+    }
+    return pos+1;
+}

@@ -1,0 +1,12 @@
+int Solution::removeElement(vector<int> &A, int B) {
+    int pos = 0, i = 0;
+    while(i < A.size())
+    {
+        if(A[i] != B)
+        {
+            A[pos++] = A[i];
+        }
+        i++;
+    }
+    return pos;
+}

@@ -1,0 +1,26 @@
+string Solution::solve(string A) 
+{
+    vector<int> count(26,0);
+
+    string ans="";
+    int j = 0;
+    if(A.size() == 0) return ans;
+    count[A[0]-'a']++;
+    ans+=A[0];
+    for(int i=1;i<A.size();i++)
+    {
+        count[A[i]-'a']++;
+        while(j <= i){
+            if(count[A[j]-'a'] > 1){
+                j++;
+            }else{
+                ans+=A[j];
+                break;
+            }
+        }
+        if(j > i){
+            ans+='#';
+        }
+    }
+    return ans;
+}

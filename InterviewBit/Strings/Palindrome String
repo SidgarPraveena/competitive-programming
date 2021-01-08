@@ -1,0 +1,24 @@
+int Solution::isPalindrome(string A) 
+{
+    string p = "";
+    for(int i = 0; i < A.size(); i++)
+    {
+        if(isalnum(A[i]))
+        {
+            if(isalpha(A[i]))
+                A[i] = tolower(A[i]);
+            p = p + A[i];
+        }
+    }
+    //cout<<p;
+    int i = 0, j = p.size()-1;
+    while(i < j)
+    {
+        if(p[i] != p[j])
+        {
+            return 0;
+        }
+        i++;j--;
+    }
+    return 1;
+}

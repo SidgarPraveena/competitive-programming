@@ -1,0 +1,20 @@
+ListNode* Solution::deleteDuplicates(ListNode* A) 
+{
+    ListNode * prev = A, * nxt = A->next;
+    prev->next = NULL;
+    while(nxt)
+    {
+        if(prev->val != nxt->val)
+        {
+            prev->next = nxt;
+            nxt = nxt->next;
+            prev = prev->next;
+            prev->next = NULL;
+        }
+        else
+        {
+            nxt = nxt->next;
+        }
+    }
+    return A;
+}

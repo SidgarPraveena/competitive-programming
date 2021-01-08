@@ -1,0 +1,29 @@
+vector<int> Solution::slidingMaximum(const vector<int> &nums, int k) 
+{
+    int n = nums.size();
+    vector<int> left(n,0);
+    vector<int> right(n,0);
+    vector<int> res;
+    for(int i=0; i<n; i++)
+    {
+        if(i%k == 0)
+        {
+            left[i] = nums[i];
+        }
+        else
+            left[i] = max(nums[i], left[i-1]);
+    }
+    right[n-1] = nums[n-1];
+    for(int i = n-2; i>=0; i--)
+    {
+        if(i%k == k-1)
+        {
+            right[i] = nums[i];
+        }
+        else
+            right[i] = max(nums[i],right[i+1]);
+    }
+    for(int i=0; i<n-k+1; i++)
+        res.push_back(max(right[i],left[i+k-1]));
+    return res;
+}

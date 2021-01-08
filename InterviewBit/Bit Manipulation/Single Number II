@@ -1,0 +1,11 @@
+int Solution::singleNumber(const vector<int> &A) 
+{
+    int first = 0;
+    int second = 0;
+    for(int i = 0; i < A.size(); i++)
+    {
+        first = (first ^ A[i]) & ~second;
+        second = (second ^ A[i]) & ~first;
+    }
+    return first;
+}

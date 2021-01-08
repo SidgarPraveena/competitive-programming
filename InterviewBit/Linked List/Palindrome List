@@ -1,0 +1,51 @@
+int Solution::lPalin(ListNode* head) 
+{
+    ListNode *curr, *next, *prev;
+    curr = head;
+    next = NULL;
+    prev = NULL;
+    
+    ListNode *fast, *slow;
+    
+    if(head != NULL && head->next != NULL)
+    {
+        slow = head;
+        fast = head->next;
+        
+        while(curr != NULL )
+        { 
+            if(fast == NULL || fast->next == NULL  )
+                break;
+            slow = slow->next;
+            fast = fast->next->next;
+            
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;    
+        }
+        ListNode * l, *r;
+        r = slow->next;
+        
+        ListNode * f = curr->next;
+        curr->next = prev;
+        prev = curr;
+            
+        if(fast == NULL)  //odd length
+        {
+            l = prev->next;
+        }
+        else if(fast->next == NULL)  //even length
+        {
+            l = prev;
+        }
+        while(l != NULL || r != NULL)
+        {
+            if(l->val != r->val)
+                return 0;
+            l = l->next;
+            r = r->next;   
+        }
+    }
+    return 1;
+}

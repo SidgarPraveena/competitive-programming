@@ -1,0 +1,8 @@
+int Solution::atoi(const string A) 
+{
+    stringstream ss(A);
+    int res;
+    ss >> res;
+    return res;
+}
+	

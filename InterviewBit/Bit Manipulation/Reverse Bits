@@ -1,0 +1,13 @@
+unsigned int Solution::reverse(unsigned int A) {
+    unsigned long int sum = 0;
+    for(int i = 0; i < 32; i++)
+    {
+       int rem = A%2;
+       A /= 2;
+       if(rem == 1)
+       {
+           sum += pow(2,31-i);
+       }
+    }
+   return sum;
+}

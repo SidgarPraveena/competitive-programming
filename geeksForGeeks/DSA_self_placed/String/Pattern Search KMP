@@ -1,0 +1,26 @@
+bool KMPSearch(string pat, string txt) 
+{
+    int m = pat.length(), n = txt.length();
+    int lps[m];
+    computeLPSArray(pat,m,lps);
+    
+    int i = 0, j = 0;
+    while(i < n)
+    {
+        if(pat[j] == txt[i])
+        {
+            i++;
+            j++;
+        }
+        if(j == m)
+            return true;
+        else if(i < n && pat[j] != txt[i])
+        {
+            if(j == 0)
+                i++;
+            else
+                j = lps[j-1];
+        }
+    }
+    return false;
+}

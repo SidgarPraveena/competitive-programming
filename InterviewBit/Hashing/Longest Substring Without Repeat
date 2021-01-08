@@ -1,0 +1,27 @@
+int Solution::lengthOfLongestSubstring(string s) 
+{
+    if(s.size() == 0)
+        return 0;
+    int res = 1, curr_len = 1;
+    vector<int> visited(256,-1);
+    visited[s[0]] = 0;
+    for(int i=1; i<s.size(); i++)
+    {
+        int prev_index = visited[s[i]];
+        if(prev_index == -1 ||i-prev_index > curr_len)
+        {
+            curr_len++;
+        }
+        else
+        {
+            if(res < curr_len)
+                res = curr_len;
+            curr_len = i-prev_index;
+        }
+        visited[s[i]] = i;
+    }
+    if(curr_len > res)
+        res = curr_len;
+    return res;
+
+}

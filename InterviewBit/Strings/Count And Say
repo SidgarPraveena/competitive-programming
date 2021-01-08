@@ -1,0 +1,30 @@
+
+void nextString(string &res)
+{
+    string ans = "";
+    char prev = ' ';
+    int c = 0;
+    for(int i = 0; i < res.size(); i++)
+    {
+        if(res[i] != prev)
+        {
+            if(c)
+                ans += to_string(c)+prev;
+            prev = res[i];
+            c = 1;
+        }
+        else 
+            c++;
+    }
+    ans += to_string(c)+prev;
+    res = ans;
+}
+string Solution::countAndSay(int A) 
+{
+    string res = "1";
+    for(int i = 2; i <= A; i++)
+    {
+        nextString(res);
+    }
+    return res;
+}

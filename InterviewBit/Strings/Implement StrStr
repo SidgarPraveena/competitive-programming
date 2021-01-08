@@ -1,0 +1,19 @@
+int Solution::strStr(const string A, const string B) 
+{
+    if(!B.size())
+        return 0;
+    int i;
+    for(int i = 0; i < A.size(); i++)
+    {
+        if(A[i] != B[0])
+            continue;
+        for(int j = 0, k = i; k < A.size() && B[j] == A[k]; k++)
+        {
+            j++;
+            if(j == B.size())
+                return i;
+        }
+    }
+    return -1;
+}
+

@@ -1,0 +1,41 @@
+string Solution::intToRoman(int num) 
+{
+    char symb[] = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};
+    string res = "";
+    while(num/1000)
+    {
+        res = res + 'M';
+        num = num - 1000;
+    }
+    
+    int ind = 4;
+    for (int i = 100; i; i/=10)
+    {
+        switch(num/i){
+            case 9:
+                res += symb[ind];
+                res += symb[ind+2];
+                num -= 9*i;
+                break;
+            case 8:
+            case 7:
+            case 6:
+            case 5:
+                res += symb[ind+1];
+                num -= 5*i;
+                break;
+            case 4:
+                res += symb[ind];
+                res += symb[ind+1];
+                num -= 4*i;
+                break;
+        }
+
+        while (num / i){
+            res += symb[ind];
+            num -= i;
+        }
+        ind -=2;
+    }
+    return res;
+}

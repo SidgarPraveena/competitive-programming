@@ -1,0 +1,25 @@
+int MOD=pow(10,9)+7;
+
+int Solution::solve(int A) {
+    if(A==0) return 0;
+    long long cnt=0;
+    for(long long i=31;i>=0;--i){
+        if(1<<i&A)
+        {
+            A=(A&(~(1<<i)));
+            cnt+=i*(1<<(i-1))+A+1;
+            cnt%=MOD;
+        }
+    }
+    
+    for(long long i=31;i>=0;--i){
+        if(1<<i&A)
+        {
+            A=(A&(~(1<<i)));
+            cnt+=A+1;
+            cnt%=MOD;
+        }
+    }
+    return (int)cnt;
+}
+

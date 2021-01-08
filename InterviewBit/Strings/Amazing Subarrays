@@ -1,0 +1,13 @@
+int Solution::solve(string A) 
+{
+    int res = 0;
+    for(int i = 0; i < A.size(); i++)
+    {
+        if(tolower(A[i]) == 'a' || tolower(A[i]) == 'e' || tolower(A[i]) == 'i' || tolower(A[i]) == 'o' || tolower(A[i]) == 'u')
+        {
+            res += A.size()-i;
+            res %= 10003;
+        }
+    }
+    return res%10003;
+}

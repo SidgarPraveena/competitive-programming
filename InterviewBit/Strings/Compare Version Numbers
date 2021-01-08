@@ -1,0 +1,23 @@
+int Solution::compareVersion(string A, string B) 
+{
+    int i = 0, j = 0, l1 = A.size(), l2 = B.size();
+    while(i < l1 || j < l2)
+    {
+        unsigned long num1 = 0, num2 = 0;
+        while(i < l1 && A[i] != '.')
+        {
+            num1 = num1*10+(A[i]-'0');
+            i++;
+        }
+        while(j < l2 && B[j] != '.')
+        {
+            num2 = num2*10+(B[j]-'0');
+            j++;
+        }
+        if(num1 != num2)
+            return num1 < num2 ? -1:1;
+        i++;
+        j++;
+    }
+    return 0;
+}
