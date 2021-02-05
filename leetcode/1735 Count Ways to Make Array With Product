@@ -1,0 +1,64 @@
+
+class Solution {
+public:
+    int primes[10001], mod = 1e9+7;
+    vector<int> getFactors(int x)
+    {
+        vector<int> res;
+        unordered_map<int, int> frqs;  
+        while (x != 1) {
+          frqs[primes[x]]++;  
+          x = x / primes[x];
+        }
+        for (auto p : frqs) res.push_back(p.second);  
+        return res;
+    }
+    vector<int> waysToFillArray(vector<vector<int>>& queries) 
+    {
+        vector<int> res;
+        
+        for(int i = 1; i < 10001; i++)
+        {
+            primes[i] = i;
+        }
+        for(int i = 2; i*i < 10001; i++)
+        {
+            if(primes[i] == i)
+            {
+                for(int j = i*i; j < 10001; j = j+i)
+                {
+                    if(primes[j] == j)
+                    {
+                        primes[j] = i;
+                    }
+                }
+            }
+        }
+        
+        vector<vector<long>> dp(10050,vector<long>(34,0));
+        for(int i = 0; i < 10050; i++)
+        {
+            dp[i][0] = 1;
+        }
+        for(int i = 1; i < 10050; i++)
+        {
+            for(int j = 1; j < 34; j++)
+            {
+                dp[i][j] = (dp[i-1][j-1]+dp[i-1][j])%mod;
+            }
+        }
+        for(auto q: queries)
+        {
+            int n = q[0], k = q[1];
+            auto frqs = getFactors(k);
+            long curr = 1;
+            for(auto f:frqs)
+            {
+                curr = (curr * dp[n+f-1][f])%mod;
+                //curr %= mod;
+            }
+            res.push_back(curr);
+        }
+        return res;
+    }
+};

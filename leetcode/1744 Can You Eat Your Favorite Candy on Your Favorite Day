@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<bool> canEat(vector<int>& candiesCount, vector<vector<int>>& queries) 
+    {
+        vector<bool> res;
+        int n = candiesCount.size();
+        vector<long long> prefix(n+1, 0);
+        for(int i = 1; i <= n; i++)
+        {
+            prefix[i] = prefix[i-1]+candiesCount[i-1];
+        }
+        for(auto q: queries)
+        {
+            int type = q[0], day = q[1], cap = q[2];
+            long long maxDay = prefix[type+1]-1;
+            long long minDay = prefix[type]/cap;
+            if(day <= maxDay and day >= minDay)
+                res.push_back(true);
+            else
+                res.push_back(false);
+        }
+        return res;
+    }
+};

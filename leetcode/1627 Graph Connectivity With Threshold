@@ -1,0 +1,43 @@
+class Solution {
+public:
+    vector<int> friends;
+    int find(int v)
+    {
+        if(friends[v] != v)
+        {
+            return friends[v] = find(friends[v]);
+        }
+        return v;
+    }
+    void do_union(int i,int j)
+    {
+        int x = find(i);
+        int y = find(j);
+        friends[x] = y;
+    }
+    vector<bool> areConnected(int n, int threshold, vector<vector<int>>& queries) 
+    {
+        friends.resize(n+1);
+        for(int i = 1; i <= n; i++)
+        {
+            friends[i] = i;
+        }
+        for(int t = threshold+1; t <= n; t++)
+        {
+            int m = 2;
+            while(m*t <= n)
+            {
+                do_union(t,m*t);
+                m++;
+            }
+        }
+        
+        cout<<endl;
+        vector<bool> res;
+        for(auto q: queries)
+        {
+            res.push_back(find(q[0]) == find(q[1]));
+        }
+        return res;
+    }
+};

@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool canReach(vector<int>& arr, int start) 
+    {
+        queue<int> q;
+        q.push(start);
+        set<int> visited;
+        visited.insert(start);
+        while(!q.empty())
+        {
+            int currIndex = q.front();
+            q.pop();
+            if(arr[currIndex] == 0)
+            {
+                return true;
+            }
+            int left = currIndex - arr[currIndex];
+            if(left >= 0 && visited.find(left) == visited.end())
+            {
+                q.push(left);
+                visited.insert(left);
+            }
+            int right = currIndex + arr[currIndex];
+            if(right < arr.size() && visited.find(right) == visited.end())
+            {
+                q.push(right);
+                visited.insert(right);
+            }
+        }
+        return false;
+    }
+};

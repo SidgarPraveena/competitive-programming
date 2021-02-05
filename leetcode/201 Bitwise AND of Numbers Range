@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int rangeBitwiseAnd(int m, int n) 
+    {
+        int ans = n;
+        if(m == 0)
+        {
+            return 0;
+        }
+        
+        if(floor(log2(m)) != floor(log2(n)))
+            return 0;
+        for(int i = n; i >= m; i--)
+        {
+            ans = ans & i;
+        }
+        return ans;
+    }
+};

@@ -1,0 +1,56 @@
+class Solution {
+public:
+    int minJumps(vector<int>& arr) 
+    {
+        if(arr.size() <= 1)
+            return 0;
+        int level = 0;
+        map<int, vector<int>> mp;
+        set<int> visited;
+        for(int i = 0; i < arr.size(); i++)
+        {
+            mp[arr[i]].push_back(i);
+        }
+        queue<int> q;
+        q.push(0);
+        visited.insert(0);
+        while(!q.empty())
+        {
+            int n = q.size();
+            while(n--)
+            {
+                int currIndex = q.front();
+                q.pop();
+                if(currIndex == arr.size()-1)
+                {
+                    return level;
+                }
+                int left = currIndex-1;
+                int right = currIndex+1;
+                if(left >= 0 && visited.find(left) == visited.end())
+                {
+                    q.push(left);
+                    visited.insert(left);
+                }
+                if(right < arr.size() && visited.find(right) == visited.end())
+                {
+                    q.push(right);
+                    visited.insert(right);
+                }
+                if(mp[arr[currIndex]].size() > 0)
+                {
+                    for(auto j: mp[arr[currIndex]])
+                    {
+                        if(visited.find(j) ==visited.end())
+                        {
+                            q.push(j);
+                        }
+                    }
+                }
+                mp[arr[currIndex]].clear();
+            }
+            level++;
+        }
+        return level;
+    }
+};

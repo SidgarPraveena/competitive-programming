@@ -1,0 +1,24 @@
+class Solution {
+    int count(string &a, string &b) { // make all chars in `b` strictly greater than `a`.
+        int ans = INT_MAX; 
+        for (char c = 'a'; c < 'z'; ++c) { // assume `c` is the breakpoint -- make all chars in `a` <= `c` and all chars in `b` > `c`
+            int cnt = 0;
+            for (char x : a) cnt += x > c; // all the chars in `a` that `> c` should be changed.
+            for (char x : b) cnt += x <= c; // all the chars in `b` that `<= c` should be changed.
+            ans = min(ans, cnt);
+        }
+        return ans;
+    }
+public:
+    int minCharacters(string a, string b) {
+        int x = count(a, b), y = count(b, a); // try operation 1 and 2.
+        int ans = INT_MAX;
+        for (char c = 'a'; c <= 'z'; ++c) { // try operation 3. Assume we change all chars to `c`
+            int cnt = 0;
+            for (char x : a) cnt += x != c;
+            for (char x : b) cnt += x != c;
+            ans = min(ans, cnt);
+        }
+        return min({ x, y, ans});
+    }
+};

@@ -1,0 +1,38 @@
+class Solution {
+public:
+    void solve(set<int> &s, vector<int> &ans,int head)
+    {
+        if(s.find(head) != s.end())
+        {
+            return;
+        }
+        ans.push_back(head);
+        s.insert(head);
+        for(auto x: mp[head])
+        {
+            solve(s, ans, x);
+        }
+    }
+    map<int, vector<int>> mp;
+    vector<int> restoreArray(vector<vector<int>>& adjacentPairs) 
+    {
+        for(int i = 0; i < adjacentPairs.size(); i++)
+        {
+            mp[adjacentPairs[i][0]].push_back(adjacentPairs[i][1]);
+            mp[adjacentPairs[i][1]].push_back(adjacentPairs[i][0]);
+        }
+        int head;
+        for(auto m: mp)
+        {
+            if(m.second.size() == 1)
+            {
+                head = m.first;
+                break;
+            }
+        }
+        set<int> s;
+        vector<int> ans;
+        solve(s,ans, head);
+        return ans;
+    }
+};

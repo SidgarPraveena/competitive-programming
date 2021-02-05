@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int countGoodRectangles(vector<vector<int>>& rectangles) 
+    {
+        int res = 0, maxNum = INT_MIN;
+        map<int,int> mp;
+        for(int i = 0; i < rectangles.size(); i++)
+        {
+            int num = min(rectangles[i][0], rectangles[i][1]);
+            maxNum = max(maxNum, num);
+            mp[num]++;
+        }
+        res = mp[maxNum];
+        return res;
+    }
+};

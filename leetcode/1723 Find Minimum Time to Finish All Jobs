@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int n;
+    vector<int> w;
+    void solve(int i, int currSum,int &ans,vector<int>& jobs,int k)
+    {
+        if(currSum > ans)
+        {
+            return;
+        }
+        if(i == n)
+        {
+            ans = min(ans, currSum);
+            return;
+        }
+        set<int> s;
+        for(int j = 0; j < k; j++)
+        {
+            if(s.find(w[j]) == s.end())
+            {
+                w[j] += jobs[i];
+                solve(i+1, max(currSum, w[j]),ans,jobs,k);
+                w[j] -= jobs[i];
+                s.insert(w[j]);
+            }
+        }
+    }
+    int minimumTimeRequired(vector<int>& jobs, int k) 
+    {
+        int ans = INT_MAX;
+        n = jobs.size();
+        w.resize(k,0);
+        solve(0,0,ans,jobs,k);
+        return ans;
+    }
+};

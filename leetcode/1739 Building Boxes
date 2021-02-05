@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int minimumBoxes(int n) 
+    {
+        vector<int> dp; 
+        dp.push_back(1);
+        vector<int> sum;
+        sum.push_back(1);
+        while(sum.back() < n)
+        {
+            dp.push_back(dp.back()+dp.size()+1);
+            sum.push_back(sum.back()+dp.back());
+        }
+        if(sum.back() == n)
+        {
+            return dp.back();
+        }
+        int len = dp.size();
+        int res = dp[len-2];
+        int val = sum[len-2];
+        for(int i = 1; i <= len; i++)
+        {
+            val += i;
+            res++;
+            if(val >= n)
+                return res;
+        }
+        return res;
+    }
+};

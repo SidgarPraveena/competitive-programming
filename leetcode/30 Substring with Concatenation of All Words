@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<int> findSubstring(string s, vector<string>& words) 
+    {
+        vector<int> res;
+        map<string, int> mp;
+        int patLen = 0;
+        int wordLen = words[0].size();
+        for(auto word: words)
+        {
+            patLen += word.length();
+            mp[word]++;
+        }
+        if(patLen > s.length())
+            return res;
+        for(int i = 0; i <= s.length()-patLen; i++)
+        {
+            string temp = s.substr(i, patLen);
+            map<string, int> m;
+            for(int j = 0; j < temp.size(); j = j+wordLen)
+            {
+                string t = temp.substr(j, wordLen);
+                m[t]++;
+            }
+            bool t = 0;
+            for(auto x: mp)
+            {
+                if(x.second != m[x.first])
+                {
+                    t = 1;
+                    break;
+                }
+            }
+            if(!t)
+            {
+                res.push_back(i);
+            }
+        }
+        return res;
+    }
+};

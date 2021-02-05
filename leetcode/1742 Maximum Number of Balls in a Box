@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int countBalls(int lowLimit, int highLimit) 
+    {
+        vector<int> dp(100009, 0);
+        int res = 0;
+        for(int i = lowLimit; i <= highLimit; i++)
+        {
+            int j = i, t = 0;
+            while(j)
+            {
+                t += j%10;
+                j /= 10;
+            }
+            dp[t] += 1;
+            res = max(res,dp[t]);
+        }
+        return res;
+    }
+};

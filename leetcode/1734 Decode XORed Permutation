@@ -1,0 +1,26 @@
+https://www.youtube.com/watch?v=I5-uDlbwbOA&feature=emb_logo
+class Solution {
+public:
+    vector<int> decode(vector<int>& encoded) 
+    {
+        int tot_xor = 0;
+        int n = encoded.size()+1;
+        for(int i = 1; i <= n; i++)
+        {
+            tot_xor ^= i;
+        }
+        int first_ele = tot_xor;
+        for(int i = 1; i < n; i += 2)
+        {
+            first_ele ^= encoded[i];
+        }
+        vector<int> res;
+        res.push_back(first_ele);
+        for(int i = 0; i < encoded.size(); i++)
+        {
+            first_ele ^= encoded[i];
+            res.push_back(first_ele);
+        }
+        return res;
+    }
+};

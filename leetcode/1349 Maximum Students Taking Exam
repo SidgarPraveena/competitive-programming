@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int maxStudents(vector<vector<char>>& seats) 
+    {
+        vector<int> dp(256,0);
+        vector<int> dp_tmp(256, 0);
+        int ret=0;
+        for(auto s: seats) 
+        {
+            int mask = 0;
+            for(char c: s) 
+            {
+                mask <<=1;
+                if(c=='.')
+                    mask |=1;
+            }
+            dp_tmp[0] = ret;
+            for (int i=mask; i; i=(i-1)&mask)
+            {  
+                if((i&(i>>1))||(i&(i<<1)))
+                    continue;
+                int seat = __builtin_popcount(i);
+               
+                int allow_mask = (~((i<<1)|(i>>1)))&255;
+                int pre_seat=dp[0];
+                for(int j=allow_mask; j; j=(j-1)&allow_mask) {
+                    pre_seat = max(pre_seat, dp[j]);
+                }
+                int best = seat+pre_seat;
+                dp_tmp[i] = best;
+                ret= max(ret, best);
+            }
+            dp = dp_tmp;
+            fill(dp_tmp.begin(), dp_tmp.end(), 0);
+        }
+        return ret;
+    }
+};

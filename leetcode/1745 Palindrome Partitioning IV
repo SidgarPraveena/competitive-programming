@@ -1,0 +1,51 @@
+class Solution {
+public:
+    bool checkPartitioning(string s) 
+    {
+        int n = s.length();
+        vector<pair<int,int>> res;
+        vector<vector<bool>> dp(n, vector<bool>(n,0));
+        for(int i = 0 ; i < n; i++)
+        {
+            dp[i][i] = true;
+            res.push_back({i,i});
+        }
+        
+        for(int i = 1; i < n; i++)
+        {
+            for(int j = 0; j+i < n; j++)
+            {
+                int k = j+i;
+                int len = k-j+1;
+                if(len == 2)
+                {
+                    if(s[j] == s[k])
+                    {
+                        dp[j][k] = true;
+                        res.push_back({j,k});
+                    }
+                }
+                else
+                {
+                    if(s[j] == s[k] and dp[j+1][k-1])
+                    {
+                        dp[j][k] = true;
+                        res.push_back({j,k});
+                    }
+                }
+            }
+        }
+        
+        for(auto x: res)
+        {
+            int l = x.first;
+            int r = x.second;
+            if(l != 0 and r != n-1)
+            {
+                if(dp[0][l-1] and dp[r+1][n-1])
+                    return true;
+            }
+        }
+        return false;
+    }
+};

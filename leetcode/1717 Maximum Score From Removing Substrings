@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string solve(string &str, int val, string pattern, int &res)
+    {
+        //stack<char> stk;
+        string s;
+        for(int i = 0; i < str.length(); i++)
+        {
+            s.push_back(str[i]);
+            if(s.length() > 1 and pattern == s.substr(s.size()-2))
+            {
+                res += val;
+                s.pop_back();
+                s.pop_back();
+            }
+        }
+        return s;
+    }
+    int maximumGain(string s, int x, int y) 
+    {
+        int res = 0;
+        string s1 = "ab";
+        string s2 = "ba";
+        if(x > y)
+        {
+            string t = solve(s,x,s1,res);
+            solve(t,y,s2,res);
+        }
+        else
+        {
+            string t = solve(s,y,s2,res);
+            solve(t,x,s1,res);
+        }
+        return res;
+    }
+};

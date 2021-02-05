@@ -1,0 +1,91 @@
+class Solution {
+public:
+    vector<vector<vector<int>>> dp;
+    int util(vector<vector<int>>& graph, int mouse, int cat, int moves)
+    {
+        if(moves >= 2*graph.size())
+        {
+            return 0;
+        }
+        if(mouse == 0)
+        {
+            dp[moves][mouse][cat] = 1;
+            return 1;
+        }
+        if(cat == mouse)
+        {
+            dp[moves][mouse][cat] = 2;
+            return 2;
+        }
+        if(dp[moves][mouse][cat] != -1)
+        {
+            return dp[moves][mouse][cat];
+        }
+        if(moves%2 == 0)  //mouse move
+        {
+            bool canDraw = false;
+            for(auto p : graph[mouse])
+            {
+                int ans = util(graph, p, cat, moves+1);
+                if(ans == 1)
+                {
+                    dp[moves][mouse][cat] = 1;
+                    return 1;
+                }
+                if(ans == 0)
+                {
+                    canDraw = true;
+                }
+            }
+            if(canDraw)
+            {
+                dp[moves][mouse][cat] = 0;
+                return 0;
+            }
+            else
+            {
+                dp[moves][mouse][cat] = 2;
+                return 2;
+            }
+        }
+        else  //cat move
+        {
+            
+            bool canDraw = false;
+            for(auto p : graph[cat])
+            {
+                if(p == 0)
+                    continue;
+                int ans = util(graph, mouse, p, moves+1);
+                if(ans == 2)
+                {
+                    dp[moves][mouse][cat] = 2;
+                    return 2;
+                }
+                if(ans == 0)
+                {
+                    canDraw = true;
+                }
+            }
+            if(canDraw)
+            {
+                dp[moves][mouse][cat] = 0;
+                return 0;
+            }
+            else
+            {
+                dp[moves][mouse][cat] = 1;
+                return 1;
+            }
+        }
+    }
+    int catMouseGame(vector<vector<int>>& graph) 
+    {
+        int cat = 2, mouse = 1,moves = 0;
+        int n = graph.size();
+        dp = vector<vector<vector<int>>>(2*n, vector<vector<int>>(n, vector<int>(n, -1)));
+        
+        return util(graph,mouse, cat, moves);
+        //return 1;
+    }
+};

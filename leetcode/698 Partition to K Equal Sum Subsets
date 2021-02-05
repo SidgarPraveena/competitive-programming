@@ -1,0 +1,37 @@
+class Solution {
+    bool dfs(vector<int>&nums, int k,int &target, int currSum,int index)
+    {
+        if(k == 0)
+            return true;
+        if(currSum == target)
+        {
+            return dfs(nums,k-1,target,0,0);
+        }
+        for(int i = index; i < nums.size(); i++)
+        {
+            if(nums[i] == 0 || nums[i]+currSum > target)
+            {
+                continue;
+            }
+            int temp = nums[i];
+            nums[i] = 0;
+            if(dfs(nums,k,target,currSum+temp, i+1))
+                return true;
+            nums[i] = temp;
+        }
+        return false;
+    }
+public:
+    bool canPartitionKSubsets(vector<int>& nums, int k) 
+    {
+        int n = nums.size();
+        int sum = 0;
+        for(auto p: nums)
+            sum += p;
+        if(sum%k != 0)
+            return false;
+        sum /= k;
+        return dfs(nums,k,sum,0,0);
+        
+    }
+};

@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int minimumTeachings(int n, vector<vector<int>>& lan, vector<vector<int>>& fri) 
+    {
+        vector<vector<int>>no_comm;
+        for(auto c:fri)
+        {
+            unordered_map<int,int>um;
+            for(auto val:lan[c[0]-1])
+                um[val]++;
+            for(auto val:lan[c[1]-1])
+                um[val]--;
+            
+            int t=1;
+            for(auto count:um)
+            {
+                if(count.second==0)
+                {
+                    t=0;
+                    break;
+                }
+            }
+            
+            if(t)
+                no_comm.push_back({c});
+        }
+        int ans = lan.size();
+        for(int i=1; i<=n; i++)
+        {
+            set<int>s;
+            for(auto c:no_comm)
+            {
+                int a=c[0]-1,b=c[1]-1;
+                if(find(lan[a].begin(),lan[a].end(),i)==lan[a].end())
+                    s.insert(a);
+                if(find(lan[b].begin(),lan[b].end(),i)==lan[b].end())
+                    s.insert(b);
+            }
+            
+            if(ans>s.size())
+                ans=s.size();
+        }
+        return ans;
+    }
+};

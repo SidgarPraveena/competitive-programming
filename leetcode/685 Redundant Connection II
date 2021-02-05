@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<int> friends;
+    int find(int v)
+    {
+        if(friends[v] != v)
+        {
+            return friends[v] = find(friends[v]);
+        }
+        return v;
+    }
+    vector<int> findRedundantDirectedConnection(vector<vector<int>>& edges) 
+    {
+        int n = edges.size();
+        vector<int> mp(n+1, 0);
+        vector<int> ans1(2,-1), ans2(2,-1);
+        for(auto e: edges)
+        {
+            if(mp[e[1]] > 0)
+            {
+                ans1[0] = mp[e[1]];
+                ans1[1] = e[1];
+                ans2[0] = e[0];
+                ans2[1] = e[1];
+            }
+            mp[e[1]] = e[0];
+        }
+        friends.resize(n+1);
+        for(int i = 0; i <= n; i++)
+        {
+            friends[i] = i;
+        }
+        for(auto e: edges)
+        {
+            if(e[0] == ans2[0] and e[1] == ans2[1])
+                continue;
+            int x = find(e[0]);
+            int y = find(e[1]);
+            if(x == y)
+            {
+                if(ans1[0] == -1)
+                {
+                    return e;
+                }
+                return ans1;
+            }
+            friends[y] = x; 
+        }
+        return ans2;
+    }
+};

@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int findLHS(vector<int>& nums) 
+    {
+        map<int,int> mp;
+        for(auto n: nums)
+        {
+            mp[n]++;
+        }
+        int res = 0;
+        for(auto m: mp)
+        {
+            int num = m.first;
+            if(mp.find(num+1) != mp.end())
+            {
+                res = max(res, m.second+mp[num+1]);
+            }
+        }
+        return res;
+    }
+};

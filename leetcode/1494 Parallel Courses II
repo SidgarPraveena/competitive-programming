@@ -1,0 +1,78 @@
+class Solution {
+public:
+    int n,k;
+    vector<int> graph[16];
+    int dp[1<<16];
+    int req_sem(int mask)
+    {
+        if(mask == ((1<<n)-1))
+        {
+            return 0;
+        }
+        if(dp[mask] != -1)
+        {
+            return dp[mask];
+        }
+        int inDeg[n];
+        memset(inDeg, 0, sizeof(inDeg));
+        for(int i= 0; i < n; i++)
+        {
+            if(mask & (1<<i))
+                continue;
+            else
+            {
+                for(int j = 0; j < graph[i].size(); j++)
+                {
+                    inDeg[graph[i][j]]++;
+                }
+            }
+        }
+        int avail_mask = 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(inDeg[i] == 0 && !(mask & (1 << i)))
+            {
+                avail_mask |= (1 << i);
+            }
+        }
+        int num_avail = __builtin_popcount(avail_mask);
+        int taken = n+1;
+        if(num_avail > k)
+        {
+            //enumerate submasks
+            int m = avail_mask;
+            int s;
+            for(s = m; s; s = (s-1)&m)
+            {
+                if(__builtin_popcount(s) != k)
+                {
+                    continue;
+                }
+                taken = min(taken,1 + req_sem(mask|s));
+            }
+        }
+        else
+        {
+            //take all available courses         
+            taken = min(taken,1 + req_sem(mask|avail_mask));
+        }
+        dp[mask] = taken;   
+        return taken;
+    }
+    int minNumberOfSemesters(int N, vector<vector<int>>& dependencies, int K) 
+    {
+        n = N;
+        k = K;
+        //dp.assign(1<<n, -1);
+        memset(dp,-1,sizeof(dp));
+        for(int i = 0; i < dependencies.size(); i++)
+        {
+            dependencies[i][0]--;
+            dependencies[i][1]--;
+            graph[dependencies[i][0]].push_back(dependencies[i][1]);
+        }
+        int ans = req_sem(0);
+        
+        return ans;
+    }
+};
