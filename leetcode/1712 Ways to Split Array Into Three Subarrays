@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int mod = 1e9 + 7;
+    int waysToSplit(vector<int>& nums) 
+    {
+        vector<int> prefix;
+        int sum = 0;
+        for(auto n: nums)
+        {
+            sum +=n;
+            prefix.push_back(sum);
+        }
+        int res = 0;
+        int n = nums.size();
+        for(int i = 0; i < n-2; i++)
+        {
+            auto lo = lower_bound(prefix.begin()+i+1, prefix.end(), 2*prefix[i]);
+            auto hi = upper_bound(prefix.begin()+i+1, prefix.end()-1, (prefix[n-1]+prefix[i])/2);
+            if(lo < hi)
+                res = (res + hi-lo)%mod;
+        }
+        return res;
+    }
+};

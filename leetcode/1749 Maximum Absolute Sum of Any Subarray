@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int getMaxSum(vector<int>&nums)
+    {
+        int sum = 0;
+        int max_1 = 0;
+        for(auto n: nums)
+        {
+            sum += n;
+            //cout<<sum<<" ";
+            if(sum > max_1)
+            {
+                max_1 = sum;
+            }
+            if(sum < 0)
+            {
+                sum = 0;
+            }
+        }
+        return max_1;
+    }
+    int maxAbsoluteSum(vector<int>& nums) 
+    {
+        int res = 0;
+        int r1 = getMaxSum(nums);
+        for(int i = 0; i < nums.size(); i++)
+        {
+            nums[i] *= -1;
+        }
+        int r2 = getMaxSum(nums);
+        return max(r1,r2);
+    }
+};
