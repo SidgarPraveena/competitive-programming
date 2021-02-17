@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int m,n;
+    int solve(int row, int col, vector<vector<int>>& grid)
+    {
+        if(row == m)
+        {
+            return col;
+        }
+        if(grid[row][col] == 1)
+        {
+            if(col+1 >= n || grid[row][col+1] == -1)
+            {
+                return -1;
+            }
+            return solve(row+1, col+1,grid);
+        }
+        else 
+        {
+            if(col == 0 || grid[row][col-1] == 1)
+            {
+                return -1;
+            }
+            return solve(row+1, col-1, grid);
+        }
+    }
+    vector<int> findBall(vector<vector<int>>& grid) 
+    {
+        vector<int> res;
+        m = grid.size();
+        n = grid[0].size();
+        for(int i = 0; i < n; i++)
+        {
+            res.push_back(solve(0,i,grid));
+        }
+        return res;
+    }
+};

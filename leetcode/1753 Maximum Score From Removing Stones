@@ -1,0 +1,17 @@
+If one number if bigger that the sum of the remaing two. The sum of the remaining two is the answer.
+Otherwise, no more than 1 will be left at the end.
+class Solution {
+public:
+    int maximumScore(int a, int b, int c) 
+    {
+        int r = max(max(a,b),c);
+        if(2*r > a+b+c)
+        {
+            return a+b+c-r;
+        }
+        else
+        {
+            return (a+b+c)/2;
+        }
+    }
+};

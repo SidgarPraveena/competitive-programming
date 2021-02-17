@@ -1,0 +1,59 @@
+class Solution {
+public:
+    set<string> sp;
+    double dfs(unordered_map<string,vector<pair<string,double>>> mp, string s, string d)
+    {
+        if(s == d)
+        {
+            return 1;
+        }
+        sp.insert(s);
+        for(auto m: mp[s])
+        {
+            if(sp.find(m.first) == sp.end())
+            {
+                double val = m.second*dfs(mp,m.first,d);
+                if(val != 0)
+                {
+                    return val;
+                }
+            }
+        }
+        return 0;
+    }
+    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) 
+    {
+        set<string>s;
+        unordered_map<string,vector<pair<string,double>>> mp;
+        for(int i = 0; i <  equations.size(); i++)
+        {
+            s.insert(equations[i][0]);
+            s.insert(equations[i][1]);
+            mp[equations[i][0]].push_back(make_pair(equations[i][1], values[i]));
+            mp[equations[i][1]].push_back(make_pair(equations[i][0], 1/values[i]));
+        }
+        
+        vector<double>res;
+        for(auto q: queries)
+        {
+            if(s.find(q[0]) == s.end() || s.find(q[1]) == s.end())
+            {
+                res.push_back(-1);
+            }
+            else if(q[0] == q[1])
+            {
+                res.push_back(1);
+            }
+            else
+            {
+                double r = dfs(mp,q[0], q[1]);
+                if(r == 0)
+                    res.push_back(-1);
+                else
+                    res.push_back(r);
+            }
+            sp.clear();
+        }
+        return res;
+    }
+};

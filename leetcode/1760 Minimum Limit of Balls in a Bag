@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int minimumSize(vector<int>& nums, int maxOperations) 
+    {
+        int max_num = INT_MIN;
+        for(auto n: nums)
+        {
+            max_num = max(max_num, n);
+        }
+        int low = 1, high = max_num;
+        while(low < high)
+        {
+            int mid = (low+high)/2;
+            int steps = 0;
+            for(auto n: nums)
+            {
+                if(n <= mid)
+                    continue;
+                steps += n/mid - (n%mid == 0);
+            }
+            if(steps > maxOperations)
+                low = mid+1;
+            else
+                high = mid;
+        }
+        return high;
+    }
+};

@@ -1,0 +1,95 @@
+class Solution {
+public:
+
+    int R,C;
+    bool check(vector<vector<int>>& h, int limit)
+    {
+        int dx[] = {1,0,-1,0};
+        int dy[] = {0,1,0,-1};
+        vector<vector<bool>> visited(R,vector<bool>(C, false));
+        visited[0][0] = true;
+        queue<pair<int,int>> q;
+        q.push({0,0});
+        while(!q.empty())
+        {
+            pair<int,int> p = q.front();
+            q.pop();
+            if(p.first == R-1 and p.second ==C-1)
+            {
+                return true;
+            }
+            for(int i = 0; i < 4; i++)
+            {
+                int x = p.first+dx[i];
+                int y = p.second+dy[i];
+                if(x >= 0 and x <R and y >= 0 and y < C and !visited[x][y])
+                {
+                    if(abs(h[x][y] - h[p.first][p.second]) <= limit)
+                    {
+                        visited[x][y] = true;
+                        q.push({x,y});
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    int minimumEffortPath(vector<vector<int>>& h) 
+    {
+        
+        R = h.size();
+        C = h[0].size();
+        int l = 0, r = 1000001;
+        while(l < r)
+        {
+            int m;
+            m = (l+r)/2;
+            if(check(h,m))
+            {
+                r = m;
+            }
+            else
+            {
+                l = m+1;
+            }
+        }
+        return l;
+    }
+};
+
+//method 2
+class Solution {
+public:
+    int minimumEffortPath(vector<vector<int>>& heights) 
+    {
+        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+        pq.push({0,0});
+        int R = heights.size();
+        int C = heights[0].size();
+        vector<vector<int>> cost(R, vector<int> (C, INT_MAX));
+        int dx[] = {1,0,-1,0};
+        int dy[] = {0,1,0,-1};
+        while(!pq.empty())
+        {
+            pair<int,int> p = pq.top();
+            pq.pop();
+            int x = p.second/1000;
+            int y = p.second%1000;
+            int c = p.first;
+            for(int i = 0; i < 4; i++)
+            {
+                int nx = x + dx[i];
+                int ny = y + dy[i];
+                if(nx < 0 or nx >= R or ny < 0 or ny >= C)
+                    continue;
+                int val = max(c, abs(heights[x][y] - heights[nx][ny]));
+                if(val < cost[nx][ny])
+                {
+                    cost[nx][ny] = val;
+                    pq.push({val,nx*1000+ny});
+                }
+            }
+        }
+        return cost[R-1][C-1] == INT_MAX?0:cost[R-1][C-1];
+    }
+};

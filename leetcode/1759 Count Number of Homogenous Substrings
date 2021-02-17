@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int countHomogenous(string s) 
+    {
+        char prevChar = s[0];
+        long long res = 0,count = 1;
+        const int mod = 1000000007;
+        for(int i = 1; i < s.length(); i++)
+        {
+            if(s[i] == prevChar)
+            {
+                count++;
+            }
+            else
+            {
+                res += ((count*(count+1))/2)%mod;
+                res %= mod;
+                count = 1;
+                prevChar = s[i];
+            }
+        }
+        res += ((count*(count+1))/2)%mod;
+        res %= mod;
+        return res;
+    }
+};

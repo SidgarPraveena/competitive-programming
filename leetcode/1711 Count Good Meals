@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool isPowerOfTwo(int s)
+    {
+        if(s == 0)
+            return false;
+        return ceil(log2(s)) == floor(log2(s));
+    }
+    int countPairs(vector<int>& d) 
+    {
+        map<int,int> mp;
+        int res = 0;
+        const int mod = 1e9+7;
+        for(int i = 0; i < d.size(); i++)
+        {
+            for(int j = 0; j <= 21; j++)
+            {
+                if(mp.find(pow(2,j)-d[i]) != mp.end())
+                {
+                    res = res + mp[pow(2,j)-d[i]];
+                    res %= mod;
+                }
+            }
+            mp[d[i]]++;
+        }
+        return res;
+    }
+};

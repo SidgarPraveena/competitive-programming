@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int check(string s, char a, char b)
+    {
+        int r = 0;
+        for(int i = 0; i < s.length(); i++)
+        {
+            if(i%2 == 0)
+            {
+                if(s[i] != a)
+                {
+                    r++;
+                }
+            }
+            else
+            {
+                if(s[i] != b)
+                {
+                    r++;
+                }
+            }
+        }
+        return r;
+    }
+    int minOperations(string s) 
+    {
+        int r1 = check(s,'1','0');
+        int r2 = check(s,'0','1');
+        return min(r1,r2);
+    }
+};

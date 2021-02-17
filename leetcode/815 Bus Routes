@@ -1,0 +1,71 @@
+class Solution {
+public:
+    int bfs(vector<vector<int>> graph, int source, int target)
+    {
+        queue<int> q;
+        q.push(source);
+        int n = graph.size();
+        vector<bool> visited(n,false);
+        visited[source] = true;
+        int r = 0;
+        while(!q.empty())
+        {
+            int len = q.size();
+            while(len--)
+            {
+                int u = q.front();
+                if(u == target)
+                {
+                    return r+1;
+                }
+                q.pop();
+                for(auto g: graph[u])
+                {
+                    if(visited[g] == false)
+                    {
+                        visited[g] = true;
+                        q.push(g);
+                    }
+                }
+            }
+            r++;
+        }
+        return -1;
+    }
+    int numBusesToDestination(vector<vector<int>>& routes, int source, int target) 
+    {
+        if(source == target)
+            return 0;
+        int res = INT_MAX;
+        map<int, vector<int>> mp;
+        vector<vector<int>> graph(routes.size());
+        vector<int> s;
+        vector<int> d;
+        for(int i = 0; i < routes.size(); i++)
+        {
+            for(int j = 0; j < routes[i].size(); j++)
+            {
+                if(routes[i][j] == source)
+                    s.push_back(i);
+                if(routes[i][j] == target)
+                    d.push_back(i);
+                for(auto m: mp[routes[i][j]])
+                {
+                    graph[m].push_back(i);
+                    graph[i].push_back(m);
+                }
+                mp[routes[i][j]].push_back(i);
+            }
+        }
+        for(int i =0; i < s.size(); i++)
+        {
+            for(int j = 0; j < d.size(); j++)
+            {
+                
+                int r = bfs(graph, s[i], d[j]);
+                res = min(res,r);
+            }
+        }
+        return res == INT_MAX?-1:res;
+    }
+};
