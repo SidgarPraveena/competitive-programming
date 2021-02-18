@@ -1,0 +1,66 @@
+class Solution {
+public:
+    set<int> s;
+    double dfs(double res,int n, vector<vector<int>>& graph, int start, int target,int time)
+    {
+        if(start == target)
+        {
+            if(time < 0)
+                return 0;
+            else if(time == 0)
+            {
+                return res;
+            }
+            else
+            {
+                int uv = 0;
+                for(auto g: graph[target])
+                {
+                    if(s.find(g) == s.end())
+                    {
+                        uv++;
+                    }
+                }
+                if(uv == 0)
+                {
+                    return res;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+        s.insert(start);
+        int unvisited = 0;
+        for(auto e: graph[start])
+        {
+            if(s.find(e) == s.end())
+                unvisited++;
+        }
+        for(auto e: graph[start])
+        {
+            if(s.find(e) == s.end())
+            {
+                double ur = dfs(res*(1.0/unvisited),n, graph, e,target,time-1);
+                if(ur != 0)
+                {
+                    return ur;
+                }
+            }
+        }
+        return 0;
+    }
+    double frogPosition(int n, vector<vector<int>>& edges, int t, int target) 
+    {
+        vector<vector<int>> graph(n+1);
+        for(int i = 0; i < edges.size(); i++)
+        {
+            graph[edges[i][0]].push_back(edges[i][1]);
+            graph[edges[i][1]].push_back(edges[i][0]);
+        }
+        double res = 1;
+        double r = dfs(res,n,graph,1,target,t);
+        return r;
+    }
+};

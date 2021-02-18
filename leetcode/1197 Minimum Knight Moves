@@ -1,0 +1,37 @@
+This is lockedin leetcode, similar problem is solved in interview bit
+int Solution::knight(int A, int B, int C, int D, int E, int F) 
+{
+    if(C == E and D == F)
+        return 0;
+    vector<vector<bool>> dp(502, vector<bool>(502, false));
+    queue<pair<int,int>> q;
+    int dx[]= {-2, -2, -1, -1, 1, 2, 2, 1};
+    int dy[]= {1, -1, 2, -2, 2, 1, -1, -2};
+    q.push({C,D});
+    int res = 0;
+    while(!q.empty())
+    {
+        int len = q.size();
+        while(len--)
+        {
+            pair<int,int> p = q.front();
+            q.pop();
+            for(int i = 0; i < 8; i++)
+            {
+                int x = p.first+dx[i];
+                int y = p.second+dy[i];
+                if(x == E and y == F)
+                {
+                    return ++res;
+                }
+                if(x >= 0 and x < A and y >= 0 and y < B and !dp[x][y])
+                {
+                    q.push({x,y});
+                    dp[x][y] = true;
+                }
+            }
+        }
+        res++;
+    }
+    return -1;
+}

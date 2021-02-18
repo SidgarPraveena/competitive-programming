@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<int> dfs(TreeNode*root)
+    {
+        if(root == NULL)
+        {
+            vector<int> r(3,0);
+            return r;
+        }
+        vector<int> l = dfs(root->left);
+        vector<int> r = dfs(root->right);
+        vector<int> res(3,0);
+        res[0] = l[1]+r[1];
+        if(!root->left and !root->right)
+        {
+            res[1] = 1;
+        }
+        else if(!root->left)
+        {
+            res[1] = r[2];
+        }
+        else if(!root->right)
+        {
+            res[1] = l[2];
+        }
+        else
+        {
+            res[1] = min(l[2] + min(r[1],r[2]) , r[2]+min(l[1],l[2]));
+        }
+        res[2] = 1+min({l[0],l[1],l[2]})+min({r[0],r[1],r[2]});
+        return res;
+    }
+    int minCameraCover(TreeNode* root) 
+    {
+        vector<int> res = dfs(root);   
+        return min(res[1],res[2]);
+    }
+};

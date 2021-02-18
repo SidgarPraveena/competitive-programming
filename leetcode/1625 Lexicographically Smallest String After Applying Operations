@@ -1,0 +1,38 @@
+class Solution {
+public:
+    string findLexSmallestString(string s, int a, int b) 
+    {
+        stack<string> stk;
+        unordered_set<string> us;
+        us.insert(s);
+        stk.push(s);
+        string smallest = s;
+        while(!stk.empty())
+        {
+            string t = stk.top();
+            string tp = t;
+            stk.pop();
+            //case a
+            int n = tp.size();
+            for(int i = 1; i < n; i= i+2)
+            {
+                tp[i] = (tp[i]-'0'+a)%10+'0';
+            }
+            if(us.find(tp) == us.end())
+            {
+                smallest = (smallest > tp)?tp:smallest;
+                stk.push(tp);
+                us.insert(tp);
+            }
+            //case b
+            string temp = t.substr(n-b%n)+t.substr(0,n-b%n);
+            if(us.find(temp) == us.end())
+            {
+                smallest = (smallest > temp)?temp:smallest;
+                stk.push(temp);
+                us.insert(temp);
+            }
+        }
+        return smallest;
+    }
+};

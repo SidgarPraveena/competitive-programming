@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void dfs(int n, int index,set<int>&res,int curr_num,int k)
+    {
+        if(index == n)
+        {
+            res.insert(curr_num);
+            return;
+        }
+        int rem = curr_num%10;
+        int l = rem+k;
+        int r = rem-k;
+        if(l >= 0  and l <= 9)
+        {
+            dfs(n,index+1,res,curr_num*10+l,k);
+        }
+        if(r >= 0 and r <= 9)
+            dfs(n,index+1,res,curr_num*10+r,k);
+    }
+    vector<int> numsSameConsecDiff(int n, int k) 
+    {
+        set<int> r;
+        for(int i = 1; i <= 9; i++)
+        {
+            dfs(n,1,r,i,k);
+        }
+        vector<int>res(r.begin(), r.end());
+        return res;
+    }
+};

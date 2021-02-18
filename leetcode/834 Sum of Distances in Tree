@@ -1,0 +1,65 @@
+class Solution {
+public:
+	/* neighbors vector for each node */
+    vector<vector<int>> graph;
+	/* counts the number of nodes in the subtree of node i */
+    vector<int> counts;
+	/* result vector */
+    vector<int> res;
+    int n = 0;
+    
+    void Init(int N, vector<vector<int>>& edges)
+    {
+        n = N;
+        counts.resize(N,0);
+        res.resize(N, 0);
+        BuildGraph(edges);
+    }
+    
+    void BuildGraph(vector<vector<int>>& edges)
+    {   
+        graph.resize(n);        
+        for (auto edge : edges) {
+            graph[edge[0]].push_back(edge[1]);
+            graph[edge[1]].push_back(edge[0]);
+        }
+    }
+	
+    /* post-order DFS fills counts vector and calc res[0] */
+    void CollectData(int root, int parent) {
+        int count = 0;
+        int res_ = 0;
+        for(auto node : graph[root])
+        {   
+            if (node == parent)
+                continue;
+            CollectData(node, root);
+            count += counts[node];
+            res_ += res[node];
+        }
+        counts[root] = count + 1;
+        res[root] = res_ + count;
+    }
+    
+	/*  pre-order calc of res of node's childreen 
+		when you move to child x, you get closer 1 step to count[x] nodes, 
+		and get far away 1 step from N-count[x] nodes
+		*/
+    void CalcDistances(int root, int parent)
+    {
+        for(auto node : graph[root]) {
+            if (node == parent)
+                continue;
+            res[node] = res[root] - 2*counts[node] + n;
+            cout<<res[node]<<endl;
+            CalcDistances(node, root);
+        }
+    }
+    
+    vector<int> sumOfDistancesInTree(int N, vector<vector<int>>& edges) {
+        Init(N, edges);
+        CollectData(0, 0);
+        CalcDistances(0, 0);
+        return res;
+    }
+};

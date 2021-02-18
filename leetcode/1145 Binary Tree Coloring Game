@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int dfs(TreeNode* root, vector<int> &parent, vector<int> &counts,vector<TreeNode*>&tree)
+    {
+        if(root == NULL)
+            return 0;
+        tree[root->val] = root;
+        if(root->left)
+            parent[root->left->val] = root->val;
+        if(root->right)
+            parent[root->right->val] = root->val;
+        return counts[root->val] = 1+ dfs(root->left,parent,counts,tree)+dfs(root->right,parent,counts,tree);
+    }
+    bool btreeGameWinningMove(TreeNode* root, int n, int x) 
+    {
+        vector<int> parent(n+1, -1);
+        vector<int> height(n+1, 0);
+        vector<TreeNode*> tree(n+1,NULL);
+        dfs(root,parent,height,tree);
+        int parentCount = (parent[x] == -1)?0:height[parent[x]];
+        TreeNode* xA = tree[x];
+        int leftChildCount = (xA->left == NULL)?0:height[xA->left->val];
+        int rightChildCount = (xA->right == NULL)?0:height[xA->right->val];
+        cout<<parentCount<<" "<<leftChildCount<<" "<<rightChildCount<<endl;
+        if(n-height[x] > leftChildCount+rightChildCount)
+            return true;
+        
+        if(leftChildCount > rightChildCount)
+        {
+            if(leftChildCount > rightChildCount + n - height[x])
+                return true;
+        }
+        else
+        {
+             if(rightChildCount > leftChildCount + n - height[x])
+                return true;
+        }
+        return false;
+    }
+};
